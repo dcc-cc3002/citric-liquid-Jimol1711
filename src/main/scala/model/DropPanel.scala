@@ -1,5 +1,8 @@
-package cl.uchile.dcc.citric.model
+package cl.uchile.dcc.citric
+package model
 
-class DropPanel {
+import scala.collection.mutable.ArrayBuffer
+class DropPanel(val characters: ArrayBuffer[PlayerCharacter],
+                var nextPanels: ArrayBuffer[Panel]) extends AbstractPanel {
 
 }

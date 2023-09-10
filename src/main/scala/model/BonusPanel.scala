@@ -1,5 +1,8 @@
-package cl.uchile.dcc.citric.model
+package cl.uchile.dcc.citric
+package model
 
-class BonusPanel {
+import scala.collection.mutable.ArrayBuffer
+class BonusPanel(val characters: ArrayBuffer[PlayerCharacter],
+                 var nextPanels: ArrayBuffer[Panel]) extends AbstractPanel {
 
 }
