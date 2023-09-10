@@ -2,17 +2,30 @@ package cl.uchile.dcc.citric
 package model
 
 import scala.collection.mutable.ArrayBuffer
+import scala.util.Random
 
 class NeutralPanelTest extends munit.FunSuite {
-  private var neutralPanel: NeutralPanel = _
-  var playersArray: ArrayBuffer[PlayerCharacter] = _
-  var nextPanelsArray: ArrayBuffer[Panel] = _
+  var characters: ArrayBuffer[PlayerCharacter] = _
+  var nextPanels: ArrayBuffer[Panel] = _
+  var testPlayer: PlayerCharacter = _
+
+  private var testPanel: NeutralPanel = _
 
   override def beforeEach(context: BeforeEach): Unit = {
-    playersArray = ArrayBuffer.empty[PlayerCharacter]
-    nextPanelsArray = ArrayBuffer.empty[Panel]
-    neutralPanel = new NeutralPanel(playersArray,nextPanelsArray)
+    characters = ArrayBuffer.empty[PlayerCharacter]
+    nextPanels = ArrayBuffer.empty[Panel]
+    testPanel = new NeutralPanel(characters,nextPanels)
+    testPlayer = new PlayerCharacter("testPlayer",10,1,1,1,new Random(11))
   }
 
+  test("A panel should be able to receive new players") {
+    testPanel.addCharacter(testPlayer)
+    assert(characters.contains(testPlayer))
+  }
 
+  test("A panel should be able to remove players") {
+    characters = ArrayBuffer(testPlayer)
+    testPanel.removeCharacter(testPlayer)
+    assert(!characters.contains(testPlayer))
+  }
 }

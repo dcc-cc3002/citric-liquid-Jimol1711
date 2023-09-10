@@ -2,6 +2,30 @@ package cl.uchile.dcc.citric
 package model
 
 import scala.collection.mutable.ArrayBuffer
-class DropPanelTest extends munit.FunSuite {
+import scala.util.Random
 
+class DropPanelTest extends munit.FunSuite {
+  var characters: ArrayBuffer[PlayerCharacter] = _
+  var nextPanels: ArrayBuffer[Panel] = _
+  var testPlayer: PlayerCharacter = _
+
+  private var testPanel: DropPanel = _
+
+  override def beforeEach(context: BeforeEach): Unit = {
+    characters = ArrayBuffer.empty[PlayerCharacter]
+    nextPanels = ArrayBuffer.empty[Panel]
+    testPanel = new DropPanel(characters, nextPanels)
+    testPlayer = new PlayerCharacter("testPlayer",10,1,1,1,new Random(11))
+  }
+
+  test("A panel should be able to receive new players") {
+    testPanel.addCharacter(testPlayer)
+    assert(characters.contains(testPlayer))
+  }
+
+  test("A panel should be able to remove players") {
+    characters = ArrayBuffer(testPlayer)
+    testPanel.removeCharacter(testPlayer)
+    assert(!characters.contains(testPlayer))
+  }
 }
