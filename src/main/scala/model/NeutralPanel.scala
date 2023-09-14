@@ -3,9 +3,18 @@ package model
 
 import scala.collection.mutable.ArrayBuffer
 
-class NeutralPanel(val characters: ArrayBuffer[PlayerCharacter],
-                   var nextPanels: ArrayBuffer[Panel]) extends AbstractPanel {
+/** Class representing a Neutral Panel
+  *
+  * This panel has no effects, so there's nothing new to implement.
+  *
+  * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
+  */
+class NeutralPanel(var characters: ArrayBuffer[PlayerCharacter],
+                   var row: Int,
+                   var col: Int) extends AbstractPanel {
+
   /*
-  This panel has no effects. So there's nothing new to implement
-    */
+  The neutral panel has no implementation since it has no effects
+   */
+
 }

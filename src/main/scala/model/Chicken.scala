@@ -7,4 +7,6 @@ class Chicken extends WildUnit {
   val attack: Int = - 1
   val defense: Int = - 1
   val evasion: Int = + 1
+  var stars: Int = 0
+
 }

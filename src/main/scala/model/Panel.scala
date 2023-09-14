@@ -12,7 +12,7 @@ import scala.collection.mutable.ArrayBuffer
   * structures.
   *
   * @author [[https://github.com/r8vnhill Ignacio Slater M.]]
-  * @author [[https://github.com/YOUR-USERNAME YOUR NAME]]
+  * @author [[https://github.com/Jimol1711 Juan Molina L]]
   */
 trait Panel {
 
@@ -23,21 +23,33 @@ trait Panel {
     */
   var characters: ArrayBuffer[PlayerCharacter]
 
-  /** An array of panels that are directly connected to this one.
+  /** A few reference constants
    *
-   * In the context of the game, multiple routes or paths may exist, this could represent the
-   * possible next steps a player might take after being on this panel.
+   *  This constants will be a reference to other panels next to the current one. The first four are directional references. The last two
+   *  represent the row and column of the panel. This is useful for the implementation of a method that allow for the connection of Panels.
+   *  We use Option to handle the case in which there are no neighboring panels.
    *
-   * @return a List of Panel instances that are adjacent or connected to this panel.
    */
-  var nextPanels: ArrayBuffer[Panel]
+  var left: Option[Panel]
+  var right: Option[Panel]
+  var up: Option[Panel]
+  var down: Option[Panel]
 
-  /** Adds a character to the list of characters currently on this panel.
-    *
-    * This might be invoked when a player moves to this panel or starts their turn on it.
-    *
-    * @param player The player character to add to this panel.
-    */
+  /** Constants referencing the panels row and column
+   *
+   *  These are given to each panel each time a new instance is created
+   *
+   */
+  var row: Int
+  var col: Int
+
+  /** Connects a panel to the current Panel
+   *
+   *  When a Panel is connected to another Panel, it switches the reference in the specified direction from None to the Panel that was connected.
+   *
+   */
+  def connectTo(panel: Panel): Unit
+
   def addCharacter(player: PlayerCharacter): Unit
 
   /** Removes a character from the list of characters currently on this panel.

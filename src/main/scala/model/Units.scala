@@ -8,7 +8,7 @@ package model
   * @author [[https://github.com/Jimol1711 Juan Molina L]]
   */
 
-trait Unit {
+trait Units {
   val maxHp: Int
   var currentHp: Int
   val attack: Int
