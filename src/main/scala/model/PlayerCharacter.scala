@@ -42,7 +42,9 @@ class PlayerCharacter(val name: String,
               val attack: Int,
               val defense: Int,
               val evasion: Int,
-              val randomNumberGenerator: Random = new Random()) {
+              val randomNumberGenerator: Random = new Random()) extends AbstractUnit {
+
+  var currentHp: Int = maxHp
 
   /** Rolls a dice and returns a value between 1 to 6. */
   def rollDice(): Int = {

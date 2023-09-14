@@ -5,17 +5,20 @@ import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 class DropPanelTest extends munit.FunSuite {
-  var characters: ArrayBuffer[PlayerCharacter] = _
-  var nextPanels: ArrayBuffer[Panel] = _
-  var testPlayer: PlayerCharacter = _
+  /*
+  This will be the initial constant values for each panel. Plus, there's an instantiation of a testPlayer to use on the panels tests.
+  */
+  var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
+  var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
+  var testPlayer: PlayerCharacter = new PlayerCharacter("testPlayer",10,1,1,1,new Random(11))
 
+  /*
+  This is the object under test, in this case, a panel. It's reset before each test.
+  */
   private var testPanel: DropPanel = _
 
   override def beforeEach(context: BeforeEach): Unit = {
-    characters = ArrayBuffer.empty[PlayerCharacter]
-    nextPanels = ArrayBuffer.empty[Panel]
     testPanel = new DropPanel(characters, nextPanels)
-    testPlayer = new PlayerCharacter("testPlayer",10,1,1,1,new Random(11))
   }
 
   test("A panel should be able to receive new players") {
