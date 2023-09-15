@@ -1,5 +1,5 @@
 package cl.uchile.dcc.citric
-package model
+package model.Unit
 
 abstract class WildUnit extends AbstractUnit {
 
