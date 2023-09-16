@@ -1,6 +1,9 @@
 package cl.uchile.dcc.citric
 package model
 
+import cl.uchile.dcc.citric.model.Panels.NeutralPanel
+import cl.uchile.dcc.citric.model.Unit.PlayerCharacter
+
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 

@@ -1,8 +1,8 @@
 package cl.uchile.dcc.citric
-package model
+package model.Panels
 
+import cl.uchile.dcc.citric.model.Unit.PlayerCharacter
 import scala.collection.mutable.ArrayBuffer
-import scala.math.min
 
 /** Class representing a Drop Panel
   *
@@ -12,26 +12,20 @@ import scala.math.min
   *
   *  @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class DropPanel(val characters: ArrayBuffer[PlayerCharacter],
+class DropPanel(val characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
                 var row: Int,
                 var col: Int) extends AbstractPanel {
 
-  /** Adds the corresponding stars to each PlayerCharacter on the panel
+  /** Removes the corresponding stars from a PlayerCharacter on the panel
    *
-   * @param player The PlayerCharacter to whom the function is adding the stars to.
+   * If a player drops on this panel, the removeStars method is invoked on them
+   *
+   * @param player The PlayerCharacter to whom the function is removing the stars from.
    *
    */
   private def removeStars(player: PlayerCharacter): Unit = {
     val roll: Int = player.rollDice()
-    player.stars += min(roll * player.Norma, roll * 3)
+    player.stars += roll * player.Norma
   }
 
-  /** Removes stars from all characters on the panel by applying the removeStars function to each
-   *
-   */
-  def removeAll(): Unit = {
-    if (characters.nonEmpty) {
-      characters.foreach(character => removeStars(character))
-    }
-  }
 }

@@ -1,5 +1,5 @@
 package cl.uchile.dcc.citric
-package model
+package model.Unit
 
 import scala.util.Random
 
@@ -48,12 +48,11 @@ class PlayerCharacter(val name: String,
   var stars: Int = 0
   var Norma: Int = 1
 
+  var victories: Int = 0
+
   /** Rolls a dice and returns a value between 1 to 6. */
   def rollDice(): Int = {
     randomNumberGenerator.nextInt(6) + 1
   }
 
-  def NormaCheck(): Unit = {
-
-  }
 }

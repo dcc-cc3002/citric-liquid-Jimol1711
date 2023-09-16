@@ -1,5 +1,6 @@
-package cl.uchile.dcc.citric.model
+package cl.uchile.dcc.citric
+package model
 
-class RoboballTest {
+class RoboballTest extends munit.FunSuite {
 
 }

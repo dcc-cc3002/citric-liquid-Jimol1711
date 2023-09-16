@@ -1,6 +1,7 @@
 package cl.uchile.dcc.citric
-package model
+package model.Panels
 
+import cl.uchile.dcc.citric.model.Unit.PlayerCharacter
 import scala.collection.mutable.ArrayBuffer
 import scala.math.min
 
@@ -12,13 +13,13 @@ import scala.math.min
   *
   *  @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class BonusPanel(val characters: ArrayBuffer[PlayerCharacter],
+class BonusPanel(val characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
                  var row: Int,
                  var col: Int) extends AbstractPanel {
 
-  /** Adds the corresponding stars to each PlayerCharacter on the panel
+  /** Adds the corresponding stars to a PlayerCharacter on the panel
    *
-   * Each time a new instance of a bonus panel is created it checks if it is not empty. If so, it applies the addStars function to all PlayerCharacter's on it.
+   * If a player drops on this panel, the addStars method is invoked on them
    *
    * @param player The PlayerCharacter to whom the function is adding the stars to.
    *
@@ -26,9 +27,5 @@ class BonusPanel(val characters: ArrayBuffer[PlayerCharacter],
   private def addStars(player: PlayerCharacter): Unit = {
       val roll: Int  = player.rollDice()
       player.stars += min(roll * player.Norma, roll * 3)
-  }
-
-  if (characters.nonEmpty) {
-    characters.foreach(character => addStars(character))
   }
 }

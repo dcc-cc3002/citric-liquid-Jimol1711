@@ -1,5 +1,6 @@
-package cl.uchile.dcc.citric.model
+package cl.uchile.dcc.citric
+package model
 
-class ChickenTest {
+class ChickenTest extends munit.FunSuite {
 
 }

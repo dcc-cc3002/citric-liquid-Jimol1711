@@ -1,6 +1,7 @@
 package cl.uchile.dcc.citric
-package model
+package model.Panels
 
+import cl.uchile.dcc.citric.model.Unit.PlayerCharacter
 import scala.collection.mutable.ArrayBuffer
 
 /** Class representing a Neutral Panel
@@ -9,12 +10,10 @@ import scala.collection.mutable.ArrayBuffer
   *
   * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class NeutralPanel(var characters: ArrayBuffer[PlayerCharacter],
+class NeutralPanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
                    var row: Int,
                    var col: Int) extends AbstractPanel {
-
   /*
   The neutral panel has no implementation since it has no effects
    */
-
 }

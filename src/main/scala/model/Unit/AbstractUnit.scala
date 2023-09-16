@@ -1,5 +1,5 @@
 package cl.uchile.dcc.citric
-package model
+package model.Unit
 
 /** An abstract class representing a Unit from the game
  *
@@ -17,5 +17,4 @@ abstract class AbstractUnit extends Units {
     if (currentHp <= 0) true
     else false
   }
-
 }

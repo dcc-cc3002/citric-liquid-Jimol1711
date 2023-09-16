@@ -1,5 +1,6 @@
-package cl.uchile.dcc.citric.model
+package cl.uchile.dcc.citric
+package model
 
-class SeagullTest {
+class SeagullTest extends munit.FunSuite {
 
 }
