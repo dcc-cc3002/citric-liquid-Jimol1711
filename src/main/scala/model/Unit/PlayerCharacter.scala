@@ -1,5 +1,5 @@
 package cl.uchile.dcc.citric
-package model
+package model.Unit
 
 import scala.util.Random
 
@@ -35,17 +35,24 @@ import scala.util.Random
   * @author [[https://github.com/joelriquelme/ Joel Riquelme P.]]
   * @author [[https://github.com/r8vnhill/ Ignacio Slater M.]]
   * @author [[https://github.com/Seivier/ Vicente González B.]]
-  * @author [[https://github.com/~Your github account~/ ~Your Name~]]
+  * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
 class PlayerCharacter(val name: String,
               val maxHp: Int,
               val attack: Int,
               val defense: Int,
               val evasion: Int,
-              val randomNumberGenerator: Random = new Random()) {
+              val randomNumberGenerator: Random = new Random()) extends AbstractUnit {
+
+  var currentHp: Int = maxHp
+  var stars: Int = 0
+  var Norma: Int = 1
+
+  var victories: Int = 0
 
   /** Rolls a dice and returns a value between 1 to 6. */
   def rollDice(): Int = {
     randomNumberGenerator.nextInt(6) + 1
   }
+
 }

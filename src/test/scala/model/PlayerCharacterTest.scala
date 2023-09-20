@@ -1,6 +1,7 @@
 package cl.uchile.dcc.citric
 package model
 
+import cl.uchile.dcc.citric.model.Unit.PlayerCharacter
 import scala.util.Random
 
 class PlayerCharacterTest extends munit.FunSuite {
@@ -14,7 +15,7 @@ class PlayerCharacterTest extends munit.FunSuite {
   private val attack = 1
   private val defense = 1
   private val evasion = 1
-  private val randomNumberGenerator = new Random(11)
+  private var randomNumberGenerator: Random = _
   /* Add any other constants you need here... */
 
   /*
@@ -28,6 +29,7 @@ class PlayerCharacterTest extends munit.FunSuite {
 
   // This method is executed before each `test(...)` method.
   override def beforeEach(context: BeforeEach): Unit = {
+    randomNumberGenerator = new Random(11)
     character = new PlayerCharacter(
       name,
       maxHp,
