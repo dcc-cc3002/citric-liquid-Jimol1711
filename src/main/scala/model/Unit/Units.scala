@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model.Unit
 
-/** The 'Unit' trait is a trait from which all 'Unit' entities in the game extend.
+/** The 'Units' trait is a trait from which all 'Unit' entities in the game extend.
   *
   * It encapsulates attributes all units share such as HP, Attack, Defense, Evasion and Stars.
   *

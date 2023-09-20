@@ -24,6 +24,15 @@ trait Panel {
     */
   var characters: ArrayBuffer[PlayerCharacter]
 
+  /** An array of panels that are directly connected to this one.
+   *
+   * In the context of the game, multiple routes or paths may exist, this could represent the
+   * possible next steps a player might take after being on this panel.
+   *
+   * @return a List of Panel instances that are adjacent or connected to this panel.
+   */
+  var nextPanels: ArrayBuffer[Panel]
+
   /** A few reference constants
    *
    *  This constants will be a reference to other panels next to the current one. The first four are directional references. The last two
@@ -51,6 +60,12 @@ trait Panel {
    */
   def connectTo(panel: Panel): Unit
 
+  /** Adds a character to the list of characters currently on this panel.
+   *
+   * This might be invoked when a player moves to this panel or starts their turn on it.
+   *
+   * @param player The player character to add to this panel.
+   */
   def addCharacter(player: PlayerCharacter): Unit
 
   /** Removes a character from the list of characters currently on this panel.

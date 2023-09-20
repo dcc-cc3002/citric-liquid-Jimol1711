@@ -16,14 +16,34 @@ import scala.collection.mutable.ArrayBuffer
   *  @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
 class HomePanel(val characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
+                var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel],
                 var row: Int,
-                var col: Int,
-                /** Sets the owner of this home panel
-                 *
-                 *  The owner is allowed to stop on the panel, no matter if it still has moves left or not.
-                 *
-                 */
-                var owner: PlayerCharacter) extends AbstractPanel {
+                var col: Int) extends AbstractPanel {
+
+  /** Initially the Home Panel has no owner. It is set with an auxiliary constuctor
+   *
+   */
+  var owner: Option[PlayerCharacter] = None
+
+  /** Auxiliary constructor to set an owner for the home panel
+   *
+   */
+  def this(characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
+           nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel],
+           row: Int,
+           col: Int,
+           /** Sets the owner of this home panel using an Auxiliary constructor
+            *
+            * The owner is allowed to stop on the panel, no matter if it still has moves left or not.
+            *
+            */
+           setOwner: PlayerCharacter) = {
+    this(characters: ArrayBuffer[PlayerCharacter],
+      nextPanels: ArrayBuffer[Panel],
+      row: Int,
+      col: Int)
+      owner = Some(setOwner)
+  }
 
   // This variable is a placeholder that makes sure that the stop method works correctly since the implementation of user inputs can't be yet implemented
   private var ans: Option[String] = None
@@ -64,7 +84,7 @@ class HomePanel(val characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty
     for (player <- characters) {
       if (owner == player) {
         println("Would you like to rest at home? Y/N")
-        if (ans == "Y" && player.currentHp <= player.maxHp) {
+        if (ans != "Y" && player.currentHp <= player.maxHp) {
           player.currentHp += 1
           NormaCheck(player)
         }
