@@ -1,6 +1,14 @@
 package cl.uchile.dcc.citric
 package model.Unit
 
-class WildUnit extends AbstractWildUnit {
+abstract class AbstractWildUnit extends AbstractUnit {
+
+  /**
+   * 
+   */
+  val maxHp: Int = 3
+  var currentHp: Int = maxHp
+  var stars: Int = 0
+
 
 }
