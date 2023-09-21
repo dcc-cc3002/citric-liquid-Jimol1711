@@ -9,12 +9,14 @@ import scala.util.Random
 
 class HomePanelTest extends munit.FunSuite {
   /*
-  This will be the initial constant values for each panel. Plus, there's an instantiation of a testPlayer to use on the panels tests.
+  This will be the initial constant values for each panel. Plus, there's an instantiation of test players to use on the panels tests.
   */
   var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
-  var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
-  var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer",10,1,1,1,new Random(11))
-  var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer",10,1,1,1,new Random(11))
+  var panels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
+  var row: Int = 0
+  var col: Int = 0
+  var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, new Random(11))
+  var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, new Random(11))
 
   /*
   This is the object under test, in this case, a panel. It's initialized before each test.

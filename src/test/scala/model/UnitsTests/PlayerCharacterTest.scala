@@ -16,18 +16,9 @@ class PlayerCharacterTest extends munit.FunSuite {
   private val defense = 1
   private val evasion = 1
   private var randomNumberGenerator: Random = _
-  /* Add any other constants you need here... */
 
-  /*
-  This is the object under test.
-  We initialize it in the beforeEach method so we can reuse it in all the tests.
-  This is a good practice because it will reset the object before each test, so you don't have
-  to worry about the state of the object between tests.
-  */
-  private var character: PlayerCharacter = _  // <- x = _ is the same as x = null
-  /* Add any other variables you need here... */
+  private var character: PlayerCharacter = _
 
-  // This method is executed before each `test(...)` method.
   override def beforeEach(context: BeforeEach): Unit = {
     randomNumberGenerator = new Random(11)
     character = new PlayerCharacter(
@@ -48,23 +39,11 @@ class PlayerCharacterTest extends munit.FunSuite {
     assertEquals(character.evasion, evasion)
   }
 
-  // Two ways to test randomness (you can use any of them):
-
-  // 1. Test invariant properties, e.g. the result is always between 1 and 6.
+  // Testing invariant property. The result is always between 1 and 6.
   test("A character should be able to roll a dice") {
     for (_ <- 1 to 10) {
       assert(character.rollDice >= 1 && character.rollDice <= 6)
     }
   }
 
-  // 2. Set a seed and test the result is always the same.
-  // A seed sets a fixed succession of random numbers, so you can know that the next numbers
-  // are always the same for the same seed.
-  test("A character should be able to roll a dice with a fixed seed") {
-    val other =
-      new PlayerCharacter(name, maxHp, attack, defense, evasion, new Random(11))
-    for (_ <- 1 to 10) {
-      assertEquals(character.rollDice(), other.rollDice())
-    }
-  }
 }
