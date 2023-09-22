@@ -15,7 +15,7 @@ import scala.collection.mutable.ArrayBuffer
   *
   *  @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class HomePanel(val characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
+class HomePanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
                 var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel],
                 var row: Int,
                 var col: Int) extends AbstractPanel {
@@ -28,8 +28,8 @@ class HomePanel(val characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty
   /** Auxiliary constructor to set an owner for the home panel
    *
    */
-  def this(characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
-           nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel],
+  def this(characters: ArrayBuffer[PlayerCharacter],
+           nextPanels: ArrayBuffer[Panel],
            row: Int,
            col: Int,
            /** Sets the owner of this home panel using an Auxiliary constructor
@@ -38,10 +38,7 @@ class HomePanel(val characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty
             *
             */
            setOwner: PlayerCharacter) = {
-    this(characters: ArrayBuffer[PlayerCharacter],
-      nextPanels: ArrayBuffer[Panel],
-      row: Int,
-      col: Int)
+    this(characters, nextPanels, row, col)
       owner = Some(setOwner)
   }
 

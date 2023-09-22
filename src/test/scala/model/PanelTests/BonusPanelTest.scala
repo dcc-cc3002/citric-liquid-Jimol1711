@@ -12,7 +12,7 @@ class BonusPanelTest extends munit.FunSuite {
   This will be the initial constant values for each panel. Plus, there's an instantiation of test players to use on the panels tests.
   */
   var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
-  var panels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
+  var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
   var row: Int = 0
   var col: Int = 0
   var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, new Random(11))
@@ -25,7 +25,7 @@ class BonusPanelTest extends munit.FunSuite {
 
   // Method that is executed before each test method
   override def beforeEach(context: BeforeEach): Unit = {
-    testPanel = new BonusPanel(characters, nextPanels)
+    testPanel = new BonusPanel(characters, nextPanels, row, col)
   }
 
   test("A panel should be able to receive new players") {

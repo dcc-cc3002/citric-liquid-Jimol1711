@@ -38,13 +38,12 @@ import scala.util.Random
   * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
 class PlayerCharacter(val name: String,
-              val maxHp: Int,
-              val attack: Int,
-              val defense: Int,
-              val evasion: Int,
-              val randomNumberGenerator: Random = new Random()) extends AbstractUnit {
+                      val maxHp: Int,
+                      val attack: Int,
+                      val defense: Int,
+                      val evasion: Int,
+                      val randomNumberGenerator: Random = new Random()) extends AbstractUnit {
 
-  var currentHp: Int = maxHp
   var stars: Int = 0
   var Norma: Int = 1
 

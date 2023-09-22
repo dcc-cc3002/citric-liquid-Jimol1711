@@ -15,5 +15,6 @@ trait Units {
   val defense: Int
   val evasion: Int
   var stars: Int
-  def defeated: Boolean
+  def defeated(): Boolean
+  def fight(): Unit
 }

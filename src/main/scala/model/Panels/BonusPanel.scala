@@ -13,7 +13,7 @@ import scala.math.min
   *
   *  @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class BonusPanel(val characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
+class BonusPanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
                  var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel],
                  var row: Int,
                  var col: Int) extends AbstractPanel {
@@ -29,4 +29,5 @@ class BonusPanel(val characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empt
       val roll: Int  = player.rollDice()
       player.stars += min(roll * player.Norma, roll * 3)
   }
+
 }
