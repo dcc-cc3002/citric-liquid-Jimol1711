@@ -1,11 +1,11 @@
 package cl.uchile.dcc.citric
 package model
 
-import model.Unit.{Roboball, Units}
+import model.Unit.{WildUnit, Roboball, Units}
 
 class RoboballTest extends munit.FunSuite {
 
-  var roboball: Units = _
+  var roboball: WildUnit = _
 
   override def beforeEach(context: BeforeEach): Unit = {
     roboball = new Roboball

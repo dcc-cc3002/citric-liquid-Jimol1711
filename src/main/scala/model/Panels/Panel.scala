@@ -60,6 +60,8 @@ trait Panel {
    */
   def connectTo(panel: Panel): Unit
 
+  def connectTo2(panel: Panel): Unit
+
   /** Adds a character to the list of characters currently on this panel.
    *
    * This might be invoked when a player moves to this panel or starts their turn on it.

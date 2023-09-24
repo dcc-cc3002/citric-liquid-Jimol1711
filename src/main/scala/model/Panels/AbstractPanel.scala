@@ -24,7 +24,7 @@ abstract class AbstractPanel extends Panel {
    *
    * @param panel corresponds to the panel that's going to be connected.
    */
-  def connectTo(panel: Panel): Unit = {
+  def connectTo2(panel: Panel): Unit = {
     if (panel.row == row && panel.col == col - 1) {
       left = Some(panel)
       panel.right = Some(this)
@@ -38,8 +38,12 @@ abstract class AbstractPanel extends Panel {
       down = Some(panel)
       panel.up = Some(this)
     } else {
-      println("""Panel can't be connected""")
+      println("Panel can't be connected")
     }
+  }
+
+  def connectTo(panel: Panel):Unit = {
+    nextPanels += panel
   }
 
   /** Adds a character to the list of characters currently on this panel.

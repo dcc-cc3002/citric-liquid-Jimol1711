@@ -1,10 +1,10 @@
 package cl.uchile.dcc.citric
 package model
 
-import model.Unit.{Seagull, Units}
+import model.Unit.{WildUnit, Seagull, Units}
 class SeagullTest extends munit.FunSuite {
 
-  var seagull: Units = _
+  var seagull: WildUnit = _
 
   override def beforeEach(context: BeforeEach): Unit = {
     seagull = new Seagull

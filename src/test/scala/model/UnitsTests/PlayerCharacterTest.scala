@@ -46,4 +46,21 @@ class PlayerCharacterTest extends munit.FunSuite {
     }
   }
 
+  test("A character should be able to perform a NormaClear") {
+    character.NormaClear()
+    assert(character.Norma >= 2)
+  }
+
+  test("A character should be on KO when losing all it's Hp") {
+    assert(!character.KO())
+    character.currentHp -= maxHp
+    assert(character.KO())
+  }
+
+  test("A character should be able to be on recovery") {
+    character.recovery()
+    character.currentHp -= maxHp
+    character.recovery()
+  }
+
 }

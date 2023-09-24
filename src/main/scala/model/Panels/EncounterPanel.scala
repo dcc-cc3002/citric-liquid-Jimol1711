@@ -29,7 +29,7 @@ class EncounterPanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.
   /** It sets a random WildUnit for the panel
    *
    */
-  def encounterUnit(): Unit = {
+  def encounterUnit() = {
     val random = new Random()
     val randomNumber = random.nextInt(3)
     if (randomNumber == 1) {
@@ -48,7 +48,7 @@ class EncounterPanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.
    * @param player the player that drops on this panel
    * @param bellaco a WildUnit that is currently on this encounter Panel. It will be set randomly
    */
-  def enterCombat(player: PlayerCharacter, bellaco: WildUnit): Unit = {
+  def enterCombat(player: PlayerCharacter, bellaco: WildUnit) = {
     println("Time to fight!")
   }
 

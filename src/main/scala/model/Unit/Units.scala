@@ -9,12 +9,64 @@ package model.Unit
   */
 
 trait Units {
+
+  /** Maximum Health Points of a Unit.
+   *
+   * It may vary, depending on if the Unit is a PlayerCharacter or a WildUnit. It's a val since it can't be changed
+   * throughout a game.
+   *
+   */
   val maxHp: Int
+
+  /** Current Health Points of a Unit.
+   *
+   * They begin being equal to maxHp but will vary if the Unit enters combat with another Unit.
+   *
+   */
   var currentHp: Int
+
+  /** Attack points of a Unit.
+   *
+   * It is used in the formula to determine how much damage a Unit will deal during combat. This will depend
+   * heavily of context. It is a fixed value for each Unit.
+   *
+   */
   val attack: Int
+
+  /** Defense points of a Unit.
+   *
+   * It used in the formula to determine how much damage a Unit will receive during combat. This will depend
+   * heavily of context. It is a fixed value for each Unit.
+   *
+   */
   val defense: Int
+
+  /** Evasion points of a Unit.
+   *
+   * It used in the formula to determine how much damage a Unit will evade during combat. This will depend
+   * heavily of context. It is a fixed value for each Unit.
+   *
+   */
   val evasion: Int
+
+  /** Number of stars a Unit has.
+   *
+   * Every Unit entity can have a number of Stars. They can be gained by several means, depending on the Unit.
+   *
+   */
   var stars: Int
+
+  /** Method that determines if a Unit was defeated o combat.
+   *
+   * @return True if the Unit's currentHp reached 0 or below, False if not.
+   */
   def defeated(): Boolean
-  def fight(): Unit
+
+  /** Method to define combat between Units.
+   *
+   * Currently empty since combat can't be yet implemented.
+   *
+   * @return Currently a simple string, since combat can't be implemented.
+   */
+  def fight(): String
 }

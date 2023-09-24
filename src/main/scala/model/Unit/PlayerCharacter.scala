@@ -48,10 +48,43 @@ class PlayerCharacter(val name: String,
   var Norma: Int = 1
 
   var victories: Int = 0
+  private var chapters: Int = 0
 
   /** Rolls a dice and returns a value between 1 to 6. */
   def rollDice(): Int = {
     randomNumberGenerator.nextInt(6) + 1
+  }
+
+  /** When a PlayerCharacter is defeated it enters a KO state
+   *
+   * The KO method assert the PlayerCharacter was defeated. It so, the PlayerCharacter enters the recovery phase defined in another method.
+   *
+   */
+  def KO(): Boolean = {
+    if (this.defeated()) {
+      true
+    } else false
+  }
+
+  /** While a PlayerCharacter is on KO state it enters recovery.
+   *
+   * While on recovery, the PlayerCharacter throws a dice and when the roll is a number greater than or equal to the amount needed
+   * it leaves the recovery phase and the KO state becomes false. The amount needed starts as six and goes down by one as chapters
+   * go by.
+   *
+   */
+  def recovery(): Unit = {
+    var roll = this.rollDice()
+    if (this.KO()) {
+      if (6 - chapters >= roll) {
+        currentHp = roll
+      }
+    }
+  }
+
+  /** When a PlayerCharacter performs a NormaClear, the Norma level of the player is increased by one. */
+  def NormaClear(): Unit = {
+    this.Norma += 1
   }
 
 }

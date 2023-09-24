@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model.Unit
 
-class Roboball extends WildUnit{
+class Roboball extends AbstractWildUnit {
 
   /** The values for each WildUnit are set on it's particular class since they differ from one another
    *

@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model.Unit
 
-class Seagull extends WildUnit {
+class Seagull extends AbstractWildUnit {
 
   /** The values for each WildUnit are set on it's particular class since they differ from one another
    *

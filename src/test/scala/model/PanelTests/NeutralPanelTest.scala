@@ -26,6 +26,7 @@ class NeutralPanelTest extends munit.FunSuite {
 
   // Method that is executed before each test method
   override def beforeEach(context: BeforeEach): Unit = {
+    characters = ArrayBuffer(testPlayer1)
     testPanel = new NeutralPanel(characters,panels, row,col)
   }
 
@@ -35,20 +36,18 @@ class NeutralPanelTest extends munit.FunSuite {
   }
 
   test("A panel should be able to remove players") {
-    characters = ArrayBuffer(testPlayer1)
     testPanel.removeCharacter(testPlayer1)
     assert(!characters.contains(testPlayer1))
   }
 
   test("A panel should be able to receive more than one player") {
-    testPanel.addCharacter(testPlayer1)
     testPanel.addCharacter(testPlayer2)
     assert(characters.size >= 2)
   }
 
   test("A panel should have panels next to it") {
-    var newPanel: Panel = new NeutralPanel(characters,panels,0,1)
+    val newPanel: Panel = new NeutralPanel(characters,panels,0,1)
     testPanel.connectTo(newPanel: Panel)
-    assert(testPanel.right == newPanel)
+    assert(panels.contains(newPanel))
   }
 }

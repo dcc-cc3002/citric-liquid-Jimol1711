@@ -25,7 +25,8 @@ class HomePanelTest extends munit.FunSuite {
 
   // Method that is executed before each test method
   override def beforeEach(context: BeforeEach): Unit = {
-    testPanel = new HomePanel(characters, nextPanels,1, 1, testPlayer1)
+    characters = ArrayBuffer(testPlayer1)
+    testPanel = new HomePanel(characters, nextPanels, row, col, testPlayer1)
   }
 
   test("A panel should be able to receive new players") {
@@ -34,18 +35,16 @@ class HomePanelTest extends munit.FunSuite {
   }
 
   test("A panel should be able to remove players") {
-    characters = ArrayBuffer(testPlayer1)
     testPanel.removeCharacter(testPlayer1)
     assert(!characters.contains(testPlayer1))
   }
 
   test("A panel should be able to receive more than one player") {
-    testPanel.addCharacter(testPlayer1)
     testPanel.addCharacter(testPlayer2)
     assert(characters.size >= 2)
   }
 
   test("A home panel should be able to be set an Owner") {
-    assert(testPanel.owner == testPlayer1)
+    assert(testPanel.owner == Some(testPlayer1))
   }
 }

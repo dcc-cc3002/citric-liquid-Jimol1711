@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model.Unit
 
-class Chicken extends WildUnit {
+class Chicken extends AbstractWildUnit {
 
   /** The values for each WildUnit are set on it's particular class since they differ from one another
    *

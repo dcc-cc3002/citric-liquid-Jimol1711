@@ -1,11 +1,11 @@
 package cl.uchile.dcc.citric
 package model
 
-import model.Unit.{Chicken, Units}
+import model.Unit.{Chicken, Units, WildUnit}
 
 class ChickenTest extends munit.FunSuite {
 
-  var chicken : Units = _
+  var chicken : WildUnit = _
 
   override def beforeEach(context: BeforeEach): Unit = {
     chicken = new Chicken

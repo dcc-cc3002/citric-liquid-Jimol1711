@@ -20,7 +20,7 @@ class HomePanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty
                 var row: Int,
                 var col: Int) extends AbstractPanel {
 
-  /** Initially the Home Panel has no owner. It is set with an auxiliary constuctor
+  /** Initially the Home Panel has no owner. It is set with an auxiliary constructor
    *
    */
   var owner: Option[PlayerCharacter] = None
@@ -45,27 +45,17 @@ class HomePanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty
   // This variable is a placeholder that makes sure that the stop method works correctly since the implementation of user inputs can't be yet implemented
   private var ans: Option[String] = None
 
-  /** Increases the Norma level of a player by one.
-   *
-   * It can only be invoked through a Norma check, therefore is made private.
-   *
-   * @param player The player whose Norma level is being increased.
-   */
-  private def NormaClear(player: PlayerCharacter): Unit = {
-    player.Norma += 1
-  }
-
   /** NormaCheck checks if a player meets the conditions necessary to increase it's Norma Level.
    *
-   * @param player The player to whom the Norma check is being done to
+   * @param player The player to whom the Norma check is being done to, if it meets the conditions, the player performs a NormaClear
    */
-  def NormaCheck(player: PlayerCharacter): Unit = {
+  private def NormaCheck(player: PlayerCharacter): Unit = {
     if ((player.Norma == 1 && (player.stars >= 10 || player.victories == 1))
     || (player.Norma == 2 && (player.stars >= 30 || player.victories == 3))
     || (player.Norma == 3 && (player.stars >= 70 || player.victories == 6))
     || (player.Norma == 4 && (player.stars >= 120 || player.victories == 10))
     || (player.Norma == 5 && (player.stars >= 200 || player.victories == 14))) {
-      NormaClear(player)
+      player.NormaClear()
     } else {
       println("You Won!")
     }
