@@ -45,6 +45,19 @@ class HomePanelTest extends munit.FunSuite {
   }
 
   test("A home panel should be able to be set an Owner") {
-    assert(testPanel.owner == Some(testPlayer1))
+    assert(testPanel.owner.contains(testPlayer1))
+  }
+
+  test("A home panel should be able to do a NormaCheck on a player character on it") {
+    testPanel.NormaCheck(testPlayer1)
+    testPlayer1.stars += 10
+    testPanel.NormaCheck(testPlayer1)
+    assert(testPlayer1.Norma > 1)
+  }
+
+  test("A player on a Home Panel should be able to rest on it") {
+    testPanel.rest(testPlayer2)
+    testPanel.ans = Some("Y")
+    testPanel.rest(testPlayer1)
   }
 }

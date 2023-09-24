@@ -17,4 +17,10 @@ class SeagullTest extends munit.FunSuite {
     assertEquals(seagull.evasion, -1)
   }
 
+  test("A Seagull should be able to gain stars") {
+    val currentStars = seagull.stars
+    seagull.stars += 1
+    assert(seagull.stars > currentStars)
+  }
+
 }

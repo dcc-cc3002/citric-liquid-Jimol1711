@@ -2,6 +2,7 @@ package cl.uchile.dcc.citric
 package model.Unit
 
 import scala.util.Random
+import scala.math.floor
 
 /** The `PlayerCharacter` class represents a character or avatar in the game, encapsulating
   * several attributes such as health points, attack strength, defense capability,
@@ -44,10 +45,18 @@ class PlayerCharacter(val name: String,
                       val evasion: Int,
                       val randomNumberGenerator: Random = new Random()) extends AbstractUnit {
 
-  var stars: Int = 0
   var Norma: Int = 1
 
+  /** The number of victories of a PlayerCharacter.
+   *
+   * This variable increases by one when the player defeats a Wild Unit and by 2 when it defeats another PlayerCharacter
+   *
+   */
   var victories: Int = 0
+
+  /** Variable used for star gaining and to determine the amount needed for a character to recover after being defeated.
+   *
+   */
   private var chapters: Int = 0
 
   /** Rolls a dice and returns a value between 1 to 6. */
@@ -85,6 +94,11 @@ class PlayerCharacter(val name: String,
   /** When a PlayerCharacter performs a NormaClear, the Norma level of the player is increased by one. */
   def NormaClear(): Unit = {
     this.Norma += 1
+  }
+
+  /** On a PlayerCharacter's turn, they will be able to gain a number of stars equal to ⌊chapters/5⌋ + 1. */
+  def onTurnStars(): Unit = {
+    this.stars += floor(chapters/5).toInt + 1
   }
 
 }

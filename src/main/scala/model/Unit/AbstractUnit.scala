@@ -7,17 +7,18 @@ import model.Unit.Units
  *
  * It allows for the definition of methods whose implementation is shared amongst any Unit entity in the game.
  *
+ * @param stars The number of stars of a Unit. Set to 0 by default.
+ *
  */
-abstract class AbstractUnit extends Units {
+abstract class AbstractUnit(var stars: Int = 0) extends Units {
 
   var currentHp: Int = maxHp
 
   def defeated(): Boolean = {
-    if (currentHp <= 0) true
-    else false
+    currentHp <= 0
   }
 
-  def fight(): String = {
-    return "Time to fight!"
+  def fight(fighter1: Units, fighter2: Units): Unit = {
+    println("Time to fight!")
   }
 }

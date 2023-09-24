@@ -18,4 +18,10 @@ class RoboballTest extends munit.FunSuite {
     assertEquals(roboball.evasion, -1)
   }
 
+  test("A Roboball should be able to gain stars") {
+    val currentStars = roboball.stars
+    roboball.stars += 1
+    assert(roboball.stars > currentStars)
+  }
+
 }

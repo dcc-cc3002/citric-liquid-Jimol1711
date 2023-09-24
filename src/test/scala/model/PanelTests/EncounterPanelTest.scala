@@ -5,6 +5,7 @@ import cl.uchile.dcc.citric.model.Panels.{EncounterPanel, Panel}
 import cl.uchile.dcc.citric.model.Unit.PlayerCharacter
 
 import scala.collection.mutable.ArrayBuffer
+import scala.math.floor
 import scala.util.Random
 
 class EncounterPanelTest extends munit.FunSuite {
@@ -42,5 +43,33 @@ class EncounterPanelTest extends munit.FunSuite {
   test("A panel should be able to hold more than one player") {
     testPanel.addCharacter(testPlayer2)
     assert(characters.size >= 2)
+  }
+
+  test("A bellaco should be set when an Encounter Panel is created") {
+    assert(testPanel.bellaco.contains(testPanel.chicken)
+      || testPanel.bellaco.contains(testPanel.seagull)
+      || testPanel.bellaco.contains(testPanel.roboball))
+  }
+
+  test("A bellaco should be able to be defeated on combat and dissapear from the panel") {
+    testPanel.bellaco.foreach { bellaco =>
+      bellaco.stars += 3
+      bellaco.currentHp -= bellaco.maxHp
+    }
+    testPanel.enterCombat(testPlayer1)
+    assert(testPanel.bellaco.isEmpty && testPlayer1.stars == 3)
+  }
+
+  test("A bellaco should be able to defeat a player and gain half of it's stars") {
+    testPlayer1.stars += 3
+    testPanel.bellaco.foreach { bellaco =>
+      bellaco.currentHp += bellaco.maxHp
+    }
+    testPanel.enterCombat(testPlayer1)
+    assert(testPanel.bellaco.nonEmpty)
+    testPanel.bellaco.foreach { bellaco =>
+      val bellacoStars = floor(testPlayer1.stars / 2).toInt
+      assert(bellaco.stars == bellacoStars)
+    }
   }
 }

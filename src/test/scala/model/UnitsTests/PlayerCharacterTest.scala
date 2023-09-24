@@ -1,7 +1,8 @@
 package cl.uchile.dcc.citric
 package model
 
-import cl.uchile.dcc.citric.model.Unit.PlayerCharacter
+import cl.uchile.dcc.citric.model.Unit.{Chicken, PlayerCharacter, WildUnit}
+
 import scala.util.Random
 
 class PlayerCharacterTest extends munit.FunSuite {
@@ -16,12 +17,23 @@ class PlayerCharacterTest extends munit.FunSuite {
   private val defense = 1
   private val evasion = 1
   private var randomNumberGenerator: Random = _
+  private val testWildUnit: WildUnit = new Chicken
 
   private var character: PlayerCharacter = _
+  private var character2: PlayerCharacter = _
+
 
   override def beforeEach(context: BeforeEach): Unit = {
     randomNumberGenerator = new Random(11)
     character = new PlayerCharacter(
+      name,
+      maxHp,
+      attack,
+      defense,
+      evasion,
+      randomNumberGenerator
+    )
+    character2 = new PlayerCharacter(
       name,
       maxHp,
       attack,
@@ -51,16 +63,32 @@ class PlayerCharacterTest extends munit.FunSuite {
     assert(character.Norma >= 2)
   }
 
+  test("A character should be able to gain stars on it's turn") {
+    val currentStars = character.stars
+    character.onTurnStars()
+    assert(character.stars >= currentStars)
+  }
+
+  test("A character should be able to gain victories") {
+    val currentVictories = character.victories
+    character.victories += 1
+    assert(character.victories > currentVictories)
+  }
+
   test("A character should be on KO when losing all it's Hp") {
     assert(!character.KO())
     character.currentHp -= maxHp
     assert(character.KO())
   }
 
-  test("A character should be able to be on recovery") {
+  test("A character should be able to enter recovery") {
     character.recovery()
     character.currentHp -= maxHp
     character.recovery()
   }
 
+  test("A character should be able to enter combat with another player or with a Wild Unit") {
+    character.fight(character, testWildUnit)
+    character.fight(character, character2)
+  }
 }

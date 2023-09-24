@@ -8,6 +8,5 @@ package model.Unit
 abstract class AbstractWildUnit extends WildUnit {
 
   val maxHp: Int = 3
-  var stars: Int = 0
 
 }

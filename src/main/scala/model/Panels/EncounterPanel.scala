@@ -4,7 +4,7 @@ package model.Panels
 import cl.uchile.dcc.citric.model.Unit.{Chicken, Seagull, Roboball, PlayerCharacter, Units, WildUnit}
 
 import scala.util.Random
-import scala.util.Random
+import scala.math.floor
 import scala.collection.mutable.ArrayBuffer
 
 /** Class representing an Encounter Panel
@@ -24,32 +24,47 @@ class EncounterPanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.
   val chicken: WildUnit = new Chicken
   val roboball: WildUnit = new Roboball
   val seagull: WildUnit = new Seagull
-  var bellaco: WildUnit = _
+  var bellaco: Option[WildUnit] = None
 
   /** It sets a random WildUnit for the panel
    *
    */
-  def encounterUnit() = {
+  private def encounterUnit(): Unit = {
     val random = new Random()
     val randomNumber = random.nextInt(3)
     if (randomNumber == 1) {
-      bellaco = chicken
+      bellaco = Some(chicken)
     } else if (randomNumber == 2) {
-      bellaco = seagull
+      bellaco = Some(seagull)
     } else {
-      bellaco = roboball
+      bellaco = Some(roboball)
     }
   }
 
+  /** The encounterUnit() method is called each time an EncounterPanel is created, so that a bellaco is set */
+  encounterUnit()
+
   /** It starts a fight between a player and a bellaco
    *
-   * It currently return a print since the combat can't yet be implemented
+   * If the bellaco is defeated, the player obtains it's stars and the bellaco on the panel dissapears. Also, the player
+   * gains 1 victory.
    *
    * @param player the player that drops on this panel
-   * @param bellaco a WildUnit that is currently on this encounter Panel. It will be set randomly
-   */
-  def enterCombat(player: PlayerCharacter, bellaco: WildUnit) = {
-    println("Time to fight!")
+   * */
+  def enterCombat(player: PlayerCharacter): Unit = {
+    bellaco match {
+      case Some(b) =>
+        player.fight(player, b)
+        if (b.defeated()) {
+          player.stars += b.stars
+          bellaco = None
+          player.victories += 1
+        } else {
+          val starsGained = floor(player.stars / 2).toInt
+          b.stars += starsGained
+          player.stars -= starsGained
+        }
+    }
   }
 
 }

@@ -18,4 +18,10 @@ class ChickenTest extends munit.FunSuite {
     assertEquals(chicken.evasion, +1)
   }
 
+  test("A Chicken should be able to gain stars") {
+    val currentStars = chicken.stars
+    chicken.stars += 1
+    assert(chicken.stars > currentStars)
+  }
+
 }

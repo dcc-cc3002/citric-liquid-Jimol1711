@@ -35,7 +35,7 @@ trait Units {
 
   /** Defense points of a Unit.
    *
-   * It used in the formula to determine how much damage a Unit will receive during combat. This will depend
+   * It's used in the formula to determine how much damage a Unit will receive during combat. This will depend
    * heavily of context. It is a fixed value for each Unit.
    *
    */
@@ -43,8 +43,7 @@ trait Units {
 
   /** Evasion points of a Unit.
    *
-   * It used in the formula to determine how much damage a Unit will evade during combat. This will depend
-   * heavily of context. It is a fixed value for each Unit.
+   * It's used in the formula to determine if a Unit will evade damage during combat. It is a fixed value for each Unit.
    *
    */
   val evasion: Int
@@ -56,7 +55,7 @@ trait Units {
    */
   var stars: Int
 
-  /** Method that determines if a Unit was defeated o combat.
+  /** Method that determines if a Unit was defeated on combat.
    *
    * @return True if the Unit's currentHp reached 0 or below, False if not.
    */
@@ -66,7 +65,8 @@ trait Units {
    *
    * Currently empty since combat can't be yet implemented.
    *
-   * @return Currently a simple string, since combat can't be implemented.
+   * @param fighter1 One of the Units that fights
+   * @param fighter2 One of the Units that fights
    */
-  def fight(): String
+  def fight(fighter1: Units, fighter2: Units): Unit
 }
