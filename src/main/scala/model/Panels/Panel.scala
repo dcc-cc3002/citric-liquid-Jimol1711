@@ -10,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
   * In the context of the board game, a panel represents a tile or space that a character lands on
   * and experiences an effect (e.g., losing stars, fighting an enemy, etc.).
   * Panels can also be connected to other panels, allowing for the formation of complex board
-  * structures.
+  * structures. The connection of Panels is implemented through a coordinates system.
   *
   * @author [[https://github.com/r8vnhill Ignacio Slater M.]]
   * @author [[https://github.com/Jimol1711 Juan Molina L]]
@@ -53,14 +53,32 @@ trait Panel {
   var row: Int
   var col: Int
 
-  /** Connects a panel to the current Panel
+  /** Adds a panel to the ArrayBuffer of Panels connected to the current one
    *
-   *  When a Panel is connected to another Panel, it switches the reference in the specified direction from None to the Panel that was connected.
+   *  The first connectTo method adds the Panel that is connected to a Panel to an ArrayBuffer
+   *  that the Panel has. This ArrayBuffer is empty bu default.
+   *
+   * @param panel the panel that's being added to the ArrayBuffer
    *
    */
   def connectTo(panel: Panel): Unit
 
+  /** Connects a panel to the current one through coordinates.
+   *
+   * This method connects the Panel through coordinates and handles the case where the panel
+   * cannot be connected (Because there's already a panel connected in the specified direction)
+   * Calls connectTo to add the panel to the nextPanels ArrayBuffer.
+   *
+   * @param panel the panel that's being connected to the current one. It is added to the current
+   *              one's nextPanels ArrayBuffer, unless the coordinates aren't adequate for connection.
+   */
   def connectTo2(panel: Panel): Unit
+
+  /** Disconnects a panel from another one by removing it from it's nextPanels ArrayBuffer
+   *
+   * @param panel the panel that's going to be disconnected.
+   */
+  def disconnect(panel: Panel): Unit
 
   /** Adds a character to the list of characters currently on this panel.
    *

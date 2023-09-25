@@ -14,6 +14,9 @@ purpose is to serve as an educational tool, teaching foundational programming co
 The remainder of this README is yours to complete. Take this opportunity to describe your
 contributions, the design decisions you've made, and any other information you deem necessary.
 
+In the following ... are specified the implemented functionalities. The project is divide on three
+packages, Panel, Unit and Board. The Board package contains the classes used to build the main structure
+of the game. 
 
 
 <div style="text-align:center;">

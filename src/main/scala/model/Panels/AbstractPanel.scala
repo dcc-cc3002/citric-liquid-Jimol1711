@@ -28,22 +28,34 @@ abstract class AbstractPanel extends Panel {
     if (panel.row == row && panel.col == col - 1) {
       left = Some(panel)
       panel.right = Some(this)
+      this.connectTo(panel)
     } else if (panel.row == row && panel.col == col + 1) {
       right = Some(panel)
       panel.left = Some(this)
-    } else if (panel.col == col && panel.row == row - 1) {
+      this.connectTo(panel)
+    } else if (panel.col == col && panel.row == row + 1) {
       up = Some(panel)
       panel.down = Some(this)
-    } else if (panel.col == col && panel.row == row + 1) {
+      this.connectTo(panel)
+    } else if (panel.col == col && panel.row == row - 1) {
       down = Some(panel)
       panel.up = Some(this)
+      this.connectTo(panel)
     } else {
       println("Panel can't be connected")
     }
   }
 
   def connectTo(panel: Panel):Unit = {
-    nextPanels += panel
+    if(!this.nextPanels.contains(panel)) {
+      nextPanels += panel
+    }
+  }
+
+  def disconnect(panel: Panel): Unit = {
+    if(this.nextPanels.contains(panel)) {
+      nextPanels -= panel
+    }
   }
 
   /** Adds a character to the list of characters currently on this panel.

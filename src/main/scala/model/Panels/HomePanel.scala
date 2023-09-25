@@ -78,10 +78,8 @@ class HomePanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty
             player.currentHp += 1
             NormaCheck(player)
           }
-        } else if (player.currentHp <= player.maxHp) {
+        } else if (!owner.contains(player) && player.currentHp <= player.maxHp) {
           player.currentHp += 1
-          NormaCheck(player)
-        } else {
           NormaCheck(player)
         }
       }

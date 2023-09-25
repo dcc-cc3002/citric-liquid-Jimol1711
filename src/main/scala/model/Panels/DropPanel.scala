@@ -24,9 +24,11 @@ class DropPanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty
    * @param player The PlayerCharacter to whom the function is removing the stars from.
    *
    */
-  private def removeStars(player: PlayerCharacter): Unit = {
-    val roll: Int = player.rollDice()
-    player.stars += roll * player.Norma
+  def removeStars(player: PlayerCharacter): Unit = {
+    if (characters.contains(player)) {
+      val roll: Int = player.rollDice()
+      player.stars -= roll * player.Norma
+    }
   }
 
 }

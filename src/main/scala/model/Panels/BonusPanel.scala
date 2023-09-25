@@ -25,9 +25,11 @@ class BonusPanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empt
    * @param player The PlayerCharacter to whom the function is adding the stars to.
    *
    */
-  private def addStars(player: PlayerCharacter): Unit = {
-      val roll: Int  = player.rollDice()
+  def addStars(player: PlayerCharacter): Unit = {
+    if (characters.contains(player)) {
+      val roll: Int = player.rollDice()
       player.stars += min(roll * player.Norma, roll * 3)
+    }
   }
 
 }

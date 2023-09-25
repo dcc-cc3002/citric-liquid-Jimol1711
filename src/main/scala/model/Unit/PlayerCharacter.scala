@@ -32,6 +32,19 @@ import scala.math.floor
   * @param randomNumberGenerator A utility to generate random numbers. Defaults to a new `Random`
   *                              instance.
   *
+  * @constructor Creates a new PlayerCharacter, specifying it's parameters
+  *
+  * @example
+  * {{{
+  * val Player1 = new PlayerCharacter("Johnny", 10, 3, 1, 20)
+  * val roll = Player1.rollDice()
+  * val name = Player1.name
+  * println(s"$name has rolled $roll!")
+  * }}}
+  * This would print something like "Johnny has rolled 6!"
+  *
+  * @throws InvalidStatException If maxHp is less than or equal to 0 (The player would never be alive!)
+  *
   * @author [[https://github.com/danielRamirezL/ Daniel Ramírez L.]]
   * @author [[https://github.com/joelriquelme/ Joel Riquelme P.]]
   * @author [[https://github.com/r8vnhill/ Ignacio Slater M.]]
