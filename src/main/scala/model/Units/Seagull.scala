@@ -1,13 +1,13 @@
 package cl.uchile.dcc.citric
-package model.Unit
+package model.Units
 
-class Roboball extends AbstractWildUnit {
+class Seagull extends AbstractWildUnit {
 
   /** The values for each WildUnit are set on it's particular class since they differ from one another
    *
    */
-  val attack: Int = - 1
-  val defense: Int = + 1
+  val attack: Int = + 1
+  val defense: Int = - 1
   val evasion: Int = - 1
 
 }

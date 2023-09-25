@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model
 
-import cl.uchile.dcc.citric.model.Unit.{Chicken, PlayerCharacter, WildUnit}
+import cl.uchile.dcc.citric.model.Units.{Chicken, PlayerCharacter, WildUnit}
 
 import scala.util.Random
 

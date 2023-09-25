@@ -1,5 +1,5 @@
 package cl.uchile.dcc.citric
-package model.Unit
+package model.Units
 
 /** Abstract WildUnit class created to implement the attributes that are shared amongst the different
  * types of WildUnits.

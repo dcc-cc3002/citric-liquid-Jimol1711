@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model.Panels
 
-import cl.uchile.dcc.citric.model.Unit.PlayerCharacter
+import cl.uchile.dcc.citric.model.Units.PlayerCharacter
 
 /** An abstract class representing an abstract panel
  *
@@ -46,12 +46,21 @@ abstract class AbstractPanel extends Panel {
     }
   }
 
+  /** Implementation of the method that adds panels to a panel's nextPanels ArrayBuffer
+   *
+   * @param panel the panel that's being added to the ArrayBuffer
+   *
+   */
   def connectTo(panel: Panel):Unit = {
     if(!this.nextPanels.contains(panel)) {
       nextPanels += panel
     }
   }
 
+  /** Implementation of the method that removes a panel from a panel's nextPanels ArrayBuffer
+   *
+   * @param panel the panel that's going to be disconnected.
+   */
   def disconnect(panel: Panel): Unit = {
     if(this.nextPanels.contains(panel)) {
       nextPanels -= panel

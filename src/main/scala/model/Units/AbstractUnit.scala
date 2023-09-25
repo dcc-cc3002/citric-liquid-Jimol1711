@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
-package model.Unit
+package model.Units
 
-import model.Unit.Units
+import model.Units.Units
 
 /** An abstract class representing a Unit from the game.
  *

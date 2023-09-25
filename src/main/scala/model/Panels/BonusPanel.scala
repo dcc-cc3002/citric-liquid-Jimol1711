@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model.Panels
 
-import cl.uchile.dcc.citric.model.Unit.PlayerCharacter
+import cl.uchile.dcc.citric.model.Units.PlayerCharacter
 import scala.collection.mutable.ArrayBuffer
 import scala.math.min
 

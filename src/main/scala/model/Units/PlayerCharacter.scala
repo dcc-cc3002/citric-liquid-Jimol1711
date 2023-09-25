@@ -1,5 +1,5 @@
 package cl.uchile.dcc.citric
-package model.Unit
+package model.Units
 
 import scala.util.Random
 import scala.math.floor

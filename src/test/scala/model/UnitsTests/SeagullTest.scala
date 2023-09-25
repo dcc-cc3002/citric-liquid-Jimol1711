@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model
 
-import model.Unit.{WildUnit, Seagull, Units}
+import model.Units.{WildUnit, Seagull, Units}
 class SeagullTest extends munit.FunSuite {
 
   var seagull: WildUnit = _

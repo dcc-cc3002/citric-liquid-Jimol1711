@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model.Panels
 
-import cl.uchile.dcc.citric.model.Unit.PlayerCharacter
+import cl.uchile.dcc.citric.model.Units.PlayerCharacter
 import scala.collection.mutable.ArrayBuffer
 
 /** Represents a single cell on a board, known as a Panel.
@@ -33,30 +33,40 @@ trait Panel {
    */
   var nextPanels: ArrayBuffer[Panel]
 
-  /** A few reference constants
-   *
-   *  This constants will be a reference to other panels next to the current one. The first four are directional references. The last two
-   *  represent the row and column of the panel. This is useful for the implementation of a method that allow for the connection of Panels.
-   *  We use Option to handle the case in which there are no neighboring panels.
+  /** Reference to the panel to the left of the current panel
    *
    */
   var left: Option[Panel]
+
+  /** Reference to the panel to the right of the current panel
+   *
+   */
   var right: Option[Panel]
+
+  /** Reference to the panel over the current panel
+   *
+   */
   var up: Option[Panel]
+
+  /** Reference to the panel below the current panel
+   *
+   */
   var down: Option[Panel]
 
-  /** Constants referencing the panels row and column
-   *
-   *  These are given to each panel each time a new instance is created
+  /** Reference to the row of the panel
    *
    */
   var row: Int
+
+  /** Reference to the column of the panel
+   *
+   */
   var col: Int
 
   /** Adds a panel to the ArrayBuffer of Panels connected to the current one
    *
    *  The first connectTo method adds the Panel that is connected to a Panel to an ArrayBuffer
-   *  that the Panel has. This ArrayBuffer is empty bu default.
+   *  that the Panel has. This ArrayBuffer is empty by default.
    *
    * @param panel the panel that's being added to the ArrayBuffer
    *

@@ -1,5 +1,5 @@
 package cl.uchile.dcc.citric
-package model.Unit
+package model.Units
 
 /** The 'Units' trait is a trait from which all 'Unit' entities in the game extend.
   *
