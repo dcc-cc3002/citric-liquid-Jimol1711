@@ -24,9 +24,13 @@ class EncounterPanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.
   val chicken: WildUnit = new Chicken
   val roboball: WildUnit = new Roboball
   val seagull: WildUnit = new Seagull
+
+  /** The bellaco will be the Wild Unit set for the particular panel that's created
+   *
+   */
   var bellaco: Option[WildUnit] = None
 
-  /** It sets a random WildUnit for the panel
+  /** Sets a random WildUnit for the panel
    *
    */
   private def encounterUnit(): Unit = {

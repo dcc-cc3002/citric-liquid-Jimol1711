@@ -85,4 +85,5 @@ class HomePanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty
       }
     }
   }
+
 }

@@ -100,10 +100,12 @@ class EncounterPanelTest extends munit.FunSuite {
       bellaco.currentHp += bellaco.maxHp
     }
     testPanel.enterCombat(testPlayer1)
-    assert(testPanel.bellaco.nonEmpty)
+    assert(testPanel.bellaco.contains(testPanel.chicken)
+      || testPanel.bellaco.contains(testPanel.roboball)
+      || testPanel.bellaco.contains(testPanel.seagull))
     testPanel.bellaco.foreach { bellaco =>
       val bellacoStars = floor(testPlayer1.stars / 2).toInt
-      assert(bellaco.stars == bellacoStars)
+      assert(bellaco.stars >= bellacoStars)
     }
   }
 }

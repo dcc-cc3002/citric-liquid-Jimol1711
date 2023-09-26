@@ -7,6 +7,7 @@ package model.Units
  */
 abstract class AbstractWildUnit extends WildUnit {
 
+  /** All Wild Units share a maxHp of 3 */
   val maxHp: Int = 3
 
 }

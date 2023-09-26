@@ -33,34 +33,22 @@ trait Panel {
    */
   var nextPanels: ArrayBuffer[Panel]
 
-  /** Reference to the panel to the left of the current panel
-   *
-   */
+  /** Reference to the panel to the left of the current panel */
   var left: Option[Panel]
 
-  /** Reference to the panel to the right of the current panel
-   *
-   */
+  /** Reference to the panel to the right of the current panel */
   var right: Option[Panel]
 
-  /** Reference to the panel over the current panel
-   *
-   */
+  /** Reference to the panel over the current panel */
   var up: Option[Panel]
 
-  /** Reference to the panel below the current panel
-   *
-   */
+  /** Reference to the panel below the current panel */
   var down: Option[Panel]
 
-  /** Reference to the row of the panel
-   *
-   */
+  /** Reference to the row of the panel */
   var row: Int
 
-  /** Reference to the column of the panel
-   *
-   */
+  /** Reference to the column of the panel */
   var col: Int
 
   /** Adds a panel to the ArrayBuffer of Panels connected to the current one

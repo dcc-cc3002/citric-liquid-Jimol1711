@@ -32,6 +32,9 @@ is created so that it can be used as a type. Wild Units are non-playable entitie
 The have set attributes, and have a particular behaviour different to playable entities. They are also divided in three 
 different types, Chicken, RoboBall and Seagull, each of them with their own set attributes.
 
+The Class PlayerCharacter and Panel didn't receive major changes on their documentation. All the other classes do have the proper
+documentation.
+
 
 <div style="text-align:center;">
     <img src="https://i.creativecommons.org/l/by/4.0/88x31.png" alt="Creative Commons License">
