@@ -9,6 +9,8 @@ import model.Units.Units
  *
  * @param stars The number of stars of a Unit. Set to 0 by default.
  *
+ * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
+ *
  */
 abstract class AbstractUnit(var stars: Int = 0) extends Units {
 

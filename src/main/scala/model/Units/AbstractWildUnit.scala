@@ -4,6 +4,9 @@ package model.Units
 /** Abstract WildUnit class created to implement the attributes that are shared amongst the different
  * types of WildUnits.
  *
+ *
+ * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
+ *
  */
 abstract class AbstractWildUnit extends WildUnit {
 

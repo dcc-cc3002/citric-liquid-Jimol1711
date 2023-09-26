@@ -58,11 +58,20 @@ class PlayerCharacter(val name: String,
                       val evasion: Int,
                       val randomNumberGenerator: Random = new Random()) extends AbstractUnit {
 
+  /** Norma is the "level" of the character
+   *
+   * When a player reaches a Norma level of 6, the player wins that game. It can be increased through a Norma Clear, for which
+   * the player first has to perform a Norma Check on a Home Panel. It is also used to calculate the amount of Stars lost on a Drop
+   * Panel and the amount gained on a bonus Panel.
+   *
+   */
   var Norma: Int = 1
 
   /** The number of victories of a PlayerCharacter.
    *
-   * This variable increases by one when the player defeats a Wild Unit and by 2 when it defeats another PlayerCharacter
+   * This variable increases by one when the player defeats a Wild Unit and by 2 when it defeats another PlayerCharacter. It is used
+   * as a condition to perform a Norma Check. A certain number of victories is one of the requirements the player can meet to increase it's
+   * Norma level.
    *
    */
   var victories: Int = 0

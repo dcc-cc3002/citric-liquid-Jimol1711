@@ -6,6 +6,7 @@ package model.Units
   * It encapsulates attributes all units share such as HP, Attack, Defense, Evasion and Stars.
   *
   * @author [[https://github.com/Jimol1711 Juan Molina L]]
+  *
   */
 
 trait Units {
