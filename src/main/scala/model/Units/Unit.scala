@@ -12,14 +12,18 @@ import model.Units.Units
  * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
  *
  */
-abstract class AbstractUnit(var stars: Int = 0) extends Units {
+abstract class AbstractUnit(var stars: Int = 0,
+                            private val maxHp: Int,
+                            private val attack: Int,
+                            private val defense: Int,
+                            private val evasion: Int) extends Units {
 
   /** Current Health Points of a Unit.
    *
    * They begin being equal to maxHp but will vary if the Unit enters combat with another Unit.
    *
    */
-  var currentHp: Int = maxHp
+  private var currentHp: Int = maxHp
 
   /** Method that determines if a Unit was defeated on combat.
    *
@@ -38,5 +42,25 @@ abstract class AbstractUnit(var stars: Int = 0) extends Units {
    */
   def fight(fighter1: Units, fighter2: Units): Unit = {
     println("Time to fight!")
+  }
+
+  def getCurrentHp: Int = {
+    currentHp
+  }
+
+  def getMaxHp: Int = {
+    maxHp
+  }
+
+  def getAttack: Int = {
+    attack
+  }
+
+  def getDefense: Int = {
+    defense
+  }
+
+  def getEvasion: Int = {
+    evasion
   }
 }
