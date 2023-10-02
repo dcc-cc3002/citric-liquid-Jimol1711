@@ -12,11 +12,11 @@ import model.Units.Units
  * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
  *
  */
-abstract class AbstractUnit(var stars: Int = 0,
-                            private val maxHp: Int,
-                            private val attack: Int,
-                            private val defense: Int,
-                            private val evasion: Int) extends Units {
+class Unit(var stars: Int = 0,
+           private val maxHp: Int,
+           private val attack: Int,
+           private val defense: Int,
+           private val evasion: Int) extends Units {
 
   /** Current Health Points of a Unit.
    *
