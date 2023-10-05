@@ -93,4 +93,13 @@ trait Panel {
     * @param player The player character to remove from this panel.
     */
   def removeCharacter(player: PlayerCharacter): Unit
+
+  /** Getter of the panel's row */
+  def getRow: Int
+
+  /** Getter of the panel's column */
+  def getCol: Int
+
+  /** Getter of the Panels next to the current One */
+  def getPanels: ArrayBuffer[Panel]
 }

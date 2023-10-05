@@ -70,4 +70,22 @@ trait Units {
    * @param fighter2 One of the Units that fights
    */
   def fight(fighter1: Units, fighter2: Units): Unit
+
+  /** Getter of the Unit's stars */
+  def getStars: Int
+
+  /** Getter of the Unit's currentHp */
+  def getCurrentHp: Int
+
+  /** Getter of the Unit's maxHp */
+  def getMaxHp: Int
+
+  /** Getter of the Unit's attack */
+  def getAttack: Int
+
+  /** Getter of the Unit's defense */
+  def getDefense: Int
+
+ /** Getter of the Unit's evasion */
+  def getEvasion: Int
 }

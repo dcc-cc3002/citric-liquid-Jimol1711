@@ -51,11 +51,11 @@ import scala.math.floor
   * @author [[https://github.com/Seivier/ Vicente González B.]]
   * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class PlayerCharacter(val name: String,
-                      val maxHp: Int,
-                      val attack: Int,
-                      val defense: Int,
-                      val evasion: Int,
+class PlayerCharacter(private val name: String,
+                      private val maxHp: Int,
+                      private val attack: Int,
+                      private val defense: Int,
+                      private val evasion: Int,
                       val randomNumberGenerator: Random = new Random()) extends AbstractUnit {
 
   /** Norma is the "level" of the character

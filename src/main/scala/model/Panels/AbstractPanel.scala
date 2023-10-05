@@ -2,6 +2,7 @@ package cl.uchile.dcc.citric
 package model.Panels
 
 import cl.uchile.dcc.citric.model.Units.PlayerCharacter
+import scala.collection.mutable.ArrayBuffer
 
 /** An abstract class representing an abstract panel
  *
@@ -10,15 +11,18 @@ import cl.uchile.dcc.citric.model.Units.PlayerCharacter
  *
  * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
  */
-abstract class AbstractPanel extends Panel {
+abstract class AbstractPanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
+                             private var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel],
+                             private var row: Int,
+                             private var col: Int) extends Panel {
 
   /**
    * Setting of the directional reference constants
    */
-  var left: Option[Panel] = None
-  var right: Option[Panel] = None
-  var up: Option[Panel] = None
-  var down: Option[Panel] = None
+  private var left: Option[Panel] = None
+  private var right: Option[Panel] = None
+  private var up: Option[Panel] = None
+  private var down: Option[Panel] = None
 
   /** Implementation of the method that connects Panels to each other
    *
@@ -85,6 +89,45 @@ abstract class AbstractPanel extends Panel {
    */
   def removeCharacter(player: PlayerCharacter): Unit = {
     characters -= player
+  }
+
+  // From now on starts the entrega-parcial-3
+  /** Getter of a PlayerCharacter on this Panel */
+  def getPlayer(char: PlayerCharacter): Any = {
+    if (this.characters.contains(char)) return char
+    else println("The character is not on this Panel")
+  }
+
+  def getRow: Int = {
+    row
+  }
+
+  def getCol: Int = {
+    col
+  }
+
+  def getPanels: ArrayBuffer[Panel] = {
+    val arrayOfPanels = ArrayBuffer.empty[Panel]
+    for (panel <- nextPanels) {
+      val panelType = panel.getClass.getSimpleName
+      if (panel.getRow == row && panel.getCol == col - 1) {
+        println(s"The left panel is a ${panelType}")
+        arrayOfPanels += Some(left)
+      }
+      if (panel.getRow == row && panel.getCol == col + 1) {
+        println(s"The right panel is a ${panelType}")
+        arrayOfPanels += Some(right)
+      }
+      if (panel.getRow == row + 1 && panel.getCol == col) {
+        println(s"The upper panel is a ${panelType}")
+        arrayOfPanels += Some(up)
+      }
+      if (panel.getRow == row - 1 && panel.getCol == col) {
+        println(s"The lower panel is a ${panelType}")
+        arrayOfPanels += Some(down)
+      }
+    }
+    arrayOfPanels
   }
 
 }
