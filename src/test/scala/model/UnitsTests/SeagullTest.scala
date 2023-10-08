@@ -4,7 +4,7 @@ package model
 import model.Units.{WildUnit, Seagull, Units}
 class SeagullTest extends munit.FunSuite {
 
-  var seagull: WildUnit = _
+  var seagull: Units = _
 
   override def beforeEach(context: BeforeEach): Unit = {
     seagull = new Seagull

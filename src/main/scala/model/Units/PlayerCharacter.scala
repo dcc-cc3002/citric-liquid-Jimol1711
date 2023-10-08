@@ -53,7 +53,7 @@ import scala.math.floor
   */
 class PlayerCharacter(private val name: String,
                       private val maxHp: Int,
-                      private val attack: Int,
+                      private val offense: Int,
                       private val defense: Int,
                       private val evasion: Int,
                       val randomNumberGenerator: Random = new Random()) extends AbstractUnit {
@@ -121,6 +121,11 @@ class PlayerCharacter(private val name: String,
   /** On a PlayerCharacter's turn, they will be able to gain a number of stars equal to ⌊chapters/5⌋ + 1. */
   def onTurnStars(): Unit = {
     this.stars += floor(chapters/5).toInt + 1
+  }
+
+  /** Getter of a player's name */
+  def getName: String = {
+    name
   }
 
 }

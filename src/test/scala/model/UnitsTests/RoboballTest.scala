@@ -5,7 +5,7 @@ import model.Units.{WildUnit, Roboball, Units}
 
 class RoboballTest extends munit.FunSuite {
 
-  var roboball: WildUnit = _
+  var roboball: Units = _
 
   override def beforeEach(context: BeforeEach): Unit = {
     roboball = new Roboball

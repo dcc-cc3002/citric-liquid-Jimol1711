@@ -91,21 +91,26 @@ abstract class AbstractPanel(private var characters: ArrayBuffer[PlayerCharacter
     characters -= player
   }
 
-  // From now on starts the entrega-parcial-3
   /** Getter of a PlayerCharacter on this Panel */
   def getPlayer(char: PlayerCharacter): Any = {
     if (this.characters.contains(char)) return char
     else println("The character is not on this Panel")
   }
 
+  /** Getter of a panel's row */
   def getRow: Int = {
     row
   }
 
+  /** Getter of a panel's column */
   def getCol: Int = {
     col
   }
 
+  /** Getter of a panel's next Panel
+   *
+   * The main use of this getter is making sure the panel's array is not modifiable by a third party.
+   */
   def getPanels: ArrayBuffer[Panel] = {
     val arrayOfPanels = ArrayBuffer.empty[Panel]
     for (panel <- nextPanels) {

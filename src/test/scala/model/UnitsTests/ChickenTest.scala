@@ -5,7 +5,7 @@ import model.Units.{Chicken, Units, WildUnit}
 
 class ChickenTest extends munit.FunSuite {
 
-  var chicken : WildUnit = _
+  var chicken : Units = _
 
   override def beforeEach(context: BeforeEach): Unit = {
     chicken = new Chicken
