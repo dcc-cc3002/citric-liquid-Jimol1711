@@ -102,4 +102,7 @@ trait Panel {
 
   /** Getter of the Panels next to the current One */
   def getPanels: ArrayBuffer[Panel]
+
+  /** Definition of the apply method for the bonus and drop panel, following the EP4 indication */
+  def apply(player: PlayerCharacter): Unit
 }

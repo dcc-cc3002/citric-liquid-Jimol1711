@@ -17,18 +17,18 @@ class DropPanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty
                 var row: Int,
                 var col: Int) extends AbstractPanel {
 
-  /** Removes the corresponding stars from a PlayerCharacter on the panel
+  /** Implementation of the apply method for the effect of the drop panel, replaces the removeStars method defined previously
    *
-   * If a player drops on this panel, the removeStars method is invoked on them
+   * If a player drops on this panel, the apply method is invoked on them
    *
    * @param player The PlayerCharacter to whom the function is removing the stars from.
    *
    */
-  def removeStars(player: PlayerCharacter): Unit = {
+  private def apply(player: PlayerCharacter): Unit = {
     if (characters.contains(player)) {
       val roll: Int = player.rollDice()
-      player.stars -= roll * player.Norma
-    }
+      player.stars -= player.getNorma * roll
+    } // This implementation is not final since it requires setters (WIP)
   }
 
 }

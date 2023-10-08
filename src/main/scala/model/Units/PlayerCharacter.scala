@@ -65,7 +65,7 @@ class PlayerCharacter(private val name: String,
    * Panel and the amount gained on a bonus Panel.
    *
    */
-  var Norma: Int = 1
+  private var Norma: Int = 1
 
   /** The number of victories of a PlayerCharacter.
    *
@@ -126,6 +126,11 @@ class PlayerCharacter(private val name: String,
   /** Getter of a player's name */
   def getName: String = {
     name
+  }
+
+  /** Getter of the player's Norma level */
+  def getNorma: Int = {
+    Norma
   }
 
 }
