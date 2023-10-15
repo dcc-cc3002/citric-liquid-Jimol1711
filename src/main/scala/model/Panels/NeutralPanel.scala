@@ -10,9 +10,6 @@ import scala.collection.mutable.ArrayBuffer
   *
   * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class NeutralPanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
-                   private var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel],
-                   private var row: Int,
-                   private var col: Int) extends AbstractPanel {
+class NeutralPanel extends AbstractPanel(characters = ArrayBuffer.empty[PlayerCharacter], nextPanels = ArrayBuffer.empty[Panel]) {
 
 }

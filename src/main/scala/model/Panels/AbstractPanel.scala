@@ -11,52 +11,20 @@ import scala.collection.mutable.ArrayBuffer
  *
  * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
  */
-abstract class AbstractPanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
-                             private var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel],
-                             private var row: Int,
-                             private var col: Int) extends Panel {
-
-  /**
-   * Setting of the directional reference constants
-   */
-  private var left: Option[Panel] = None
-  private var right: Option[Panel] = None
-  private var up: Option[Panel] = None
-  private var down: Option[Panel] = None
-
-  /** Implementation of the method that connects Panels to each other
-   *
-   * @param panel corresponds to the panel that's going to be connected.
-   */
-  def connectTo2(panel: Panel): Unit = {
-    if (panel.row == row && panel.col == col - 1) {
-      left = Some(panel)
-      panel.right = Some(this)
-      this.connectTo(panel)
-    } else if (panel.row == row && panel.col == col + 1) {
-      right = Some(panel)
-      panel.left = Some(this)
-      this.connectTo(panel)
-    } else if (panel.col == col && panel.row == row + 1) {
-      up = Some(panel)
-      panel.down = Some(this)
-      this.connectTo(panel)
-    } else if (panel.col == col && panel.row == row - 1) {
-      down = Some(panel)
-      panel.up = Some(this)
-      this.connectTo(panel)
-    } else {
-      println("Panel can't be connected")
-    }
-  }
+abstract class AbstractPanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
+                             protected var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends Panel {
 
   /** Implementation of the method that adds panels to a panel's nextPanels ArrayBuffer
    *
-   * @param panel the panel that's being added to the ArrayBuffer
+   * @param panel the panel that's being connected (added to the ArrayBuffer).
    *
    */
   def connectTo(panel: Panel):Unit = {
-    if(!this.nextPanels.contains(panel)) {
+    if (this.nextPanels.size == 4) {
+      println("This panel can't connect to more panels")
+      // Here I should add an exception
+    }
+    if(!this.nextPanels.contains(panel) && this.nextPanels.size < 4) {
       nextPanels += panel
     }
   }
@@ -68,6 +36,9 @@ abstract class AbstractPanel(private var characters: ArrayBuffer[PlayerCharacter
   def disconnect(panel: Panel): Unit = {
     if(this.nextPanels.contains(panel)) {
       nextPanels -= panel
+    } else {
+      println(s"The panel ${panel} is not connected to this panel.")
+      // Here I should add an exception
     }
   }
 
@@ -91,43 +62,10 @@ abstract class AbstractPanel(private var characters: ArrayBuffer[PlayerCharacter
     characters -= player
   }
 
-  // From now on starts the entrega-parcial-3
   /** Getter of a PlayerCharacter on this Panel */
   def getPlayer(char: PlayerCharacter): Any = {
     if (this.characters.contains(char)) return char
     else println("The character is not on this Panel")
-  }
-
-  def getRow: Int = {
-    row
-  }
-
-  def getCol: Int = {
-    col
-  }
-
-  def getPanels: ArrayBuffer[Panel] = {
-    val arrayOfPanels = ArrayBuffer.empty[Panel]
-    for (panel <- nextPanels) {
-      val panelType = panel.getClass.getSimpleName
-      if (panel.getRow == row && panel.getCol == col - 1) {
-        println(s"The left panel is a ${panelType}")
-        arrayOfPanels += Some(left)
-      }
-      if (panel.getRow == row && panel.getCol == col + 1) {
-        println(s"The right panel is a ${panelType}")
-        arrayOfPanels += Some(right)
-      }
-      if (panel.getRow == row + 1 && panel.getCol == col) {
-        println(s"The upper panel is a ${panelType}")
-        arrayOfPanels += Some(up)
-      }
-      if (panel.getRow == row - 1 && panel.getCol == col) {
-        println(s"The lower panel is a ${panelType}")
-        arrayOfPanels += Some(down)
-      }
-    }
-    arrayOfPanels
   }
 
 }

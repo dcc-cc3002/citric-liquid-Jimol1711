@@ -12,10 +12,7 @@ import scala.collection.mutable.ArrayBuffer
   *
   *  @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class DropPanel(var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
-                var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel],
-                var row: Int,
-                var col: Int) extends AbstractPanel {
+class DropPanel extends AbstractPanel(characters = ArrayBuffer.empty[PlayerCharacter], nextPanels = ArrayBuffer.empty[Panel]) {
 
   /** Removes the corresponding stars from a PlayerCharacter on the panel
    *

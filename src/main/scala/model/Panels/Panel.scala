@@ -33,24 +33,6 @@ trait Panel {
    */
   var nextPanels: ArrayBuffer[Panel]
 
-  /** Reference to the panel to the left of the current panel */
-  var left: Option[Panel]
-
-  /** Reference to the panel to the right of the current panel */
-  var right: Option[Panel]
-
-  /** Reference to the panel over the current panel */
-  var up: Option[Panel]
-
-  /** Reference to the panel below the current panel */
-  var down: Option[Panel]
-
-  /** Reference to the row of the panel */
-  var row: Int
-
-  /** Reference to the column of the panel */
-  var col: Int
-
   /** Adds a panel to the ArrayBuffer of Panels connected to the current one
    *
    *  The first connectTo method adds the Panel that is connected to a Panel to an ArrayBuffer
@@ -60,17 +42,6 @@ trait Panel {
    *
    */
   def connectTo(panel: Panel): Unit
-
-  /** Connects a panel to the current one through coordinates.
-   *
-   * This method connects the Panel through coordinates and handles the case where the panel
-   * cannot be connected (Because there's already a panel connected in the specified direction)
-   * Calls connectTo to add the panel to the nextPanels ArrayBuffer.
-   *
-   * @param panel the panel that's being connected to the current one. It is added to the current
-   *              one's nextPanels ArrayBuffer, unless the coordinates aren't adequate for connection.
-   */
-  def connectTo2(panel: Panel): Unit
 
   /** Disconnects a panel from another one by removing it from it's nextPanels ArrayBuffer
    *
@@ -94,12 +65,4 @@ trait Panel {
     */
   def removeCharacter(player: PlayerCharacter): Unit
 
-  /** Getter of the panel's row */
-  def getRow: Int
-
-  /** Getter of the panel's column */
-  def getCol: Int
-
-  /** Getter of the Panels next to the current One */
-  def getPanels: ArrayBuffer[Panel]
 }
