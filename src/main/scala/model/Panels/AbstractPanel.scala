@@ -68,4 +68,45 @@ abstract class AbstractPanel(protected var characters: ArrayBuffer[PlayerCharact
     else println("The character is not on this Panel")
   }
 
+<<<<<<< HEAD
+=======
+  /** Getter of a panel's row */
+  def getRow: Int = {
+    row
+  }
+
+  /** Getter of a panel's column */
+  def getCol: Int = {
+    col
+  }
+
+  /** Getter of a panel's next Panel
+   *
+   * The main use of this getter is making sure the panel's array is not modifiable by a third party.
+   */
+  def getPanels: ArrayBuffer[Panel] = {
+    val arrayOfPanels = ArrayBuffer.empty[Panel]
+    for (panel <- nextPanels) {
+      val panelType = panel.getClass.getSimpleName
+      if (panel.getRow == row && panel.getCol == col - 1) {
+        println(s"The left panel is a ${panelType}")
+        arrayOfPanels += Some(left)
+      }
+      if (panel.getRow == row && panel.getCol == col + 1) {
+        println(s"The right panel is a ${panelType}")
+        arrayOfPanels += Some(right)
+      }
+      if (panel.getRow == row + 1 && panel.getCol == col) {
+        println(s"The upper panel is a ${panelType}")
+        arrayOfPanels += Some(up)
+      }
+      if (panel.getRow == row - 1 && panel.getCol == col) {
+        println(s"The lower panel is a ${panelType}")
+        arrayOfPanels += Some(down)
+      }
+    }
+    arrayOfPanels
+  }
+
+>>>>>>> 51b570cbc2a127c83cdb674f64f9f8d182f52d5d
 }

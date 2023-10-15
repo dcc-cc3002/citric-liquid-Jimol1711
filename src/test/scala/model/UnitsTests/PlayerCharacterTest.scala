@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model
 
-import cl.uchile.dcc.citric.model.Units.{Chicken, PlayerCharacter, WildUnit}
+import cl.uchile.dcc.citric.model.Units.{Chicken, PlayerCharacter, Units, WildUnit}
 
 import scala.util.Random
 
@@ -17,7 +17,7 @@ class PlayerCharacterTest extends munit.FunSuite {
   private val defense = 1
   private val evasion = 1
   private var randomNumberGenerator: Random = _
-  private val testWildUnit: WildUnit = new Chicken
+  private val testWildUnit: Units = new Chicken
 
   private var character: PlayerCharacter = _
   private var character2: PlayerCharacter = _
@@ -44,7 +44,8 @@ class PlayerCharacterTest extends munit.FunSuite {
   }
 
   test("A character should have correctly set their attributes") {
-    assertEquals(character.name, name)
+    val playerName = character.getName()
+    assertEquals(playerName, name)
     assertEquals(character.maxHp, maxHp)
     assertEquals(character.attack, attack)
     assertEquals(character.defense, defense)

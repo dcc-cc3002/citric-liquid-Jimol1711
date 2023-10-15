@@ -65,4 +65,18 @@ trait Panel {
     */
   def removeCharacter(player: PlayerCharacter): Unit
 
+<<<<<<< HEAD
+=======
+  /** Getter of the panel's row */
+  def getRow: Int
+
+  /** Getter of the panel's column */
+  def getCol: Int
+
+  /** Getter of the Panels next to the current One */
+  def getPanels: ArrayBuffer[Panel]
+
+  /** Definition of the apply method for the bonus and drop panel, following the EP4 indication */
+  def apply(player: PlayerCharacter): Unit
+>>>>>>> 51b570cbc2a127c83cdb674f64f9f8d182f52d5d
 }

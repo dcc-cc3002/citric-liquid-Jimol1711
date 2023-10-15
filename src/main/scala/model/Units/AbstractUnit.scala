@@ -14,7 +14,7 @@ import model.Units.Units
  */
 abstract class AbstractUnit(private var stars: Int = 0,
            private val maxHp: Int,
-           private val attack: Int,
+           private val offense: Int,
            private val defense: Int,
            private val evasion: Int) extends Units {
 
@@ -56,7 +56,7 @@ abstract class AbstractUnit(private var stars: Int = 0,
   }
 
   def getAttack: Int = {
-    attack
+    offense
   }
 
   def getDefense: Int = {
@@ -65,5 +65,17 @@ abstract class AbstractUnit(private var stars: Int = 0,
 
   def getEvasion: Int = {
     evasion
+  }
+
+  def attack(): Unit = {
+
+  }
+
+  def defend(): Unit = {
+
+  }
+
+  def evade(): Unit = {
+
   }
 }
