@@ -22,7 +22,7 @@ class BonusPanel extends AbstractPanel(characters = ArrayBuffer.empty[PlayerChar
    * @param player The PlayerCharacter to whom the function is adding the stars to.
    *
    */
-  private def apply(player: PlayerCharacter): Unit = {
+  def apply(player: PlayerCharacter): Unit = {
     if (characters.contains(player)) {
       val roll: Int = player.rollDice()
       player.stars += min(roll * player.getNorma, roll * 3)

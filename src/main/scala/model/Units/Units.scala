@@ -89,22 +89,17 @@ trait Units {
  /** Getter of the Unit's evasion */
   def getEvasion: Int
 
-  /** Method for attacking, following the schema provided on EP4
-   *
-   * The methods also come with the methods attackWildUnit and attackPlayer. This methods are used to use double dispatch for the
-   * implementation of different types of combat, since the behaviour on each type of combat is different.
-   *
-   */
-  def attack(): Unit
-
-  def attackWildUnit(): Unit
-
-  def attackUnit(): Unit
-
   /** Method for defending, following the schema provided on EP4 */
   def defend(): Unit
 
   /** Method for evading, following the schema provided on EP4 */
   def evade(): Unit
+
+  /** Setter of the Units Hp */
+  def setHp(): Unit
+
+  def attackPlayer(unit: Units): Unit
+
+  def attackWildUnit(unit: Units): Unit
 
 }

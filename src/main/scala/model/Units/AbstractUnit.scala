@@ -12,11 +12,10 @@ import model.Units.Units
  * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
  *
  */
-abstract class AbstractUnit(private var stars: Int = 0,
-           private val maxHp: Int,
-           private val offense: Int,
-           private val defense: Int,
-           private val evasion: Int) extends Units {
+abstract class AbstractUnit(private val maxHp: Int,
+                            private val offense: Int,
+                            private val defense: Int,
+                            private val evasion: Int) extends Units {
 
   /** Current Health Points of a Unit.
    *
@@ -24,6 +23,9 @@ abstract class AbstractUnit(private var stars: Int = 0,
    *
    */
   private var currentHp: Int = maxHp
+
+  /** The number of stars of a Unit */
+  private var stars: Int = 0
 
   /** Method that determines if a Unit was defeated on combat.
    *
@@ -67,15 +69,23 @@ abstract class AbstractUnit(private var stars: Int = 0,
     evasion
   }
 
-  def attack(): Unit = {
-
-  }
-
   def defend(): Unit = {
 
   }
 
   def evade(): Unit = {
 
+  }
+
+  protected def setStars(addedStars: Int): Unit = {
+    if (addedStars >= 0) {
+      stars += addedStars
+    }
+  }
+  protected def setHp(hp: Int): Unit = {
+    currentHp += hp
+    if (this.defeated()) {
+      currentHp = 0
+    }
   }
 }

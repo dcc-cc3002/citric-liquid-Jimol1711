@@ -10,4 +10,11 @@ class Chicken extends AbstractWildUnit {
   val defense: Int = - 1
   val evasion: Int = + 1
 
+  def attackPlayer(unit: Units): Unit = {
+
+  }
+
+  def attackWildUnit(unit: Units): Unit = {
+
+  }
 }

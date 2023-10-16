@@ -133,4 +133,20 @@ class PlayerCharacter(private val name: String,
     Norma
   }
 
+  /** Method for attacking, following the schema provided on EP4
+   *
+   * The methods also come with the methods attackWildUnit and attackPlayer. This methods are used to use double dispatch for the
+   * implementation of different types of combat, since the behaviour on each type of combat is different.
+   *
+   */
+  def attack(unit: Units): Unit = {
+    unit.attackPlayer(this)
+  }
+  def attackPlayer(player: PlayerCharacter): Unit = {
+    var playerHealth = player.getCurrentHp
+    player.setHp()
+  }
+
+  def attackWildUnit(): Unit
+
 }

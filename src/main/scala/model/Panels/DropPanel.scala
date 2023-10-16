@@ -21,7 +21,7 @@ class DropPanel extends AbstractPanel(characters = ArrayBuffer.empty[PlayerChara
    * @param player The PlayerCharacter to whom the function is removing the stars from.
    *
    */
-  private def apply(player: PlayerCharacter): Unit = {
+  def apply(player: PlayerCharacter): Unit = {
     if (characters.contains(player)) {
       val roll: Int = player.rollDice()
       player.stars -= player.getNorma * roll
