@@ -31,7 +31,7 @@ de pasos a seguir:
 
 1. **No se dirija inmediatamente a crear el código**. Primero, piense en cómo están organizados los paneles. Hágase las
 siguientes preguntas:
-    - ¿Existen cosas en común entre estos paneles? ¿De qué manera puedo optimizar mi código en base a esas cosas?
+    - ¿Existen cosas en común entre estos paneles? ¿De qué manera puedo optimizar mi código basándose en esas cosas?
     - ¿Puedo agrupar estos paneles de manera general? ¿Qué diseños vistos en clase me permiten hacer eso?
     - ¿Qué atributos necesita cada panel para poder crearse? ¿Existen atributos que no sean necesarios para su creación?
     - ¿Qué funcionalidades básicas tiene cada panel? ¿Son todas iguales?
@@ -40,7 +40,7 @@ siguientes preguntas:
 uso de Test Driven Development para desarrollar el código, de esta manera podrá considerar la funcionalidad por sobre
 cómo implementar dicha funcionalidad.
 
-3. Ahora sí, puede dirijirse inmediatamente a crear el código. Considere que es muy probable que su primera
+3. Ahora sí, puede dirigirse inmediatamente a crear el código. Considere que es muy probable que su primera
 implementación no sea necesariamente la que cumpla con las buenas prácticas del curso, así que piense constantemente
 cómo mejorar estas implementaciones.
 
