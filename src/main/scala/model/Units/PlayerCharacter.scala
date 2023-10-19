@@ -1,6 +1,8 @@
 package cl.uchile.dcc.citric
 package model.Units
 
+import cl.uchile.dcc.citric.model.Norma.Norma
+
 import scala.util.Random
 import scala.math.floor
 
@@ -56,16 +58,17 @@ class PlayerCharacter(private val name: String,
                       private val offense: Int,
                       private val defense: Int,
                       private val evasion: Int,
-                      val randomNumberGenerator: Random = new Random()) extends AbstractUnit {
+                      val randomNumberGenerator: Random = new Random()) extends AbstractUnit with Norma {
 
-  /** Norma is the "level" of the character
-   *
-   * When a player reaches a Norma level of 6, the player wins that game. It can be increased through a Norma Clear, for which
-   * the player first has to perform a Norma Check on a Home Panel. It is also used to calculate the amount of Stars lost on a Drop
-   * Panel and the amount gained on a bonus Panel.
-   *
-   */
-  private var Norma: Int = 1
+  private var level: Int = 1
+
+  def getLevel: Int = {
+    level
+  }
+
+  def levelUp: Unit = {
+    this.level += 1
+  }
 
   /** The number of victories of a PlayerCharacter.
    *

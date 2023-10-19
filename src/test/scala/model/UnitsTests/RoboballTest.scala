@@ -1,7 +1,8 @@
 package cl.uchile.dcc.citric
 package model
 
-import model.Units.{WildUnit, Roboball, Units}
+import model.Units.Units
+import cl.uchile.dcc.citric.model.Units.WildUnits.{Roboball, WildUnit}
 
 class RoboballTest extends munit.FunSuite {
 

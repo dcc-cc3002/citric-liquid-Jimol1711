@@ -1,7 +1,8 @@
 package cl.uchile.dcc.citric
 package model.Panels
 
-import cl.uchile.dcc.citric.model.Units.{Chicken, Seagull, Roboball, PlayerCharacter, Units, WildUnit}
+import cl.uchile.dcc.citric.model.Units.WildUnits.{Chicken, Roboball, Seagull, WildUnit}
+import cl.uchile.dcc.citric.model.Units.{PlayerCharacter, Units}
 
 import scala.util.Random
 import scala.math.floor

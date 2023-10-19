@@ -54,31 +54,6 @@ class HomePanelTest extends munit.FunSuite {
     assert(!panels.contains(newPanel))
   }
 
-  test("A panel should be able to connect Panels to itself through coordinates") {
-    val panel1 = new HomePanel(characters, panels2, row, col - 1)
-    val panel2 = new HomePanel(characters, panels2, row, col + 1)
-    val panel3 = new HomePanel(characters, panels2, row + 1, col)
-    val panel4 = new HomePanel(characters, panels2, row - 1, col)
-    testPanel.connectTo2(panel1)
-    testPanel.connectTo2(panel2)
-    testPanel.connectTo2(panel3)
-    testPanel.connectTo2(panel4)
-    assert(testPanel.left.contains(panel1))
-    assert(testPanel.right.contains(panel2))
-    assert(testPanel.up.contains(panel3))
-    assert(testPanel.down.contains(panel4))
-    assert(panels.contains(panel1)
-      && panels.contains(panel2)
-      && panels.contains(panel3)
-      && panels.contains(panel4))
-  }
-
-  test("A panel without adequate coordinates should not connect to the current panel") {
-    val newPanel = new HomePanel(characters, panels2, row + 2, col + 2)
-    testPanel.connectTo2(newPanel)
-    assert(!panels.contains(newPanel))
-  }
-
   test("A home panel should be able to be set an Owner") {
     assert(testPanel.owner.contains(testPlayer1))
   }

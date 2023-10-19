@@ -1,11 +1,12 @@
 package cl.uchile.dcc.citric
-package model.Units
+package model.Units.WildUnits
 
-class Seagull extends AbstractWildUnit {
+class Seagull extends WildUnit {
 
   /** The values for each WildUnit are set on it's particular class since they differ from one another
    *
    */
+  val maxHp: Int = 3
   val offense: Int = + 1
   val defense: Int = - 1
   val evasion: Int = - 1
