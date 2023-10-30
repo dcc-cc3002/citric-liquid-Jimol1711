@@ -53,7 +53,7 @@ class EncounterPanel extends AbstractPanel(characters = ArrayBuffer.empty[Player
    *
    * @param player the player that drops on this panel
    * */
-  def enterCombat(player: PlayerCharacter): Unit = {
+  def apply(player: PlayerCharacter): Unit = {
     bellaco match {
       case Some(b) =>
         player.fight(player, b)

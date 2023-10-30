@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model.Units
 
-import cl.uchile.dcc.citric.model.Norma.Norma
+import cl.uchile.dcc.citric.model.Norma.{Norma, NormaStars, NormaVictories}
 
 import scala.util.Random
 import scala.math.floor
@@ -28,7 +28,7 @@ import scala.math.floor
   *
   * @param name The name of the player. This is an identifier and should be unique.
   * @param maxHp The maximum health points a player can have. It represents the player's endurance.
-  * @param attack The player's capability to deal damage to opponents.
+  * @param offense The player's capability to deal damage to opponents.
   * @param defense The player's capability to resist or mitigate damage from opponents.
   * @param evasion The player's skill to completely avoid certain attacks.
   * @param randomNumberGenerator A utility to generate random numbers. Defaults to a new `Random`
@@ -66,7 +66,7 @@ class PlayerCharacter(private val name: String,
     level
   }
 
-  def levelUp: Unit = {
+  def levelUp(): Unit = {
     this.level += 1
   }
 
@@ -116,11 +116,6 @@ class PlayerCharacter(private val name: String,
     }
   }
 
-  /** When a PlayerCharacter performs a NormaClear, the Norma level of the player is increased by one. */
-  def NormaClear(): Unit = {
-    this.Norma += 1
-  }
-
   /** On a PlayerCharacter's turn, they will be able to gain a number of stars equal to ⌊chapters/5⌋ + 1. */
   def onTurnStars(): Unit = {
     this.stars += floor(chapters/5).toInt + 1
@@ -131,12 +126,7 @@ class PlayerCharacter(private val name: String,
     name
   }
 
-  /** Getter of the player's Norma level */
-  def getNorma: Int = {
-    Norma
-  }
-
-  /** Method for attacking, following the schema provided on EP4
+  /** Method for attacking
    *
    * The methods also come with the methods attackWildUnit and attackPlayer. This methods are used to use double dispatch for the
    * implementation of different types of combat, since the behaviour on each type of combat is different.
@@ -151,5 +141,10 @@ class PlayerCharacter(private val name: String,
   }
 
   def attackWildUnit(): Unit
+
+  def playerNorma(): Unit = {
+    val Norma = new NormaStars(this)
+    val Norma2 = new NormaVictories(this)
+  }
 
 }

@@ -10,6 +10,10 @@ import scala.collection.mutable.ArrayBuffer
   *
   * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class NeutralPanel extends AbstractPanel(characters = ArrayBuffer.empty[PlayerCharacter], nextPanels = ArrayBuffer.empty[Panel]) {
+class NeutralPanel extends AbstractPanel(characters = ArrayBuffer.empty[PlayerCharacter],
+                                         nextPanels = ArrayBuffer.empty[Panel]) {
+
+  /** On the Neutral panel the apply method is empty since it has no effects */
+  def apply(player: PlayerCharacter): Unit = {}
 
 }

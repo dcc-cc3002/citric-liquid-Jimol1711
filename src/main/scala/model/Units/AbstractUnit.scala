@@ -7,8 +7,6 @@ import model.Units.Units
  *
  * It allows for the definition of methods whose implementation is shared amongst any Unit entity in the game.
  *
- * @param stars The number of stars of a Unit. Set to 0 by default.
- *
  * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
  *
  */

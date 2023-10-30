@@ -36,29 +36,11 @@ class HomePanel extends AbstractPanel(characters = ArrayBuffer.empty[PlayerChara
             */
            setOwner: PlayerCharacter) = {
     this(characters, nextPanels, row, col)
-      owner = Some(setOwner)
+    owner = Some(setOwner)
   }
 
   // This variable is a placeholder that makes sure that the stop method works correctly since the implementation of user inputs can't be yet implemented
   var ans: Option[String] = None
-
-  /** NormaCheck checks if a player meets the conditions necessary to increase it's Norma Level.
-   *
-   * @param player The player to whom the Norma check is being done to, if it meets the conditions, the player performs a NormaClear
-   */
-  def NormaCheck(player: PlayerCharacter): Unit = {
-    if(characters.contains(player)) {
-      if ((player.Norma == 1 && (player.stars >= 10 || player.victories == 1))
-        || (player.Norma == 2 && (player.stars >= 30 || player.victories == 3))
-        || (player.Norma == 3 && (player.stars >= 70 || player.victories == 6))
-        || (player.Norma == 4 && (player.stars >= 120 || player.victories == 10))
-        || (player.Norma == 5 && (player.stars >= 200 || player.victories == 14))) {
-        player.NormaClear()
-      } else {
-        println("You don't meet the conditions to modify your Norma Level")
-      }
-    }
-  }
 
   /** Asserts the player is the owner. If so, asks the player if it wants to stop on the Panel or keep going.
    *
@@ -66,7 +48,7 @@ class HomePanel extends AbstractPanel(characters = ArrayBuffer.empty[PlayerChara
    *
    * @param player the player that drops on this home panel, either the owner or another player who dropped exactly on it.
    */
-  def rest(player: PlayerCharacter): Unit = {
+  def apply(player: PlayerCharacter): Unit = {
     if(characters.contains(player)) {
       for (player <- characters) {
         if (owner.contains(player)) {
