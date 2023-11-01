@@ -2,6 +2,7 @@ package cl.uchile.dcc.citric
 package model.Units
 
 import cl.uchile.dcc.citric.model.Norma.{Norma, NormaStars, NormaVictories}
+import cl.uchile.dcc.citric.model.Units.WildUnits.WildUnit
 
 import scala.util.Random
 import scala.math.floor
@@ -140,7 +141,9 @@ class PlayerCharacter(private val name: String,
     player.setHp()
   }
 
-  def attackWildUnit(): Unit
+  def attackWildUnit(wildUnit: WildUnit): Unit = {
+    wildUnit.setWildUnitHp(wildUnit)
+  }
 
   def playerNorma(): Unit = {
     val Norma = new NormaStars(this)

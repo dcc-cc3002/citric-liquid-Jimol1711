@@ -9,4 +9,8 @@ import model.Units.Units
  *  @author [[https://github.com/Jimol1711/ Juan Molina L.]]
  *
  */
-trait WildUnit extends Units
+trait WildUnit extends Units {
+
+  /** Setter of a wild unit's hp */
+  def setWildUnitHp(wildUnit: WildUnit): Unit
+}

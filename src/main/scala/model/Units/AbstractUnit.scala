@@ -33,17 +33,6 @@ abstract class AbstractUnit(private val maxHp: Int,
     currentHp <= 0
   }
 
-  /** Method to define combat between Units.
-   *
-   * Currently empty since combat can't be yet implemented.
-   *
-   * @param fighter1 One of the Units that fights
-   * @param fighter2 One of the Units that fights
-   */
-  def fight(fighter1: Units, fighter2: Units): Unit = {
-    println("Time to fight!")
-  }
-
   def getStars: Int = {
     stars
   }
