@@ -15,7 +15,8 @@ import scala.collection.mutable.ArrayBuffer
   *
   *  @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class HomePanel extends AbstractPanel(characters = ArrayBuffer.empty[PlayerCharacter], nextPanels = ArrayBuffer.empty[Panel]) {
+class HomePanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
+                private var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters, nextPanels) {
 
   /** Initially the Home Panel has no owner. It is set with an auxiliary constructor
    *
@@ -27,20 +28,20 @@ class HomePanel extends AbstractPanel(characters = ArrayBuffer.empty[PlayerChara
    */
   def this(characters: ArrayBuffer[PlayerCharacter],
            nextPanels: ArrayBuffer[Panel],
-           row: Int,
-           col: Int,
            /** Sets the owner of this home panel using an Auxiliary constructor
             *
             * The owner is allowed to stop on the panel, no matter if it still has moves left or not.
             *
             */
            setOwner: PlayerCharacter) = {
-    this(characters, nextPanels, row, col)
+    this(characters, nextPanels)
     owner = Some(setOwner)
   }
 
   // This variable is a placeholder that makes sure that the stop method works correctly since the implementation of user inputs can't be yet implemented
   var ans: Option[String] = None
+
+
 
   /** Asserts the player is the owner. If so, asks the player if it wants to stop on the Panel or keep going.
    *
@@ -55,11 +56,11 @@ class HomePanel extends AbstractPanel(characters = ArrayBuffer.empty[PlayerChara
           println("Would you like to rest at home? Y/N")
           if (ans.contains("Y") && player.currentHp <= player.maxHp) {
             player.currentHp += 1
-            NormaCheck(player)
+            player.getNorma.normaCheck(player)
           }
         } else if (!owner.contains(player) && player.currentHp <= player.maxHp) {
           player.currentHp += 1
-          NormaCheck(player)
+          player.getNorma.normaCheck(player)
         }
       }
     }

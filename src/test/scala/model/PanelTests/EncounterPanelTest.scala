@@ -47,7 +47,7 @@ class EncounterPanelTest extends munit.FunSuite {
   }
 
   test("A panel should be able to connect and disconnect panels to itself") {
-    val newPanel: Panel = new EncounterPanel(characters, panels2, 0, 1)
+    val newPanel: Panel = new EncounterPanel(characters, panels2)
     testPanel.connectTo(newPanel)
     assert(panels.contains(newPanel))
     testPanel.disconnect(newPanel)
@@ -74,7 +74,7 @@ class EncounterPanelTest extends munit.FunSuite {
   }
 
   test("A panel without adequate coordinates should not connect to the current panel") {
-    val newPanel = new EncounterPanel(characters, panels2, row + 2, col + 2)
+    val newPanel = new EncounterPanel(characters, panels2)
     testPanel.connectTo2(newPanel)
     assert(!panels.contains(newPanel))
   }

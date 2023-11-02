@@ -16,8 +16,8 @@ class HomePanelTest extends munit.FunSuite {
   var panels2: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
   var row: Int = 0
   var col: Int = 0
-  var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, new Random(11))
-  var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, new Random(11))
+  var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer1", 10, 1, 1, 1, new Random(11))
+  var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer2", 10, 1, 1, 1, new Random(11))
 
   /*
   This is the object under test, in this case, a panel. It's initialized before each test.
@@ -27,7 +27,7 @@ class HomePanelTest extends munit.FunSuite {
   // Method that is executed before each test method
   override def beforeEach(context: BeforeEach): Unit = {
     characters = ArrayBuffer(testPlayer1)
-    testPanel = new HomePanel(characters, panels, row, col, testPlayer1)
+    testPanel = new HomePanel(characters, panels)
   }
 
   test("A panel should be able to receive new players") {
@@ -47,7 +47,7 @@ class HomePanelTest extends munit.FunSuite {
 
   // Connection tests
   test("A panel should be able to connect and disconnect panels to itself") {
-    val newPanel: Panel = new HomePanel(characters, panels2, 0, 1)
+    val newPanel: Panel = new HomePanel(characters, panels2)
     testPanel.connectTo(newPanel)
     assert(panels.contains(newPanel))
     testPanel.disconnect(newPanel)

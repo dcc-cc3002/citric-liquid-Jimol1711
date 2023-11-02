@@ -55,6 +55,7 @@ class NeutralPanelTest extends munit.FunSuite {
 
   test("A panel should apply it's effects to a player on it") {
     testPanel.apply(testPlayer1)
+    assert(testPanel.methodTest)
   }
 
 }

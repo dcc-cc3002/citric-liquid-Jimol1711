@@ -3,7 +3,7 @@ package model.Norma
 
 import model.Units.PlayerCharacter
 
-class NormaVictories(val player: PlayerCharacter) extends Norma {
+class Norma2(val player: PlayerCharacter) extends Norma {
 
   /** NormaCheck checks if a player meets the conditions necessary to increase it's Norma Level.
    *

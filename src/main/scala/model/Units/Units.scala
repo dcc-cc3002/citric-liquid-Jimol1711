@@ -95,9 +95,6 @@ trait Units {
   /** Method for evading, following the schema provided on EP4 */
   def evade(): Unit
 
-  /** Setter of the Units Hp */
-  def setHp(): Unit
-
   def attackPlayer(unit: Units): Unit
 
   def attackWildUnit(unit: Units): Unit

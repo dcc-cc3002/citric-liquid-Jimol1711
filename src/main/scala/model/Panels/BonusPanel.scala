@@ -13,7 +13,8 @@ import scala.math.min
   *
   *  @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class BonusPanel extends AbstractPanel(characters = ArrayBuffer.empty[PlayerCharacter], nextPanels = ArrayBuffer.empty[Panel]) {
+class BonusPanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
+                 private var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters, nextPanels) {
 
   /** Implementation of the apply method for the effect of the bonus panel, replaces the addStars method defined previously
    *

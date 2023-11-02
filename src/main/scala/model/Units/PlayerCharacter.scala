@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model.Units
 
-import cl.uchile.dcc.citric.model.Norma.{Norma, NormaStars, NormaVictories}
+import cl.uchile.dcc.citric.model.Norma.{Norma, Norma1, Norma2}
 import cl.uchile.dcc.citric.model.Units.WildUnits.WildUnit
 
 import scala.util.Random
@@ -59,16 +59,16 @@ class PlayerCharacter(private val name: String,
                       private val offense: Int,
                       private val defense: Int,
                       private val evasion: Int,
-                      val randomNumberGenerator: Random = new Random()) extends AbstractUnit with Norma {
+                      val randomNumberGenerator: Random = new Random()) extends AbstractUnit(maxHp,offense,defense,evasion) {
 
-  private var level: Int = 1
+  private var currentNorma: Norma = new Norma1(this)
 
-  def getLevel: Int = {
-    level
+  def getNorma: Norma = {
+    currentNorma
   }
 
-  def levelUp(): Unit = {
-    this.level += 1
+  def setNorma(norma: Norma): Unit = {
+    currentNorma = norma
   }
 
   /** The number of victories of a PlayerCharacter.
@@ -78,7 +78,7 @@ class PlayerCharacter(private val name: String,
    * Norma level.
    *
    */
-  var victories: Int = 0
+  private var victories: Int = 0
 
   /** Variable used for star gaining and to determine the amount needed for a character to recover after being defeated.
    *
@@ -127,6 +127,11 @@ class PlayerCharacter(private val name: String,
     name
   }
 
+  /** Getter of a player's victories */
+  def getVictories: Int = {
+    victories
+  }
+
   /** Method for attacking
    *
    * The methods also come with the methods attackWildUnit and attackPlayer. This methods are used to use double dispatch for the
@@ -146,8 +151,8 @@ class PlayerCharacter(private val name: String,
   }
 
   def playerNorma(): Unit = {
-    val Norma = new NormaStars(this)
-    val Norma2 = new NormaVictories(this)
+    val Norma = new Norma1(this)
+    val Norma2 = new Norma2(this)
   }
 
 }

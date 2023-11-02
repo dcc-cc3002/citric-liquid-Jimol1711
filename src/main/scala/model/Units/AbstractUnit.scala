@@ -70,9 +70,7 @@ abstract class AbstractUnit(private val maxHp: Int,
     }
   }
   protected def setHp(hp: Int): Unit = {
-    currentHp += hp
-    if (this.defeated()) {
-      currentHp = 0
-    }
+    currentHp = hp
   }
+
 }

@@ -14,7 +14,8 @@ import scala.collection.mutable.ArrayBuffer
   *
   *  @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class EncounterPanel extends AbstractPanel(characters = ArrayBuffer.empty[PlayerCharacter], nextPanels = ArrayBuffer.empty[Panel]) {
+class EncounterPanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
+                     private var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters, nextPanels) {
 
   /** Setting of three instances of WildUnits
    *
