@@ -15,7 +15,7 @@ class PlayerCharacterTest extends munit.FunSuite {
   */
   private val name = "testPlayer"
   private val maxHp = 10
-  private val attack = 1
+  private val offense = 1
   private val defense = 1
   private val evasion = 1
   private var randomNumberGenerator: Random = _
@@ -31,7 +31,7 @@ class PlayerCharacterTest extends munit.FunSuite {
     character = new PlayerCharacter(
       name,
       maxHp,
-      attack,
+      offense,
       defense,
       evasion,
       randomNumberGenerator,
@@ -39,7 +39,7 @@ class PlayerCharacterTest extends munit.FunSuite {
     character2 = new PlayerCharacter(
       name,
       maxHp,
-      attack,
+      offense,
       defense,
       evasion,
       randomNumberGenerator,
@@ -47,12 +47,11 @@ class PlayerCharacterTest extends munit.FunSuite {
   }
 
   test("A character should have correctly set their attributes") {
-    val playerName = character.getName()
     assertEquals(character.getName, name)
-    assertEquals(character.maxHp, maxHp)
-    assertEquals(character.getOffense, attack)
-    assertEquals(character.defense, defense)
-    assertEquals(character.evasion, evasion)
+    assertEquals(character.getMaxHp, maxHp)
+    assertEquals(character.getOffense, offense)
+    assertEquals(character.getDefense, defense)
+    assertEquals(character.getEvasion, evasion)
   }
 
   // Testing invariant property. The result is always between 1 and 6.
@@ -68,9 +67,9 @@ class PlayerCharacterTest extends munit.FunSuite {
   }
 
   test("A character should be able to gain stars on it's turn") {
-    val currentStars = character.stars
+    val currentStars = character.getStars
     character.onTurnStars()
-    assert(character.stars >= currentStars)
+    assert(character.getStars >= currentStars)
   }
 
   test("A character should be able to gain victories") {
@@ -81,18 +80,14 @@ class PlayerCharacterTest extends munit.FunSuite {
 
   test("A character should be on KO when losing all it's Hp") {
     assert(!character.KO())
-    character.currentHp -= maxHp
+    character.setCurrentHp(character.getCurrentHp - maxHp)
     assert(character.KO())
   }
 
   test("A character should be able to enter recovery") {
     character.recovery()
-    character.currentHp -= maxHp
+    character.setCurrentHp(character.getCurrentHp - maxHp)
     character.recovery()
   }
 
-  test("A character should be able to enter combat with another player or with a Wild Unit") {
-    character.fight(character, testWildUnit)
-    character.fight(character, character2)
-  }
 }

@@ -60,7 +60,7 @@ class PlayerCharacter(private val name: String,
                       private val defense: Int,
                       private val evasion: Int,
                       val randomNumberGenerator: Random = new Random(),
-                      val chosenStat: Int) extends AbstractUnit(maxHp,offense,defense,evasion) {
+                      val chosenStat: Int) extends AbstractPlayer(maxHp,offense,defense,evasion) {
 
   def setCurrentHp(hp: Int): Unit = {
     currentHp = hp

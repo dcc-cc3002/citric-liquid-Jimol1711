@@ -15,10 +15,10 @@ import model.Units.Units
  * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
  *
  */
-abstract class AbstractUnit(protected val aMaxHp: Int,
-                            protected val aOffense: Int,
-                            protected val aDefense: Int,
-                            protected val aEvasion: Int) extends Units {
+abstract class AbstractPlayer(protected val aMaxHp: Int,
+                              protected val aOffense: Int,
+                              protected val aDefense: Int,
+                              protected val aEvasion: Int) extends Units {
 
   /** Current Health Points of a Unit.
    *

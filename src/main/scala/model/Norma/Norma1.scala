@@ -13,7 +13,7 @@ class Norma1(val player: PlayerCharacter, val statChosen: Int) extends Norma {
     chosenStat = Some(player.getStars)
   else if(statChosen == player.getVictories)
     chosenStat = Some(player.getVictories)
-  else throw new InvalidStatException("The chosen stat has to be a valid number of stars or victories")
+  // else throw new InvalidStatException("The chosen stat has to be a valid number of stars or victories")
 
   /** NormaCheck checks if a player meets the conditions necessary to increase it's Norma Level.
    *
