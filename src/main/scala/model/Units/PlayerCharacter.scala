@@ -59,17 +59,8 @@ class PlayerCharacter(private val name: String,
                       private val offense: Int,
                       private val defense: Int,
                       private val evasion: Int,
-                      val randomNumberGenerator: Random = new Random()) extends AbstractUnit(maxHp,offense,defense,evasion) {
-
-  private var currentNorma: Norma = new Norma1(this)
-
-  def getNorma: Norma = {
-    currentNorma
-  }
-
-  def setNorma(norma: Norma): Unit = {
-    currentNorma = norma
-  }
+                      val randomNumberGenerator: Random = new Random(),
+                      val chosenStat: Int) extends AbstractUnit(maxHp,offense,defense,evasion) {
 
   /** The number of victories of a PlayerCharacter.
    *
@@ -132,6 +123,18 @@ class PlayerCharacter(private val name: String,
     victories
   }
 
+  def getOffense: Int = {
+    offense
+  }
+
+  def getDefense: Int = {
+    defense
+  }
+
+  def getOffense: Int = {
+    offense
+  }
+
   /** Method for attacking
    *
    * The methods also come with the methods attackWildUnit and attackPlayer. This methods are used to use double dispatch for the
@@ -153,6 +156,16 @@ class PlayerCharacter(private val name: String,
   def playerNorma(): Unit = {
     val Norma = new Norma1(this)
     val Norma2 = new Norma2(this)
+  }
+
+  private var currentNorma: Norma = new Norma1(this, chosenStat)
+
+  def getNorma: Norma = {
+    currentNorma
+  }
+
+  def setNorma(norma: Norma): Unit = {
+    currentNorma = norma
   }
 
 }

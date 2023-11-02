@@ -16,8 +16,8 @@ class BonusPanelTest extends munit.FunSuite {
   var panels2: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
   var row: Int = 0
   var col: Int = 0
-  var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, new Random(11))
-  var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, new Random(11))
+  var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, new Random(11), 5)
+  var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, new Random(11), 5)
 
   /*
   This is the object under test, in this case, a panel. It's initialized before each test.
@@ -27,7 +27,7 @@ class BonusPanelTest extends munit.FunSuite {
   // Method that is executed before each test method
   override def beforeEach(context: BeforeEach): Unit = {
     characters = ArrayBuffer(testPlayer1)
-    testPanel = new BonusPanel(characters, panels, row, col)
+    testPanel = new BonusPanel(characters, panels)
   }
 
   test("A panel should be able to receive new players") {

@@ -20,13 +20,7 @@ abstract class AbstractPanel(protected var characters: ArrayBuffer[PlayerCharact
    *
    */
   def connectTo(panel: Panel):Unit = {
-    if (this.nextPanels.size == 4) {
-      println("This panel can't connect to more panels")
-      // Here I should add an exception
-    }
-    if(!this.nextPanels.contains(panel) && this.nextPanels.size < 4) {
       nextPanels += panel
-    }
   }
 
   /** Implementation of the method that removes a panel from a panel's nextPanels ArrayBuffer
@@ -34,12 +28,7 @@ abstract class AbstractPanel(protected var characters: ArrayBuffer[PlayerCharact
    * @param panel the panel that's going to be disconnected.
    */
   def disconnect(panel: Panel): Unit = {
-    if(this.nextPanels.contains(panel)) {
       nextPanels -= panel
-    } else {
-      println(s"The panel ${panel} is not connected to this panel.")
-      // Here I should add an exception
-    }
   }
 
   /** Adds a character to the list of characters currently on this panel.

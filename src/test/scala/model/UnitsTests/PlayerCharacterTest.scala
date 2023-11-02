@@ -3,6 +3,7 @@ package model
 
 import cl.uchile.dcc.citric.model.Units.WildUnits.{Chicken, WildUnit}
 import cl.uchile.dcc.citric.model.Units.{PlayerCharacter, Units}
+import cl.uchile.dcc.citric.model.Norma.Norma2
 
 import scala.util.Random
 
@@ -18,6 +19,7 @@ class PlayerCharacterTest extends munit.FunSuite {
   private val defense = 1
   private val evasion = 1
   private var randomNumberGenerator: Random = _
+  private val chosenStat = 5
   private val testWildUnit: Units = new Chicken
 
   private var character: PlayerCharacter = _
@@ -32,23 +34,23 @@ class PlayerCharacterTest extends munit.FunSuite {
       attack,
       defense,
       evasion,
-      randomNumberGenerator
-    )
+      randomNumberGenerator,
+      chosenStat)
     character2 = new PlayerCharacter(
       name,
       maxHp,
       attack,
       defense,
       evasion,
-      randomNumberGenerator
-    )
+      randomNumberGenerator,
+      chosenStat)
   }
 
   test("A character should have correctly set their attributes") {
     val playerName = character.getName()
-    assertEquals(playerName, name)
+    assertEquals(character.getName, name)
     assertEquals(character.maxHp, maxHp)
-    assertEquals(character.attack, attack)
+    assertEquals(character.getOffense, attack)
     assertEquals(character.defense, defense)
     assertEquals(character.evasion, evasion)
   }
@@ -61,8 +63,8 @@ class PlayerCharacterTest extends munit.FunSuite {
   }
 
   test("A character should be able to perform a NormaClear") {
-    character.NormaClear()
-    assert(character.Norma >= 2)
+    character.getNorma.normaClear(character,chosenStat)
+    assert(character.getNorma.isInstanceOf[Norma2])
   }
 
   test("A character should be able to gain stars on it's turn") {

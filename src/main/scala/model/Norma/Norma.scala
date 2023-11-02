@@ -24,6 +24,6 @@ trait Norma {
    *
    * @param player The player character whose Norma level is being increased
    */
-  def normaClear(player: PlayerCharacter): Unit
+  def normaClear(player: PlayerCharacter, chosenStat: Int): Unit
 
 }

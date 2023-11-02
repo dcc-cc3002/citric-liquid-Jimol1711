@@ -20,20 +20,12 @@ class Norma1(val player: PlayerCharacter, val statChosen: Int) extends Norma {
    * @param player The player to whom the Norma check is being done to, if it meets the conditions, the player performs a NormaClear
    */
   def normaCheck(player: PlayerCharacter): Unit = {
-      if (player.getLevel == 1 && player.getStars >= 10
-        || player.getLevel == 2 && player.getStars >= 30
-        || player.getLevel == 3 && player.getStars >= 70
-        || player.getLevel == 4 && player.getStars >= 120
-        || player.getLevel == 5 && player.getStars >= 200) {
-        normaClear(player)
-      } else {
-        println("You don't meet the conditions to modify your Norma Level")
-      }
+
   }
 
   /** When a PlayerCharacter performs a NormaClear, the Norma level of the player is increased by one. */
-  def normaClear(player:PlayerCharacter): Unit = {
-    player.levelUp()
+  private def normaClear(player: PlayerCharacter, nextChosenStat: Int): Unit = {
+    player.setNorma(new Norma2(player,nextChosenStat))
   }
 
 }

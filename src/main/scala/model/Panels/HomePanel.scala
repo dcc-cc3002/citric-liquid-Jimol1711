@@ -41,7 +41,15 @@ class HomePanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuff
   // This variable is a placeholder that makes sure that the stop method works correctly since the implementation of user inputs can't be yet implemented
   var ans: Option[String] = None
 
-
+  /** NormaCheck checks if a player meets the conditions necessary to increase it's Norma Level.
+   *
+   * @param player The player to whom the Norma check is being done to, if it meets the conditions, the player performs a NormaClear
+   */
+  def normaCheck(player: PlayerCharacter): Unit = {
+    if (player.getNorma.chosenStat) {
+      player.getNorma.normaClear(player)
+    }
+  }
 
   /** Asserts the player is the owner. If so, asks the player if it wants to stop on the Panel or keep going.
    *
@@ -56,7 +64,7 @@ class HomePanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuff
           println("Would you like to rest at home? Y/N")
           if (ans.contains("Y") && player.currentHp <= player.maxHp) {
             player.currentHp += 1
-            player.getNorma.normaCheck(player)
+            normaCheck(player)
           }
         } else if (!owner.contains(player) && player.currentHp <= player.maxHp) {
           player.currentHp += 1
