@@ -14,8 +14,8 @@ import scala.collection.mutable.ArrayBuffer
   *
   *  @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class EncounterPanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
-                     private var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters, nextPanels) {
+class EncounterPanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
+                     protected var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters, nextPanels) {
 
   /** Setting of three instances of WildUnits
    *
@@ -57,15 +57,15 @@ class EncounterPanel(private var characters: ArrayBuffer[PlayerCharacter] = Arra
   def apply(player: PlayerCharacter): Unit = {
     bellaco match {
       case Some(b) =>
-        player.fight(player, b)
+
         if (b.defeated()) {
-          player.stars += b.stars
+          // player.setStars(player.getStars+b.getStars)
           bellaco = None
-          player.victories += 1
+          player.setVictories(player.getVictories+1)
         } else {
-          val starsGained = floor(player.stars / 2).toInt
-          b.stars += starsGained
-          player.stars -= starsGained
+          // val starsGained = floor(player.stars / 2).toInt
+          // b.stars += starsGained
+          // player.stars -= starsGained
         }
     }
   }

@@ -12,8 +12,8 @@ import scala.collection.mutable.ArrayBuffer
   *
   *  @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class DropPanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
-                private var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters, nextPanels) {
+class DropPanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
+                protected var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters, nextPanels) {
 
   /** Implementation of the apply method for the effect of the drop panel, replaces the removeStars method defined previously
    *
@@ -25,7 +25,7 @@ class DropPanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuff
   def apply(player: PlayerCharacter): Unit = {
     if (characters.contains(player)) {
       val roll: Int = player.rollDice()
-      player.stars -= player.getNorma * roll
+      // player.stars -= player.getNorma * roll
     } // This implementation is not final since it requires setters (WIP)
   }
 

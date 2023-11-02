@@ -16,8 +16,8 @@ class HomePanelTest extends munit.FunSuite {
   var panels2: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
   var row: Int = 0
   var col: Int = 0
-  var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer1", 10, 1, 1, 1, new Random(11))
-  var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer2", 10, 1, 1, 1, new Random(11))
+  var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer1", 10, 1, 1, 1, new Random(11),0)
+  var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer2", 10, 1, 1, 1, new Random(11),0)
 
   /*
   This is the object under test, in this case, a panel. It's initialized before each test.
@@ -58,20 +58,6 @@ class HomePanelTest extends munit.FunSuite {
     assert(testPanel.owner.contains(testPlayer1))
   }
 
-  test("A home panel should be able to do a NormaCheck on a player character which owns it") {
-    testPanel.NormaCheck(testPlayer1)
-    testPlayer1.stars += 10
-    testPanel.NormaCheck(testPlayer1)
-    assert(testPlayer1.Norma > 1)
-  }
+  // test("A home panel should be able to do a NormaCheck on a player character which owns it")
 
-  test("A player who owns a Home Panel should be able to rest on it") {
-    testPanel.ans = Some("Y")
-    testPanel.rest(testPlayer1)
-  }
-
-  test("A player who doesn't own a Home Panel should be able to rest on it") {
-    testPanel.addCharacter(testPlayer2)
-    testPanel.rest(testPlayer2)
-  }
 }

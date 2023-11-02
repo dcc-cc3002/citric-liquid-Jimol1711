@@ -32,8 +32,8 @@ import scala.math.floor
   * @param offense The player's capability to deal damage to opponents.
   * @param defense The player's capability to resist or mitigate damage from opponents.
   * @param evasion The player's skill to completely avoid certain attacks.
-  * @param randomNumberGenerator A utility to generate random numbers. Defaults to a new `Random`
-  *                              instance.
+  * @param randomNumberGenerator A utility to generate random numbers. Defaults to a new `Random` instance.
+  * @param chosenStat When a player is created it must determine what it's chosen stat to increase to the next Norma level will be.
   *
   * @constructor Creates a new PlayerCharacter, specifying it's parameters
   *
@@ -62,6 +62,10 @@ class PlayerCharacter(private val name: String,
                       val randomNumberGenerator: Random = new Random(),
                       val chosenStat: Int) extends AbstractUnit(maxHp,offense,defense,evasion) {
 
+  def setCurrentHp(hp: Int): Unit = {
+    currentHp = hp
+  }
+
   /** The number of victories of a PlayerCharacter.
    *
    * This variable increases by one when the player defeats a Wild Unit and by 2 when it defeats another PlayerCharacter. It is used
@@ -70,6 +74,14 @@ class PlayerCharacter(private val name: String,
    *
    */
   private var victories: Int = 0
+
+  /** Setter for the player's victories. The responsibility of setting victories is relegated to the player
+   *
+   * @param newVictories The victories that the new victories are set to
+   */
+  def setVictories(newVictories: Int): Unit = {
+    victories = newVictories
+  }
 
   /** Variable used for star gaining and to determine the amount needed for a character to recover after being defeated.
    *
@@ -123,39 +135,26 @@ class PlayerCharacter(private val name: String,
     victories
   }
 
-  def getOffense: Int = {
-    offense
-  }
-
-  def getDefense: Int = {
-    defense
-  }
-
-  def getOffense: Int = {
-    offense
-  }
-
   /** Method for attacking
    *
    * The methods also come with the methods attackWildUnit and attackPlayer. This methods are used to use double dispatch for the
    * implementation of different types of combat, since the behaviour on each type of combat is different.
    *
    */
-  def attack(unit: Units): Unit = {
-    unit.attackPlayer(this)
+  def attack(): Unit = {
+
   }
-  def attackPlayer(player: PlayerCharacter): Unit = {
-    var playerHealth = player.getCurrentHp
-    player.setHp()
+  def attackPlayer(): Unit = {
+
   }
 
-  def attackWildUnit(wildUnit: WildUnit): Unit = {
-    wildUnit.setWildUnitHp(wildUnit)
+  def attackWildUnit(): Unit = {
+
   }
 
   def playerNorma(): Unit = {
-    val Norma = new Norma1(this)
-    val Norma2 = new Norma2(this)
+    val Norma = new Norma1(this,chosenStat)
+    val Norma2 = new Norma2(this,chosenStat)
   }
 
   private var currentNorma: Norma = new Norma1(this, chosenStat)

@@ -24,7 +24,7 @@ class Norma1(val player: PlayerCharacter, val statChosen: Int) extends Norma {
   }
 
   /** When a PlayerCharacter performs a NormaClear, the Norma level of the player is increased by one. */
-  private def normaClear(player: PlayerCharacter, nextChosenStat: Int): Unit = {
+  def normaClear(player: PlayerCharacter, nextChosenStat: Int): Unit = {
     player.setNorma(new Norma2(player,nextChosenStat))
   }
 

@@ -15,8 +15,8 @@ import scala.collection.mutable.ArrayBuffer
   *
   *  @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class HomePanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
-                private var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters, nextPanels) {
+class HomePanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
+                protected var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters, nextPanels) {
 
   /** Initially the Home Panel has no owner. It is set with an auxiliary constructor
    *
@@ -46,9 +46,9 @@ class HomePanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuff
    * @param player The player to whom the Norma check is being done to, if it meets the conditions, the player performs a NormaClear
    */
   def normaCheck(player: PlayerCharacter): Unit = {
-    if (player.getNorma.chosenStat) {
-      player.getNorma.normaClear(player)
-    }
+    // if (player.getNorma.chosenStat) {
+    //  player.getNorma.normaClear(player)
+    // }
   }
 
   /** Asserts the player is the owner. If so, asks the player if it wants to stop on the Panel or keep going.
@@ -62,12 +62,12 @@ class HomePanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuff
       for (player <- characters) {
         if (owner.contains(player)) {
           println("Would you like to rest at home? Y/N")
-          if (ans.contains("Y") && player.currentHp <= player.maxHp) {
-            player.currentHp += 1
+          if (ans.contains("Y") && player.getCurrentHp <= player.getMaxHp) {
+            player.setCurrentHp(player.getCurrentHp+1)
             normaCheck(player)
           }
-        } else if (!owner.contains(player) && player.currentHp <= player.maxHp) {
-          player.currentHp += 1
+        } else if (!owner.contains(player) && player.getCurrentHp <= player.getMaxHp) {
+          player.setCurrentHp(player.getCurrentHp+1)
           player.getNorma.normaCheck(player)
         }
       }

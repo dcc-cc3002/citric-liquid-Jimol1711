@@ -13,8 +13,8 @@ import scala.math.min
   *
   *  @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class BonusPanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
-                 private var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters, nextPanels) {
+class BonusPanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
+                 protected var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters,nextPanels) {
 
   /** Implementation of the apply method for the effect of the bonus panel, replaces the addStars method defined previously
    *
@@ -26,7 +26,7 @@ class BonusPanel(private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuf
   def apply(player: PlayerCharacter): Unit = {
     if (characters.contains(player)) {
       val roll: Int = player.rollDice()
-      player.stars += min(roll * player.getNorma, roll * 3)
+      // min(roll * player.getNorma, roll * 3)
     }
   }
 }

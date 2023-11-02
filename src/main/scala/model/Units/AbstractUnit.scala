@@ -7,23 +7,32 @@ import model.Units.Units
  *
  * It allows for the definition of methods whose implementation is shared amongst any Unit entity in the game.
  *
+ * @param aMaxHp Maximum Health Points of a Unit.
+ * @param aOffense Attack points of a Unit.
+ * @param aDefense Defense points of a Unit.
+ * @param aEvasion Evasion points of a Unit.
+ *
  * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
  *
  */
-abstract class AbstractUnit(private val maxHp: Int,
-                            private val offense: Int,
-                            private val defense: Int,
-                            private val evasion: Int) extends Units {
+abstract class AbstractUnit(protected val aMaxHp: Int,
+                            protected val aOffense: Int,
+                            protected val aDefense: Int,
+                            protected val aEvasion: Int) extends Units {
 
   /** Current Health Points of a Unit.
    *
    * They begin being equal to maxHp but will vary if the Unit enters combat with another Unit.
    *
    */
-  private var currentHp: Int = maxHp
+  protected var currentHp: Int = aMaxHp
 
-  /** The number of stars of a Unit */
-  private var stars: Int = 0
+  /** Number of stars a Unit has.
+   *
+   * Every Unit entity can have a number of Stars. They can be gained by several means, depending on the Unit.
+   *
+   */
+  protected var stars: Int = 0
 
   /** Method that determines if a Unit was defeated on combat.
    *
@@ -41,19 +50,19 @@ abstract class AbstractUnit(private val maxHp: Int,
   }
 
   def getMaxHp: Int = {
-    maxHp
+    aMaxHp
   }
 
-  def getAttack: Int = {
-    offense
+  def getOffense: Int = {
+    aOffense
   }
 
   def getDefense: Int = {
-    defense
+    aDefense
   }
 
   def getEvasion: Int = {
-    evasion
+    aEvasion
   }
 
   def defend(): Unit = {

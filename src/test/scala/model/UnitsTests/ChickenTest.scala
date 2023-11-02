@@ -2,7 +2,7 @@ package cl.uchile.dcc.citric
 package model
 
 import model.Units.Units
-import cl.uchile.dcc.citric.model.Units.WildUnits.{Chicken, WildUnit}
+import cl.uchile.dcc.citric.model.Units.WildUnits.{Chicken, WildUnit, AbstractWildUnit}
 
 class ChickenTest extends munit.FunSuite {
 
@@ -13,10 +13,10 @@ class ChickenTest extends munit.FunSuite {
   }
 
   test("A Chicken should have correctly set their attributes") {
-    assertEquals(chicken.maxHp, 3)
-    assertEquals(chicken.attack, -1)
-    assertEquals(chicken.defense, -1)
-    assertEquals(chicken.evasion, +1)
+    assertEquals(chicken.getMaxHp, 3)
+    assertEquals(chicken.getOffense, -1)
+    assertEquals(chicken.getDefense, -1)
+    assertEquals(chicken.getEvasion, +1)
   }
 
   test("A Chicken should be able to gain stars") {

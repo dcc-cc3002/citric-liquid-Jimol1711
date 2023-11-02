@@ -11,6 +11,4 @@ import model.Units.Units
  */
 trait WildUnit extends Units {
 
-  /** Setter of a wild unit's hp */
-  def setWildUnitHp(wildUnit: WildUnit): Unit
 }

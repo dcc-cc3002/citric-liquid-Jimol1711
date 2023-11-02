@@ -17,22 +17,6 @@ import scala.collection.mutable.ArrayBuffer
   */
 trait Panel {
 
-  /** Array of the characters currently positioned on this panel.
-    *
-    * In the game, multiple characters might be on the same panel at once, e.g., if multiple players
-    * land on the same space.
-    */
-  var characters: ArrayBuffer[PlayerCharacter]
-
-  /** An array of panels that are directly connected to this one.
-   *
-   * In the context of the game, multiple routes or paths may exist, this could represent the
-   * possible next steps a player might take after being on this panel.
-   *
-   * @return a List of Panel instances that are adjacent or connected to this panel.
-   */
-  var nextPanels: ArrayBuffer[Panel]
-
   /** Adds a panel to the ArrayBuffer of Panels connected to the current one
    *
    *  The first connectTo method adds the Panel that is connected to a Panel to an ArrayBuffer

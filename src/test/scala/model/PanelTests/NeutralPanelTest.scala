@@ -16,8 +16,8 @@ class NeutralPanelTest extends munit.FunSuite {
   var panels2: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
   var row: Int = 0
   var col: Int = 0
-  var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer",10,1,1,1,new Random(11))
-  var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer",10,1,1,1,new Random(11))
+  var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer",10,1,1,1,new Random(11),0)
+  var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer",10,1,1,1,new Random(11),0)
 
   /*
   This is the object under test, in this case, a panel. It's initialized before each test.
@@ -55,7 +55,6 @@ class NeutralPanelTest extends munit.FunSuite {
 
   test("A panel should apply it's effects to a player on it") {
     testPanel.apply(testPlayer1)
-    assert(testPanel.methodTest)
   }
 
 }

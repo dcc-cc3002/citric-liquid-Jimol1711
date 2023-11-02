@@ -74,9 +74,9 @@ class PlayerCharacterTest extends munit.FunSuite {
   }
 
   test("A character should be able to gain victories") {
-    val currentVictories = character.victories
-    character.victories += 1
-    assert(character.victories > currentVictories)
+    val currentVictories = character.getVictories
+    character.setVictories(1)
+    assert(character.getVictories > currentVictories)
   }
 
   test("A character should be on KO when losing all it's Hp") {

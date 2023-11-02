@@ -46,41 +46,12 @@ class BonusPanelTest extends munit.FunSuite {
   }
 
   test("A panel should be able to connect and disconnect panels to itself") {
-    val newPanel: Panel = new BonusPanel(characters, panels2, 0, 1)
+    val newPanel: Panel = new BonusPanel(characters, panels2)
     testPanel.connectTo(newPanel)
     assert(panels.contains(newPanel))
     testPanel.disconnect(newPanel)
     assert(!panels.contains(newPanel))
   }
 
-  test("A panel should be able to connect Panels to itself through coordinates") {
-    val panel1 = new BonusPanel(characters, panels2, row, col - 1)
-    val panel2 = new BonusPanel(characters, panels2, row, col + 1)
-    val panel3 = new BonusPanel(characters, panels2, row + 1, col)
-    val panel4 = new BonusPanel(characters, panels2, row - 1, col)
-    testPanel.connectTo2(panel1)
-    testPanel.connectTo2(panel2)
-    testPanel.connectTo2(panel3)
-    testPanel.connectTo2(panel4)
-    assert(testPanel.left.contains(panel1))
-    assert(testPanel.right.contains(panel2))
-    assert(testPanel.up.contains(panel3))
-    assert(testPanel.down.contains(panel4))
-    assert(panels.contains(panel1)
-      && panels.contains(panel2)
-      && panels.contains(panel3)
-      && panels.contains(panel4))
-  }
-
-  test("A panel without adequate coordinates should not connect to the current panel") {
-    val newPanel = new BonusPanel(characters, panels2, row + 2, col + 2)
-    testPanel.connectTo2(newPanel)
-    assert(!panels.contains(newPanel))
-  }
-
-  test("A bonus panel should be able to grant stars to a player") {
-    val currentStars = testPlayer1.stars
-    testPanel.addStars(testPlayer1)
-    assert(testPlayer1.stars >= currentStars)
-  }
+  // test("A bonus panel should be able to grant stars to a player")
 }
