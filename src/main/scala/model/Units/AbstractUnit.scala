@@ -3,6 +3,9 @@ package model.Units
 
 import model.Units.Units
 
+import scala.math.max
+import scala.util.Random
+
 /** An abstract class representing a Unit from the game.
  *
  * It allows for the definition of methods whose implementation is shared amongst any Unit entity in the game.
@@ -15,10 +18,11 @@ import model.Units.Units
  * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
  *
  */
-abstract class AbstractPlayer(protected val aMaxHp: Int,
-                              protected val aOffense: Int,
-                              protected val aDefense: Int,
-                              protected val aEvasion: Int) extends Units {
+abstract class AbstractUnit(val aMaxHp: Int,
+                            val aOffense: Int,
+                            val aDefense: Int,
+                            val aEvasion: Int,
+                            val randomNumberGenerator: Random = new Random()) extends Units {
 
   /** Current Health Points of a Unit.
    *
@@ -33,6 +37,10 @@ abstract class AbstractPlayer(protected val aMaxHp: Int,
    *
    */
   protected var stars: Int = 0
+
+  def rollDice(): Int = {
+    randomNumberGenerator.nextInt(6) + 1
+  }
 
   /** Method that determines if a Unit was defeated on combat.
    *
@@ -49,37 +57,26 @@ abstract class AbstractPlayer(protected val aMaxHp: Int,
     currentHp
   }
 
-  def getMaxHp: Int = {
-    aMaxHp
+  def setCurrentHp(hp: Int): Unit = {
+    currentHp = hp
   }
 
-  def getOffense: Int = {
-    aOffense
+  def defend(unit: Units, defendedAttack: Int): Unit = {
+    val rollDefend: Int = rollDice()
+    setCurrentHp(getCurrentHp - max(1, (defendedAttack-aOffense) + defendedAttack - (rollDefend + aDefense)))
   }
 
-  def getDefense: Int = {
-    aDefense
-  }
-
-  def getEvasion: Int = {
-    aEvasion
-  }
-
-  def defend(): Unit = {
-
-  }
-
-  def evade(): Unit = {
-
-  }
-
-  protected def setStars(addedStars: Int): Unit = {
-    if (addedStars >= 0) {
-      stars += addedStars
+  def evade(unit: Units, evadedAttack: Int): Unit = {
+    val rollEvade: Int = rollDice()
+    if (rollEvade + aEvasion > (evadedAttack-aOffense) + evadedAttack) {
+      setCurrentHp(getCurrentHp)
+    } else {
+      setCurrentHp(getCurrentHp - evadedAttack)
     }
   }
-  protected def setHp(hp: Int): Unit = {
-    currentHp = hp
+
+  def setStars(newStars: Int): Unit = {
+      stars = newStars
   }
 
 }

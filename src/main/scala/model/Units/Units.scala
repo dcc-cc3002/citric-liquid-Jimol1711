@@ -1,6 +1,8 @@
 package cl.uchile.dcc.citric
 package model.Units
 
+import model.Units.WildUnits.WildUnit
+
 /** The 'Units' trait is a trait from which all 'Unit' entities in the game extend.
   *
   * It encapsulates methods all units share such as fighting, defending, evading, etc.
@@ -22,16 +24,16 @@ trait Units {
    * Currently empty since combat can't be yet implemented.
    *
    */
-  def attack(): Unit
+  def attack(unit: Units): Unit
 
-  def attackPlayer(): Unit
+  def attackPlayer(player: PlayerCharacter): Unit
 
-  def attackWildUnit(): Unit
+  def attackWildUnit(wildUnit: WildUnit): Unit
 
   /** Method for defending, following the schema provided on EP4 */
-  def defend(): Unit
+  def defend(unit: Units, defendedAttack: Int): Unit
 
   /** Method for evading, following the schema provided on EP4 */
-  def evade(): Unit
+  def evade(unit: Units, evadedAttack: Int): Unit
 
 }

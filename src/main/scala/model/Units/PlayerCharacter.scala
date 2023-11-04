@@ -5,7 +5,7 @@ import cl.uchile.dcc.citric.model.Norma.{Norma, Norma1, Norma2}
 import cl.uchile.dcc.citric.model.Units.WildUnits.WildUnit
 
 import scala.util.Random
-import scala.math.floor
+import scala.math.{floor, max}
 
 /** The `PlayerCharacter` class represents a character or avatar in the game, encapsulating
   * several attributes such as health points, attack strength, defense capability,
@@ -32,7 +32,6 @@ import scala.math.floor
   * @param offense The player's capability to deal damage to opponents.
   * @param defense The player's capability to resist or mitigate damage from opponents.
   * @param evasion The player's skill to completely avoid certain attacks.
-  * @param randomNumberGenerator A utility to generate random numbers. Defaults to a new `Random` instance.
   * @param chosenStat When a player is created it must determine what it's chosen stat to increase to the next Norma level will be.
   *
   * @constructor Creates a new PlayerCharacter, specifying it's parameters
@@ -54,17 +53,12 @@ import scala.math.floor
   * @author [[https://github.com/Seivier/ Vicente González B.]]
   * @author [[https://github.com/Jimol1711/ Juan Molina L.]]
   */
-class PlayerCharacter(private val name: String,
-                      private val maxHp: Int,
-                      private val offense: Int,
-                      private val defense: Int,
-                      private val evasion: Int,
-                      val randomNumberGenerator: Random = new Random(),
-                      val chosenStat: Int) extends AbstractPlayer(maxHp,offense,defense,evasion) {
-
-  def setCurrentHp(hp: Int): Unit = {
-    currentHp = hp
-  }
+class PlayerCharacter(val name: String,
+                      val maxHp: Int,
+                      val offense: Int,
+                      val defense: Int,
+                      val evasion: Int,
+                      val chosenStat: String) extends AbstractUnit(maxHp,offense,defense,evasion,randomNumberGenerator = new Random()) {
 
   /** The number of victories of a PlayerCharacter.
    *
@@ -87,11 +81,6 @@ class PlayerCharacter(private val name: String,
    *
    */
   private var chapters: Int = 0
-
-  /** Rolls a dice and returns a value between 1 to 6. */
-  def rollDice(): Int = {
-    randomNumberGenerator.nextInt(6) + 1
-  }
 
   /** When a PlayerCharacter is defeated it enters a KO state
    *
@@ -125,46 +114,101 @@ class PlayerCharacter(private val name: String,
     this.stars += floor(chapters/5).toInt + 1
   }
 
-  /** Getter of a player's name */
-  def getName: String = {
-    name
-  }
-
   /** Getter of a player's victories */
   def getVictories: Int = {
     victories
   }
 
+  /** choseDef and choseEv are used to determine a player's decision in regards to defending or evading on combat.
+   *
+   * Right now, since we can't implement user decisions, it follows a logic in which the higher stat is the one chosen, with defense
+   * being the priority in the case they are the same
+   *
+   */
+  private def choseDef: Boolean = {
+    if (defense >= evasion) true else false
+  }
+
+  private def choseEv: Boolean = {
+    if (defense < evasion) true else false
+  }
+
   /** Method for attacking
    *
-   * The methods also come with the methods attackWildUnit and attackPlayer. This methods are used to use double dispatch for the
+   * The method also come with the methods attackWildUnit and attackPlayer. This methods are used to implement double dispatch for the
    * implementation of different types of combat, since the behaviour on each type of combat is different.
    *
    */
-  def attack(): Unit = {
-
-  }
-  def attackPlayer(): Unit = {
-
+  def attack(unit: Units): Unit = {
+    unit.attackPlayer(this)
   }
 
-  def attackWildUnit(): Unit = {
-
+  /** Method for attacking a player as a PlayerCharacter
+   *
+   * The player who attacks rolls a dice and the result is added to it's offense stat. The player
+   *
+   * @param player The player that's being attacked
+   */
+  def attackPlayer(player: PlayerCharacter): Unit = {
+    val rollAttack: Int = rollDice()
+    val newOffense: Int = offense + rollAttack
+    if(choseDef) {
+      player.defend(this,newOffense)
+    } else if(choseEv) {
+      player.evade(this,newOffense)
+    }
+    if(player.getCurrentHp>0) {
+      player.attack(this)
+    } else if (player.getCurrentHp==0) {
+      setVictories(getVictories+2)
+      setStars(getStars + floor(player.getStars/2).toInt)
+      player.setStars(player.getStars - floor(player.getStars/2).toInt)
+    }
   }
 
-  def playerNorma(): Unit = {
-    val Norma = new Norma1(this,chosenStat)
-    val Norma2 = new Norma2(this,chosenStat)
+  /** Method for attacking a wild unit as a PlayerCharacter
+   *
+   * Same logic as attacking a player. Only difference is in how the stars are added to the player in the case it wins.
+   *
+   * @param wildUnit The wild unit that's being attacked
+   */
+  def attackWildUnit(wildUnit: WildUnit): Unit = {
+    val rollAttack: Int = rollDice()
+    val newOffense: Int = offense + rollAttack
+    val defOrEv: Int = randomNumberGenerator.nextInt(2) + 1
+    if (defOrEv==1) {
+      wildUnit.defend(this,newOffense)
+    } else if (defOrEv==2) {
+      wildUnit.evade(this,newOffense)
+    }
+    if (wildUnit.getCurrentHp > 0) {
+      wildUnit.attack(this)
+    } else if (wildUnit.getCurrentHp == 0) {
+      setVictories(getVictories + 1)
+      setStars(getStars + wildUnit.getStars + wildUnit.bonusStars)
+    }
   }
 
-  private var currentNorma: Norma = new Norma1(this, chosenStat)
+  /** Variables for the implementation of the attribute Norma for each player.
+   *
+   */
+  private var currentNorma: Option[Norma] = None
+  private var normaLevel: Int = 1
 
-  def getNorma: Norma = {
+  def getNorma: Option[Norma] = {
     currentNorma
   }
 
+  def getNormaLevel: Int = {
+    normaLevel
+  }
+
   def setNorma(norma: Norma): Unit = {
-    currentNorma = norma
+    if(chosenStat=="stars") {
+      currentNorma = Norma1("stars",10)
+    } else if(chosenStat=="victories") {
+      currentNorma = Norma1("victories",1)
+    }
   }
 
 }

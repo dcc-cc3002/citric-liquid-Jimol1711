@@ -53,5 +53,17 @@ class DropPanelTest extends munit.FunSuite {
     assert(!panels.contains(newPanel))
   }
 
-  // test("A bonus panel should be able to remove stars from a player")
+  test("A bonus panel should be able to remove stars from a player") {
+    testPlayer1.setStars(testPlayer1.getStars+10)
+    val currentStars = testPlayer1.getStars
+    testPanel.apply(testPlayer1)
+    assert(testPlayer1.getStars >= 0)
+    assert(testPlayer1.getStars < currentStars)
+  }
+
+  test("When the number of stars removed is more than the current stars, it should be set to 0") {
+    val currentStars = testPlayer1.getStars
+    testPanel.apply(testPlayer1)
+    assert(testPlayer1.getStars == 0)
+  }
 }

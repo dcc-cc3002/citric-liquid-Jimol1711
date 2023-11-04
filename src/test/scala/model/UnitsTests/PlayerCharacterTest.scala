@@ -19,7 +19,8 @@ class PlayerCharacterTest extends munit.FunSuite {
   private val defense = 1
   private val evasion = 1
   private var randomNumberGenerator: Random = _
-  private val chosenStat = 5
+  private val chosenStat1 = "stars"
+  private val chosenStat2 = "victories"
   private val testWildUnit: Units = new Chicken
 
   private var character: PlayerCharacter = _
@@ -34,24 +35,22 @@ class PlayerCharacterTest extends munit.FunSuite {
       offense,
       defense,
       evasion,
-      randomNumberGenerator,
-      chosenStat)
+      chosenStat1)
     character2 = new PlayerCharacter(
       name,
       maxHp,
       offense,
       defense,
       evasion,
-      randomNumberGenerator,
-      chosenStat)
+      chosenStat2)
   }
 
   test("A character should have correctly set their attributes") {
-    assertEquals(character.getName, name)
-    assertEquals(character.getMaxHp, maxHp)
-    assertEquals(character.getOffense, offense)
-    assertEquals(character.getDefense, defense)
-    assertEquals(character.getEvasion, evasion)
+    assertEquals(character.name, name)
+    assertEquals(character.maxHp, maxHp)
+    assertEquals(character.offense, offense)
+    assertEquals(character.defense, defense)
+    assertEquals(character.evasion, evasion)
   }
 
   // Testing invariant property. The result is always between 1 and 6.
@@ -59,11 +58,6 @@ class PlayerCharacterTest extends munit.FunSuite {
     for (_ <- 1 to 10) {
       assert(character.rollDice >= 1 && character.rollDice <= 6)
     }
-  }
-
-  test("A character should be able to perform a NormaClear") {
-    character.getNorma.normaClear(character,chosenStat)
-    assert(character.getNorma.isInstanceOf[Norma2])
   }
 
   test("A character should be able to gain stars on it's turn") {
@@ -89,5 +83,14 @@ class PlayerCharacterTest extends munit.FunSuite {
     character.setCurrentHp(character.getCurrentHp - maxHp)
     character.recovery()
   }
+
+  test("A player should be able to attack another player and reduce it's hp") {
+    val characterStars: Int = character.getStars
+    val character2Stars: Int = character2.getStars
+    val character2Hp: Int = character2.getCurrentHp
+    character.attack(character2)
+    assert(character2.getCurrentHp<character2Hp)
+  }
+
 
 }

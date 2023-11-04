@@ -45,7 +45,7 @@ class HomePanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBu
    *
    * @param player The player to whom the Norma check is being done to, if it meets the conditions, the player performs a NormaClear
    */
-  def normaCheck(player: PlayerCharacter): Unit = {
+  def normaCheck(player: PlayerCharacter, chosenStat: Int): Unit = {
     // if (player.getNorma.chosenStat) {
     //  player.getNorma.normaClear(player)
     // }
@@ -62,13 +62,13 @@ class HomePanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBu
       for (player <- characters) {
         if (owner.contains(player)) {
           println("Would you like to rest at home? Y/N")
-          if (ans.contains("Y") && player.getCurrentHp <= player.getMaxHp) {
+          if (ans.contains("Y") && player.getCurrentHp <= player.maxHp) {
             player.setCurrentHp(player.getCurrentHp+1)
-            normaCheck(player)
+            player.getNorma.normaCheck(player,player.chosenStat)
           }
-        } else if (!owner.contains(player) && player.getCurrentHp <= player.getMaxHp) {
+        } else if (!owner.contains(player) && player.getCurrentHp <= player.maxHp) {
           player.setCurrentHp(player.getCurrentHp+1)
-          player.getNorma.normaCheck(player)
+          player.getNorma.normaCheck(player,player.chosenStat)
         }
       }
     }

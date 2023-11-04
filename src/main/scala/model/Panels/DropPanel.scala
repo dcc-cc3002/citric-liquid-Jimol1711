@@ -24,9 +24,12 @@ class DropPanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBu
    */
   def apply(player: PlayerCharacter): Unit = {
     if (characters.contains(player)) {
-      val roll: Int = player.rollDice()
-      // player.stars -= player.getNorma * roll
-    } // This implementation is not final since it requires setters (WIP)
+      val roll = player.rollDice()
+      player.setStars(player.getStars - (roll * player.getNormaLevel))
+    }
+    if (player.getStars < 0) {
+      player.setStars(0)
+    }
   }
 
 }

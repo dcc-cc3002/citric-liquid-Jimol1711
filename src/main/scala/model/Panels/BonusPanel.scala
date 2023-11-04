@@ -24,9 +24,9 @@ class BonusPanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayB
    *
    */
   def apply(player: PlayerCharacter): Unit = {
-    if (characters.contains(player)) {
-      val roll: Int = player.rollDice()
-      // min(roll * player.getNorma, roll * 3)
+    for (player <- characters) {
+      val roll = player.rollDice()
+      player.setStars(player.getStars + min(roll * player.getNormaLevel, roll * 3))
     }
   }
 }
