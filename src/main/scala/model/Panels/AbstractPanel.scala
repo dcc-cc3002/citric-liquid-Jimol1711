@@ -58,7 +58,8 @@ abstract class AbstractPanel(protected var aCharacters: ArrayBuffer[PlayerCharac
   }
 
   def getPanels: ArrayBuffer[Panel] = {
-    aNextPanels
+    val pseudoNextPanels = aNextPanels
+    pseudoNextPanels
   }
 
 }

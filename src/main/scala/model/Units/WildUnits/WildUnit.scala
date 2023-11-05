@@ -50,12 +50,15 @@ class WildUnit(val maxHp: Int,
     }
   }
 
+  var testingVariable: Boolean = false
   /** Attack wild unit method for Wild Units.
    *
    * No implementation, since wild units can't fight each other in the game.
    *
    * @param wildUnit The wild unit that's being attacked by the Wild Unit.
    */
-  def attackWildUnit(wildUnit: WildUnit): Unit = {}
+  def attackWildUnit(wildUnit: WildUnit): Unit = {
+    testingVariable = true
+  }
 
 }

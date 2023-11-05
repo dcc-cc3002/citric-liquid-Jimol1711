@@ -3,9 +3,7 @@ package model.NormaTests
 
 import model.Units.PlayerCharacter
 
-import cl.uchile.dcc.citric.model.Norma.{Norma, Norma1, Norma2}
-
-import scala.util.Random
+import cl.uchile.dcc.citric.model.Norma.{Norma1, Norma2}
 
 class Norma1Test extends munit.FunSuite {
 
@@ -23,14 +21,13 @@ class Norma1Test extends munit.FunSuite {
   }
 
   test("The Norma should be able to perform a normaClear on a player, either if it chose stars or victories as their stat requirement") {
-    testPlayer1.setStars(testPlayer1.getStars+10)
+    testPlayer1.setStars(testPlayer1.getStars+20)
     testPlayer1.setNorma(testNorma1)
     testNorma1.normaClear(testPlayer1,"stars")
     assert(testPlayer1.getNorma.getClass==classOf[Norma2])
-    testPlayer2.setStars(testPlayer2.getVictories + 1)
-    testPlayer2.setNorma(testNorma1)
-    testNorma2.normaClear(testPlayer1, "victories")
-    assert(testPlayer1.getNorma.getClass == classOf[Norma2])
+    testPlayer2.setStars(testPlayer2.getVictories + 2)
+    testPlayer2.setNorma(testNorma2)
+    testNorma2.normaClear(testPlayer2, "victories")
     assert(testPlayer2.getNorma.getClass == classOf[Norma2])
   }
 

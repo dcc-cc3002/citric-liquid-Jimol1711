@@ -11,14 +11,20 @@ import model.Units.PlayerCharacter
  */
 trait Norma {
 
-  /** Checks if a player has the required stars or victories to do a Norma Clear
-    *
-    * If a player meets the number of stars or victories necessary it can perform a Norma Clear
-    *
-    * @param player The player character to whom the Norma is being performed to
-    *
-    */
-  def normaCheck(player: PlayerCharacter, nextChosenStat: String): Unit
+  /** The chosen stat to increase to the next Norma level.
+   *
+   * This stat is selected by the player character when increasing the Norma level. The player character chooses the stat for the next
+   * norma level to increase.
+   *
+   */
+  val statChosen: String
+
+  /** The required number to overcome to increase to the next Norma level.
+   *
+   * It can be either stars or victories, which is determined when creating a new instance of Norma.
+   *
+   */
+  val statRequirement: Int
 
   /** Increases a player's level if it meets the conditions, either stars or victories depending on the class of the Norma created
    *

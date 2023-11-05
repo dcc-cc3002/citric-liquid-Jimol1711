@@ -25,6 +25,9 @@ class HomePanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBu
 
   /** Auxiliary constructor to set an owner for the home panel
    *
+   * The reason for using an auxiliary constructor is extensibility. It sounds reasonable that not every game has four players, but still
+   * has four home panels (Or more). Therefore the creation of a home panel without owner must be allowed.
+   *
    */
   def this(characters: ArrayBuffer[PlayerCharacter],
            nextPanels: ArrayBuffer[Panel],
@@ -39,21 +42,28 @@ class HomePanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBu
   }
 
   // This variable is a placeholder that makes sure that the stop method works correctly since the implementation of user inputs can't be yet implemented
-  var ans: Option[String] = None
+  private var ans: String = "Y"
 
   /** NormaCheck checks if a player meets the conditions necessary to increase it's Norma Level.
    *
    * @param player The player to whom the Norma check is being done to, if it meets the conditions, the player performs a NormaClear
    */
-  def normaCheck(player: PlayerCharacter, chosenStat: Int): Unit = {
-    // if (player.getNorma.chosenStat) {
-    //  player.getNorma.normaClear(player)
-    // }
+  private def normaCheck(player: PlayerCharacter, nextChosenStat: String): Unit = {
+    if (player.chosenStat == "stars") {
+      if (player.getStars >= player.getNorma.statRequirement) {
+        player.getNorma.normaClear(player, nextChosenStat)
+      }
+    } else if (player.chosenStat == "victories") {
+      if (player.getVictories >= player.getNorma.statRequirement) {
+        player.getNorma.normaClear(player, nextChosenStat)
+      }
+    } else {}
   }
 
   /** Asserts the player is the owner. If so, asks the player if it wants to stop on the Panel or keep going.
    *
-   * If a player rests on the home panel, and it's currentHp is lower than it's maxHp, it's currentHp is increased by one point and a NormaCheck is done on the player.
+   * If a player rests on the home panel, and it's currentHp is lower than it's maxHp, it's currentHp is increased by one point and a
+   * NormaCheck is done on the player.
    *
    * @param player the player that drops on this home panel, either the owner or another player who dropped exactly on it.
    */
@@ -62,13 +72,13 @@ class HomePanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBu
       for (player <- characters) {
         if (owner.contains(player)) {
           println("Would you like to rest at home? Y/N")
-          if (ans.contains("Y") && player.getCurrentHp <= player.maxHp) {
+          if (ans=="Y") {
             player.setCurrentHp(player.getCurrentHp+1)
-            player.getNorma.normaCheck(player,player.chosenStat)
+            normaCheck(player,player.chosenStat)
           }
-        } else if (!owner.contains(player) && player.getCurrentHp <= player.maxHp) {
+        } else if (!owner.contains(player)) {
           player.setCurrentHp(player.getCurrentHp+1)
-          player.getNorma.normaCheck(player,player.chosenStat)
+          normaCheck(player,player.chosenStat)
         }
       }
     }

@@ -27,7 +27,7 @@ class EncounterPanel(protected var characters: ArrayBuffer[PlayerCharacter] = Ar
   /** The bellaco will be the Wild Unit set for the particular panel that's created
    *
    */
-  var bellaco: Option[WildUnit] = None
+  private var bellaco: WildUnit = chicken
 
   /** Sets a random WildUnit for the panel
    *
@@ -36,12 +36,17 @@ class EncounterPanel(protected var characters: ArrayBuffer[PlayerCharacter] = Ar
     val random = new Random()
     val randomNumber = random.nextInt(3)
     if (randomNumber == 1) {
-      bellaco = Some(chicken)
+      bellaco = chicken
     } else if (randomNumber == 2) {
-      bellaco = Some(seagull)
+      bellaco = seagull
     } else {
-      bellaco = Some(roboball)
+      bellaco = roboball
     }
+  }
+
+  /** Getter of the panel's bellaco */
+  def getBellaco: WildUnit = {
+    bellaco
   }
 
   /** The encounterUnit() method is called each time an EncounterPanel is created, so that a bellaco is set */
@@ -55,18 +60,8 @@ class EncounterPanel(protected var characters: ArrayBuffer[PlayerCharacter] = Ar
    * @param player the player that drops on this panel
    * */
   def apply(player: PlayerCharacter): Unit = {
-    bellaco match {
-      case Some(b) =>
-
-        if (b.defeated()) {
-          // player.setStars(player.getStars+b.getStars)
-          bellaco = None
-          player.setVictories(player.getVictories+1)
-        } else {
-          // val starsGained = floor(player.stars / 2).toInt
-          // b.stars += starsGained
-          // player.stars -= starsGained
-        }
+    if(characters.contains(player)){
+      player.attack(bellaco)
     }
   }
 

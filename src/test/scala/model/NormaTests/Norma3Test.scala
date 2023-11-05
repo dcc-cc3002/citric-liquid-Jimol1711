@@ -5,21 +5,30 @@ import model.Units.PlayerCharacter
 
 import cl.uchile.dcc.citric.model.Norma.{Norma3, Norma4}
 
-import scala.util.Random
-
 class Norma3Test extends munit.FunSuite {
 
-  var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, new Random(11), 5)
+  private val chosenStat1: String = "stars"
+  private val chosenStat2: String = "victories"
+  private val testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer1", 10, 1, 1, 1, "stars")
+  private val testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer2", 10, 1, 1, 1, "victories")
 
-  private var testNorma3: Norma3 = _
+  private var testNorma1: Norma3 = _
+  private var testNorma2: Norma3 = _
 
   override def beforeEach(context: BeforeEach): Unit = {
-    testNorma3 = new Norma3(testPlayer1, 5)
+    testNorma1 = new Norma3(chosenStat1, 70)
+    testNorma2 = new Norma3(chosenStat2, 6)
   }
 
-  test("The Norma should be able to perform a normaClear on a player") {
-    testNorma3.normaClear(testPlayer1, 5)
-    assert(testPlayer1.getNorma.isInstanceOf[Norma4])
+  test("The Norma should be able to perform a normaClear on a player, either if it chose stars or victories as their stat requirement") {
+    testPlayer1.setStars(testPlayer1.getStars + 80)
+    testPlayer1.setNorma(testNorma1)
+    testNorma1.normaClear(testPlayer1, "stars")
+    assert(testPlayer1.getNorma.getClass == classOf[Norma4])
+    testPlayer2.setStars(testPlayer2.getVictories + 7)
+    testPlayer2.setNorma(testNorma2)
+    testNorma2.normaClear(testPlayer2, "victories")
+    assert(testPlayer2.getNorma.getClass == classOf[Norma4])
   }
 
 }

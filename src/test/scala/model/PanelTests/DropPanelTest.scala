@@ -1,23 +1,20 @@
 package cl.uchile.dcc.citric
-package model
+package model.PanelTests
 
 import cl.uchile.dcc.citric.model.Panels.{DropPanel, Panel}
 import cl.uchile.dcc.citric.model.Units.PlayerCharacter
 
 import scala.collection.mutable.ArrayBuffer
-import scala.util.Random
 
 class DropPanelTest extends munit.FunSuite {
   /*
   This will be the initial constant values for each panel. Plus, there's an instantiation of test players to use on the panels tests.
   */
-  var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
-  var panels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
-  var panels2: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
-  var row: Int = 0
-  var col: Int = 0
-  var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, new Random(11),0)
-  var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, new Random(11),0)
+  private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
+  private var panels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
+  private var panels2: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
+  private var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, "stars")
+  private var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, "victories")
 
   /*
   This is the object under test, in this case, a panel. It's initialized before each test.
@@ -62,8 +59,9 @@ class DropPanelTest extends munit.FunSuite {
   }
 
   test("When the number of stars removed is more than the current stars, it should be set to 0") {
-    val currentStars = testPlayer1.getStars
+    testPlayer1.setStars(0)
     testPanel.apply(testPlayer1)
     assert(testPlayer1.getStars == 0)
   }
+
 }

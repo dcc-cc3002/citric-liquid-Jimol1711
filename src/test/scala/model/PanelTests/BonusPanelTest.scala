@@ -1,23 +1,20 @@
 package cl.uchile.dcc.citric
-package model
+package model.PanelTests
 
 import cl.uchile.dcc.citric.model.Panels.{BonusPanel, Panel}
 import cl.uchile.dcc.citric.model.Units.PlayerCharacter
 
 import scala.collection.mutable.ArrayBuffer
-import scala.util.Random
 
 class BonusPanelTest extends munit.FunSuite {
   /*
   This will be the initial constant values for each panel. Plus, there's an instantiation of test players to use on the panels tests.
   */
-  var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
-  var panels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
-  var panels2: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
-  var row: Int = 0
-  var col: Int = 0
-  var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, new Random(11), 5)
-  var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, new Random(11), 5)
+  private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
+  private var panels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
+  private var panels2: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
+  private var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, "stars")
+  private var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer", 10, 1, 1, 1, "stars")
 
   /*
   This is the object under test, in this case, a panel. It's initialized before each test.
@@ -58,4 +55,5 @@ class BonusPanelTest extends munit.FunSuite {
     testPanel.apply(testPlayer1)
     assert(testPlayer1.getStars>currentStars)
   }
+
 }

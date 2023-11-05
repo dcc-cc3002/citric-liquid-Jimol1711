@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model.Units
 
-import model.Units.Units
+import exceptions.InvalidStatException
 
 import scala.math.max
 import scala.util.Random
@@ -29,14 +29,14 @@ abstract class AbstractUnit(val aMaxHp: Int,
    * They begin being equal to maxHp but will vary if the Unit enters combat with another Unit.
    *
    */
-  protected var currentHp: Int = aMaxHp
+  private var currentHp: Int = aMaxHp
 
   /** Number of stars a Unit has.
    *
    * Every Unit entity can have a number of Stars. They can be gained by several means, depending on the Unit.
    *
    */
-  protected var stars: Int = 0
+  private var stars: Int = 0
 
   def rollDice(): Int = {
     randomNumberGenerator.nextInt(6) + 1
@@ -50,6 +50,7 @@ abstract class AbstractUnit(val aMaxHp: Int,
     currentHp <= 0
   }
 
+  /** Getter of a Unit's stars */
   def getStars: Int = {
     stars
   }
@@ -58,7 +59,7 @@ abstract class AbstractUnit(val aMaxHp: Int,
   }
 
   def setCurrentHp(hp: Int): Unit = {
-    currentHp = hp
+    if (hp > 0) currentHp = hp else currentHp = 0
   }
 
   def defend(unit: Units, defendedAttack: Int): Unit = {
@@ -77,6 +78,17 @@ abstract class AbstractUnit(val aMaxHp: Int,
 
   def setStars(newStars: Int): Unit = {
       stars = newStars
+  }
+
+  /** Exceptions method to validate the Units maxHp
+   *
+   * Units can't have negative maxHp.
+   *
+   */
+  def validateStat(value: Int, statName: String): Unit = {
+    if (value < 0) {
+      throw new InvalidStatException(s"Invalid $statName: $value. $statName must be a non-negative value.")
+    }
   }
 
 }

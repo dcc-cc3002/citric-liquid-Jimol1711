@@ -1,33 +1,32 @@
 package cl.uchile.dcc.citric
-package model
+package model.PanelTests
 
 import cl.uchile.dcc.citric.model.Panels.{HomePanel, Panel}
 import cl.uchile.dcc.citric.model.Units.PlayerCharacter
 
 import scala.collection.mutable.ArrayBuffer
-import scala.util.Random
 
 class HomePanelTest extends munit.FunSuite {
   /*
   This will be the initial constant values for each panel. Plus, there's an instantiation of test players to use on the panels tests.
   */
-  var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
-  var panels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
-  var panels2: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
-  var row: Int = 0
-  var col: Int = 0
-  var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer1", 10, 1, 1, 1, new Random(11),0)
-  var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer2", 10, 1, 1, 1, new Random(11),0)
+  private var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
+  private var panels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
+  private var panels2: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
+  private var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer1", 10, 1, 1, 1, "stars")
+  private var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer2", 10, 1, 1, 1, "victories")
 
   /*
   This is the object under test, in this case, a panel. It's initialized before each test.
   */
   private var testPanel: HomePanel = _
+  private var testPanel2: HomePanel = _
 
   // Method that is executed before each test method
   override def beforeEach(context: BeforeEach): Unit = {
-    characters = ArrayBuffer(testPlayer1)
+    characters = ArrayBuffer(testPlayer1,testPlayer2)
     testPanel = new HomePanel(characters, panels, testPlayer1)
+    testPanel2 = new HomePanel(characters, panels, testPlayer2)
   }
 
   test("A panel should be able to receive new players") {
@@ -45,7 +44,6 @@ class HomePanelTest extends munit.FunSuite {
     assert(characters.size >= 2)
   }
 
-  // Connection tests
   test("A panel should be able to connect and disconnect panels to itself") {
     val newPanel: Panel = new HomePanel(characters, panels2)
     testPanel.connectTo(newPanel)
@@ -58,8 +56,20 @@ class HomePanelTest extends munit.FunSuite {
     assert(testPanel.owner.contains(testPlayer1))
   }
 
-  //test("A home panel should be able to do a NormaCheck on a player character")
+  test("A home panel should perform a norma check for stars or victories on a player") {
+    testPlayer1.setStars(5)
+    testPanel.apply(testPlayer1)
+    assert(testPlayer1.getNormaLevel == 1)
+    testPlayer1.setStars(15)
+    testPanel.apply(testPlayer1)
+    assert(testPlayer1.getNormaLevel == 2)
 
-
+    testPlayer2.setVictories(0)
+    testPanel2.apply(testPlayer2)
+    assert(testPlayer2.getNormaLevel == 1)
+    testPlayer2.setVictories(1)
+    testPanel2.apply(testPlayer2)
+    assert(testPlayer2.getNormaLevel == 2)
+  }
 
 }

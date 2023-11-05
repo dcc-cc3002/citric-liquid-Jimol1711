@@ -104,14 +104,14 @@ class PlayerCharacter(val name: String,
     var roll = this.rollDice()
     if (this.KO()) {
       if (6 - chapters >= roll) {
-        currentHp = roll
+        setCurrentHp(roll)
       }
     }
   }
 
   /** On a PlayerCharacter's turn, they will be able to gain a number of stars equal to ⌊chapters/5⌋ + 1. */
   def onTurnStars(): Unit = {
-    this.stars += floor(chapters/5).toInt + 1
+    setStars(getStars + (floor(chapters/5).toInt + 1))
   }
 
   /** Getter of a player's victories */
@@ -161,8 +161,8 @@ class PlayerCharacter(val name: String,
       player.attack(this)
     } else if (player.getCurrentHp==0) {
       setVictories(getVictories+2)
-      setStars(getStars + floor(player.getStars/2).toInt)
-      player.setStars(player.getStars - floor(player.getStars/2).toInt)
+      setStars(getStars + floor(player.getStars / 2).toInt)
+      player.setStars(player.getStars - floor(player.getStars / 2).toInt)
     }
   }
 
@@ -189,26 +189,32 @@ class PlayerCharacter(val name: String,
     }
   }
 
-  /** Variables for the implementation of the attribute Norma for each player.
-   *
-   */
-  private var currentNorma: Option[Norma] = None
+  /** Initial stat requirement to get to the next Norma level */
+  private var chosenStatRequirement: Int = 999999
+
+  if (chosenStat=="stars") chosenStatRequirement = 10
+  if (chosenStat=="victories") chosenStatRequirement = 1
+
+  /** Variables for the implementation of the attribute Norma for each player. */
+  private var currentNorma: Norma = new Norma1(chosenStat,chosenStatRequirement)
+
+  /** The player's current normaLevel */
   private var normaLevel: Int = 1
 
-  def getNorma: Option[Norma] = {
+  /** Getter of the player's Norma */
+  def getNorma: Norma = {
     currentNorma
   }
 
+  /** Getter of the player's Norma level */
   def getNormaLevel: Int = {
     normaLevel
   }
 
+  /** Setter of the player's Norma */
   def setNorma(norma: Norma): Unit = {
-    if(chosenStat=="stars") {
-      currentNorma = Norma1("stars",10)
-    } else if(chosenStat=="victories") {
-      currentNorma = Norma1("victories",1)
-    }
+    currentNorma = norma
+    normaLevel += 1
   }
 
 }
