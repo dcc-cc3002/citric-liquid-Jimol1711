@@ -21,7 +21,7 @@ trait Units {
 
   /** Method to define combat between Units.
    *
-   * Currently empty since combat can't be yet implemented.
+   * Currently empty since combat can't be yet implemented. attackPlayer and attackWildUnit are double dispatching methods.
    *
    */
   def attack(unit: Units): Unit

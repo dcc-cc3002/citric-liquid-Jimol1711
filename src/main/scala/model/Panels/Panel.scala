@@ -17,7 +17,7 @@ import scala.collection.mutable.ArrayBuffer
   */
 trait Panel {
 
-  /** Adds a panel to the ArrayBuffer of Panels connected to the current one
+  /** Adds a panel to the ArrayBuffer of Panels connected to the current one.
    *
    *  The first connectTo method adds the Panel that is connected to a Panel to an ArrayBuffer
    *  that the Panel has. This ArrayBuffer is empty by default.
@@ -27,7 +27,7 @@ trait Panel {
    */
   def connectTo(panel: Panel): Unit
 
-  /** Disconnects a panel from another one by removing it from it's nextPanels ArrayBuffer
+  /** Disconnects a panel from another one by removing it from it's nextPanels ArrayBuffer.
    *
    * @param panel the panel that's going to be disconnected.
    */

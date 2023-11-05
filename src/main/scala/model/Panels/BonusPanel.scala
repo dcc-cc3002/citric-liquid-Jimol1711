@@ -16,9 +16,9 @@ import scala.math.min
 class BonusPanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
                  protected var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters,nextPanels) {
 
-  /** Implementation of the apply method for the effect of the bonus panel, replaces the addStars method defined previously
+  /** Implementation of the apply method for the effect of the bonus panel, replaces the addStars method defined previously.
    *
-   * If a player drops on this panel, the apply method is invoked on them
+   * If a player drops on this panel, the apply method is invoked on them.
    *
    * @param player The PlayerCharacter to whom the function is adding the stars to.
    *

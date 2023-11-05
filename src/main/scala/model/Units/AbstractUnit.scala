@@ -54,19 +54,24 @@ abstract class AbstractUnit(val aMaxHp: Int,
   def getStars: Int = {
     stars
   }
+
+  /** Getter of a Unit's currentHp */
   def getCurrentHp: Int = {
     currentHp
   }
 
+  /** Setter of a Unit's currentHp */
   def setCurrentHp(hp: Int): Unit = {
     if (hp > 0) currentHp = hp else currentHp = 0
   }
 
+  /** Defend method for defending on combat */
   def defend(unit: Units, defendedAttack: Int): Unit = {
     val rollDefend: Int = rollDice()
     setCurrentHp(getCurrentHp - max(1, (defendedAttack-aOffense) + defendedAttack - (rollDefend + aDefense)))
   }
 
+  /** Evade method for evading on combat */
   def evade(unit: Units, evadedAttack: Int): Unit = {
     val rollEvade: Int = rollDice()
     if (rollEvade + aEvasion > (evadedAttack-aOffense) + evadedAttack) {
@@ -76,11 +81,12 @@ abstract class AbstractUnit(val aMaxHp: Int,
     }
   }
 
+  /** Setter of the Unit's stars */
   def setStars(newStars: Int): Unit = {
       stars = newStars
   }
 
-  /** Exceptions method to validate the Units maxHp
+  /** Exceptions method to validate the Units maxHp.
    *
    * Units can't have negative maxHp.
    *

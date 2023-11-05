@@ -18,12 +18,12 @@ import scala.collection.mutable.ArrayBuffer
 class HomePanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
                 protected var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters, nextPanels) {
 
-  /** Initially the Home Panel has no owner. It is set with an auxiliary constructor
+  /** Initially the Home Panel has no owner. It is set with an auxiliary constructor.
    *
    */
   var owner: Option[PlayerCharacter] = None
 
-  /** Auxiliary constructor to set an owner for the home panel
+  /** Auxiliary constructor to set an owner for the home panel.
    *
    * The reason for using an auxiliary constructor is extensibility. It sounds reasonable that not every game has four players, but still
    * has four home panels (Or more). Therefore the creation of a home panel without owner must be allowed.
@@ -31,7 +31,7 @@ class HomePanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBu
    */
   def this(characters: ArrayBuffer[PlayerCharacter],
            nextPanels: ArrayBuffer[Panel],
-           /** Sets the owner of this home panel using an Auxiliary constructor
+           /** Sets the owner of this home panel using an Auxiliary constructor.
             *
             * The owner is allowed to stop on the panel, no matter if it still has moves left or not.
             *

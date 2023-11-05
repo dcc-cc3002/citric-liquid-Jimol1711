@@ -1,9 +1,9 @@
 package cl.uchile.dcc.citric
 package model.Units.WildUnits
 
-/** A class representing a Chicken
+/** A class representing a Chicken.
  *
- * The values for each WildUnit are set on it's particular class since they differ from one another
+ * The values for each WildUnit are set on it's particular class since they differ from one another.
  *
  */
 class Chicken extends WildUnit(maxHp = 3, offense = -1, defense = -1, evasion = +1, bonusStars = 3) {

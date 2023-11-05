@@ -20,7 +20,7 @@ import scala.collection.mutable.ArrayBuffer
 abstract class AbstractPanel(protected var aCharacters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
                              protected var aNextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends Panel {
 
-  /** Implementation of the method that adds panels to a panel's nextPanels ArrayBuffer
+  /** Implementation of the method that adds panels to a panel's nextPanels ArrayBuffer.
    *
    * @param panel the panel that's being connected (added to the ArrayBuffer).
    *
@@ -29,7 +29,7 @@ abstract class AbstractPanel(protected var aCharacters: ArrayBuffer[PlayerCharac
       aNextPanels += panel
   }
 
-  /** Implementation of the method that removes a panel from a panel's nextPanels ArrayBuffer
+  /** Implementation of the method that removes a panel from a panel's nextPanels ArrayBuffer.
    *
    * @param panel the panel that's going to be disconnected.
    */
@@ -57,6 +57,11 @@ abstract class AbstractPanel(protected var aCharacters: ArrayBuffer[PlayerCharac
     aCharacters -= player
   }
 
+  /** Getter of the panel's currently connected Panels.
+   *
+   * It returns a copy of the nextPanels array buffer so that said panel can't be directly modified.
+   *
+   */
   def getPanels: ArrayBuffer[Panel] = {
     val pseudoNextPanels = aNextPanels
     pseudoNextPanels

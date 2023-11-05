@@ -69,7 +69,7 @@ class PlayerCharacter(val name: String,
    */
   private var victories: Int = 0
 
-  /** Setter for the player's victories. The responsibility of setting victories is relegated to the player
+  /** Setter for the player's victories. The responsibility of setting victories is relegated to the player.
    *
    * @param newVictories The victories that the new victories are set to
    */
@@ -133,7 +133,7 @@ class PlayerCharacter(val name: String,
     if (defense < evasion) true else false
   }
 
-  /** Method for attacking
+  /** Method for attacking.
    *
    * The method also come with the methods attackWildUnit and attackPlayer. This methods are used to implement double dispatch for the
    * implementation of different types of combat, since the behaviour on each type of combat is different.
@@ -143,9 +143,9 @@ class PlayerCharacter(val name: String,
     unit.attackPlayer(this)
   }
 
-  /** Method for attacking a player as a PlayerCharacter
+  /** Method for attacking a player as a PlayerCharacter.
    *
-   * The player who attacks rolls a dice and the result is added to it's offense stat. The player
+   * The player who attacks rolls a dice and the result is added to it's offense stat.
    *
    * @param player The player that's being attacked
    */

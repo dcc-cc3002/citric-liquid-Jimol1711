@@ -5,7 +5,7 @@ import model.Units.{AbstractUnit, PlayerCharacter, Units}
 
 import scala.util.Random
 
-/** An abstract class representing an abstract WildUnit
+/** An abstract class representing an abstract WildUnit.
  *
  * It implements methods common to every WildUnit, in particular those regarding defending and evading.
  *

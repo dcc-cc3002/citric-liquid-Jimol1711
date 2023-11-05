@@ -17,19 +17,19 @@ import scala.collection.mutable.ArrayBuffer
 class EncounterPanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
                      protected var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters, nextPanels) {
 
-  /** Setting of three instances of WildUnits
+  /** Setting of three instances of WildUnits.
    *
    */
   val chicken: WildUnit = new Chicken
   val roboball: WildUnit = new Roboball
   val seagull: WildUnit = new Seagull
 
-  /** The bellaco will be the Wild Unit set for the particular panel that's created
+  /** The bellaco will be the Wild Unit set for the particular panel that's created.
    *
    */
   private var bellaco: WildUnit = chicken
 
-  /** Sets a random WildUnit for the panel
+  /** Sets a random WildUnit for the panel.
    *
    */
   private def encounterUnit(): Unit = {
@@ -52,7 +52,7 @@ class EncounterPanel(protected var characters: ArrayBuffer[PlayerCharacter] = Ar
   /** The encounterUnit() method is called each time an EncounterPanel is created, so that a bellaco is set */
   encounterUnit()
 
-  /** It starts a fight between a player and a bellaco
+  /** It starts a fight between a player and a bellaco.
    *
    * If the bellaco is defeated, the player obtains it's stars and the bellaco on the panel dissapears. Also, the player
    * gains 1 victory.
