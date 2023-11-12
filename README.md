@@ -36,6 +36,11 @@ set attributes.
 The Class PlayerCharacter and Panel didn't receive major changes on their documentation. All the other classes do have the proper
 documentation.
 
+## State Diagram
+
+The following is a State diagram that outlines the different states and transitions of a game.
+
+![Diagrama de estados](docs/diagrama-estados.png)
 
 <div style="text-align:center;">
     <img src="https://i.creativecommons.org/l/by/4.0/88x31.png" alt="Creative Commons License">
