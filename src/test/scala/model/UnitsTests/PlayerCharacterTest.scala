@@ -2,7 +2,7 @@ package cl.uchile.dcc.citric
 package model.UnitsTests
 
 import cl.uchile.dcc.citric.exceptions.InvalidStatException
-import cl.uchile.dcc.citric.model.Units.WildUnits.{Chicken, WildUnit}
+import cl.uchile.dcc.citric.model.Units.WildUnits.{Chicken, AbstractWildUnit}
 import cl.uchile.dcc.citric.model.Units.PlayerCharacter
 import cl.uchile.dcc.citric.model.Norma.Norma2
 
@@ -26,7 +26,7 @@ class PlayerCharacterTest extends munit.FunSuite {
   private var randomNumberGenerator: Random = _
   private val chosenStat1 = "stars"
   private val chosenStat2 = "victories"
-  private val testWildUnit: WildUnit = new Chicken
+  private val testWildUnit: AbstractWildUnit = new Chicken
 
   private var character: PlayerCharacter = _
   private var character2: PlayerCharacter = _

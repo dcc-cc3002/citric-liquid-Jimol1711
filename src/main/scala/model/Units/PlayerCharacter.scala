@@ -2,7 +2,7 @@ package cl.uchile.dcc.citric
 package model.Units
 
 import cl.uchile.dcc.citric.model.Norma.{Norma, Norma1, Norma2}
-import cl.uchile.dcc.citric.model.Units.WildUnits.WildUnit
+import cl.uchile.dcc.citric.model.Units.WildUnits.AbstractWildUnit
 
 import scala.util.Random
 import scala.math.{floor, max}
@@ -172,7 +172,7 @@ class PlayerCharacter(val name: String,
    *
    * @param wildUnit The wild unit that's being attacked
    */
-  def attackWildUnit(wildUnit: WildUnit): Unit = {
+  def attackWildUnit(wildUnit: AbstractWildUnit): Unit = {
     val rollAttack: Int = rollDice()
     val newOffense: Int = offense + rollAttack
     val defOrEv: Int = randomNumberGenerator.nextInt(2) + 1

@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package model.Units
 
-import model.Units.WildUnits.WildUnit
+import model.Units.WildUnits.AbstractWildUnit
 
 /** The 'Units' trait is a trait from which all 'Unit' entities in the game extend.
   *
@@ -28,7 +28,7 @@ trait Units {
 
   def attackPlayer(player: PlayerCharacter): Unit
 
-  def attackWildUnit(wildUnit: WildUnit): Unit
+  def attackWildUnit(wildUnit: AbstractWildUnit): Unit
 
   /** Method for defending, following the schema provided on EP4 */
   def defend(unit: Units, defendedAttack: Int): Unit

@@ -3,14 +3,14 @@ package model.UnitsTests
 
 import model.Units.{PlayerCharacter, Units}
 
-import cl.uchile.dcc.citric.model.Units.WildUnits.{Seagull, WildUnit}
+import cl.uchile.dcc.citric.model.Units.WildUnits.{Seagull, AbstractWildUnit}
 import scala.math.max
 
 class SeagullTest extends munit.FunSuite {
 
   var player: PlayerCharacter = new PlayerCharacter("testPlayer",10,1,1,1,"stars")
 
-  var seagull: WildUnit = _
+  var seagull: AbstractWildUnit = _
 
   override def beforeEach(context: BeforeEach): Unit = {
     seagull = new Seagull
