@@ -3,6 +3,8 @@ package model.Units
 
 import exceptions.InvalidStatException
 
+import model.Units.WildUnits.WildUnit
+
 import scala.math.max
 import scala.util.Random
 
@@ -22,7 +24,7 @@ abstract class AbstractUnit(val aMaxHp: Int,
                             val aOffense: Int,
                             val aDefense: Int,
                             val aEvasion: Int,
-                            val randomNumberGenerator: Random = new Random()) extends Units {
+                            val randomNumberGenerator: Random = new Random()) extends Unit with WildUnit {
 
   /** Current Health Points of a Unit.
    *

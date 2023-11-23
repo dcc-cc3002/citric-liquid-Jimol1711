@@ -2,7 +2,7 @@ package cl.uchile.dcc.citric
 package model.UnitsTests
 
 import model.Units.PlayerCharacter
-import model.Units.WildUnits.{Chicken, WildUnit}
+import model.Units.WildUnits.{Chicken, AbstractWildUnit}
 
 import scala.math.max
 
@@ -11,8 +11,8 @@ class ChickenTest extends munit.FunSuite {
   private var player: PlayerCharacter = new PlayerCharacter("testPlayer",10,1,1,1,"stars")
   private var player2: PlayerCharacter = new PlayerCharacter("testPlayer",10,1,1,2,"stars")
 
-  private var chicken: WildUnit = _
-  private var chicken2: WildUnit = _
+  private var chicken: AbstractWildUnit = _
+  private var chicken2: AbstractWildUnit = _
 
   override def beforeEach(context: BeforeEach): Unit = {
     chicken = new Chicken

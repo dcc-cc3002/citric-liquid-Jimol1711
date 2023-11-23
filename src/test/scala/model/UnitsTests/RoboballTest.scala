@@ -3,7 +3,7 @@ package model.UnitsTests
 
 
 import cl.uchile.dcc.citric.model.Units.PlayerCharacter
-import cl.uchile.dcc.citric.model.Units.WildUnits.{Roboball, WildUnit}
+import cl.uchile.dcc.citric.model.Units.WildUnits.{Roboball, AbstractWildUnit}
 
 import scala.math.max
 
@@ -11,7 +11,7 @@ class RoboballTest extends munit.FunSuite {
 
   var player: PlayerCharacter = new PlayerCharacter("testPlayer",10,1,1,1,"stars")
 
-  var roboball: WildUnit = _
+  var roboball: AbstractWildUnit = _
 
   override def beforeEach(context: BeforeEach): Unit = {
     roboball = new Roboball
