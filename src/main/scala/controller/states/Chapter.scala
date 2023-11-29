@@ -6,7 +6,7 @@ import controller.GameController
 import cl.uchile.dcc.citric.controller.states.player.PlayerTurn
 import cl.uchile.dcc.citric.model.Units.PlayerCharacter
 
-class Chapter extends GameState {
+class Chapter extends AbstractState {
   def checkNorma6(controller: GameController): Unit = {
     if (/* here should be the checking that a Norma6 was reached */) {
       controller.setState(new GameOver)

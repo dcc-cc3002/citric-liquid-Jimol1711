@@ -3,6 +3,6 @@ package controller.states.player
 
 import controller.states.AbstractState
 
-class PlayerAttacked extends AbstractState {
+class Recovery extends AbstractState {
 
 }
