@@ -3,6 +3,16 @@ package controller.states.player
 
 import controller.states.AbstractState
 
-class Recovery extends AbstractState {
+import cl.uchile.dcc.citric.controller.GameController
+
+class Recovery(context: GameController) extends AbstractState {
+
+  override def sufficientRoll(): Unit = {
+
+  }
+
+  override def inSufficientRoll(): Unit = {
+    context.setState(Chapter)
+  }
 
 }
