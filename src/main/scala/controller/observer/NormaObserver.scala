@@ -3,7 +3,7 @@ package controller.observer
 import controller.GameController
 
 import cl.uchile.dcc.citric.controller.states.{GameOver, GameState}
-import cl.uchile.dcc.citric.model.Norma.Norma
+import cl.uchile.dcc.citric.model.norma.Norma
 
 import scala.collection.mutable.ArrayBuffer
 

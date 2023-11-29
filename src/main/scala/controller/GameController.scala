@@ -4,16 +4,17 @@ package controller
 import controller.states.{GameState, PreGame}
 
 import cl.uchile.dcc.citric.controller.observer.NormaObserver
-import cl.uchile.dcc.citric.model.Units.PlayerCharacter
+import cl.uchile.dcc.citric.model.units.PlayerCharacter
 
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable
+import scala.collection.mutable.{ArrayBuffer, Map}
 
-class GameController extends NormaObserver {
+class GameController extends NormaObserver(this) {
 
   var players: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
-  private var orderedPlayers: Map[Int,PlayerCharacter] = Map.empty
+  private var orderedPlayers: mutable.Map[Int,PlayerCharacter] = mutable.Map.empty
 
-  private var state: GameState = new PreGame(this)
+  private var state: GameState = new PreGame(this, players)
 
   def startGame(): Unit = {
     state.setTurns()
@@ -21,11 +22,5 @@ class GameController extends NormaObserver {
 
   def setState(newState: GameState): Unit = state = newState
 
-  def orderPlayers(): Unit = {
-    var rolls: ArrayBuffer[Int] = ArrayBuffer.empty[Int]
-    for (p <- players) {
-      rolls += p.rollDice()
-    }
-  }
-
+  def setPlayersWithOrder(playersMap: mutable.Map[Int, PlayerCharacter]): Unit = orderedPlayers = playersMap
 }

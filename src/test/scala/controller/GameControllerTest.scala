@@ -3,6 +3,11 @@ package controller
 
 class GameControllerTest extends munit.FunSuite {
 
+  private var context: GameController = new GameController
+  override def beforeEach(context: BeforeEach): Unit = {
+
+  }
+
   test("The game should Start on Pre-Game State") {
 
   }
