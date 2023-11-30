@@ -4,9 +4,10 @@ package controller.states.player
 import controller.states.AbstractState
 
 import cl.uchile.dcc.citric.controller.GameController
+import cl.uchile.dcc.citric.model.panels.Panel
 import cl.uchile.dcc.citric.model.units.PlayerCharacter
 
-class PlayerTurn(context: GameController, player: PlayerCharacter) extends AbstractState {
+class PlayerTurn(context: GameController, player: PlayerCharacter, nextPanel: Panel) extends AbstractState {
 
   override def isKO(): Unit = {
     if(player.defeated()) {
@@ -16,7 +17,7 @@ class PlayerTurn(context: GameController, player: PlayerCharacter) extends Abstr
 
   override def moveRoll(): Unit = {
     /* movement */
-    context.setState(new OnPanel)
+    context.setState(new OnPanel(context,nextPanel))
   }
 
 }

@@ -6,14 +6,18 @@ import controller.GameController
 import cl.uchile.dcc.citric.controller.states.player.PlayerTurn
 import cl.uchile.dcc.citric.model.units.PlayerCharacter
 
-class Chapter extends AbstractState {
-  def checkNorma6(controller: GameController): Unit = {
+import scala.collection.mutable.ArrayBuffer
+
+class Chapter(context: GameController, nextPlayer: PlayerCharacter) extends AbstractState {
+
+  override def checkNorma6(): Unit = {
     if (/* here should be the checking that a Norma6 was reached */) {
-      controller.setState(new GameOver)
+      context.setState(new GameOver(ArrayBuffer.empty[PlayerCharacter]))
     }
   }
 
-  def nextPlayer(controller: GameController): Unit = {
-    controller.setState(new PlayerTurn)
+  override def nextPlayer(): Unit = {
+    context.setState(new PlayerTurn(context,nextPlayer))
   }
+
 }

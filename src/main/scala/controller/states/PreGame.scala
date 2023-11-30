@@ -6,7 +6,7 @@ import controller.GameController
 import cl.uchile.dcc.citric.model.units.PlayerCharacter
 
 import scala.collection.mutable
-import scala.collection.mutable.{ArrayBuffer, Map}
+import scala.collection.mutable.ArrayBuffer
 
 class PreGame(context: GameController, newPlayers: ArrayBuffer[PlayerCharacter]) extends AbstractState {
 
@@ -31,6 +31,7 @@ class PreGame(context: GameController, newPlayers: ArrayBuffer[PlayerCharacter])
 
     playerMap
   }
+
   override def setTurns(): Unit = {
     context.setPlayersWithOrder(orderPlayers())
   }
