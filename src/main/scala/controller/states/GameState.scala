@@ -36,8 +36,14 @@ trait GameState {
   /** The effect of the encounter panel is applied and the player fights a wild unit */
   def applyEP(): Unit
 
-  /** Same as apply and applyHP, but there's a player on the panel, therefore the player is asked if it wants to start combat */
+  /** Same as apply and applyEffect, but there's a player on the panel, therefore the player is asked if it wants to start combat */
   def applyAndHasPlayer(): Unit
+
+  /** Same as apply and applyHP, but there's a player on the panel, therefore the player is asked if it wants to start combat */
+  def applyHPAndHasPlayer(): Unit
+
+  /** Asks a player if it wants to fight another player after fighting a wild unit assuming it is still alive */
+  def hasPlayer(): Unit
 
   /** The unit whose fighting state the game is chooses beetwen defending or evading */
   def defendOrEvade(): Unit

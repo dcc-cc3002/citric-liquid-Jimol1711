@@ -27,9 +27,6 @@ class DropPanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBu
       val roll = player.rollDice()
       player.setStars(player.getStars - (roll * player.getNormaLevel))
     }
-    if (player.getStars < 0) {
-      player.setStars(0)
-    }
   }
 
 }

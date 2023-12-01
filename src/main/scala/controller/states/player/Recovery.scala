@@ -1,18 +1,18 @@
 package cl.uchile.dcc.citric
 package controller.states.player
 
-import controller.states.AbstractState
+import controller.states.{AbstractState, Chapter}
 
 import cl.uchile.dcc.citric.controller.GameController
 
-class Recovery(context: GameController) extends AbstractState {
+class Recovery extends AbstractState {
 
   override def sufficientRoll(): Unit = {
-
+    context.setState(new PlayerTurn)
   }
 
   override def inSufficientRoll(): Unit = {
-    context.setState(Chapter)
+    context.setState(new Chapter)
   }
 
 }

@@ -85,7 +85,7 @@ abstract class AbstractUnit(val aMaxHp: Int,
 
   /** Setter of the Unit's stars */
   def setStars(newStars: Int): Unit = {
-      stars = newStars
+    if (newStars > 0) currentHp = newStars else currentHp = 0
   }
 
   /** Exceptions method to validate the Units maxHp.

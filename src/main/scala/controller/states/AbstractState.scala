@@ -33,6 +33,10 @@ abstract class AbstractState extends GameState {
 
   def applyAndHasPlayer(): Unit = incorrectTransition("apply current panel effect and fight player")
 
+  def applyHPAndHasPlayer(): Unit = incorrectTransition("apply home panel effect and fight player")
+
+  def hasPlayer(): Unit = incorrectTransition("fight another player")
+
   def defendOrEvade(): Unit = incorrectTransition("defend or evade")
 
   def attackRoll(): Unit = incorrectTransition("roll a dice to get attack stat")
