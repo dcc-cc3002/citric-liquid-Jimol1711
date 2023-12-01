@@ -7,8 +7,7 @@ import cl.uchile.dcc.citric.exceptions.InvalidTransitionException
 
 abstract class AbstractState extends GameState {
 
-  protected val context: GameController = new GameController
-
+  protected var context: GameController = new GameController
   def reset(): Unit = incorrectTransition("reset game")
 
   def setTurns(): Unit = incorrectTransition("set turns")

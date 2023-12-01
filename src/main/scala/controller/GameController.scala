@@ -13,10 +13,9 @@ class GameController(private var players: ArrayBuffer[PlayerCharacter]) extends 
 
   private var state: GameState = new PreGame
 
-  private var orderedPlayers: mutable.Map[Int, PlayerCharacter] = mutable.Map.empty[Int, PlayerCharacter]
+  private var orderedPlayers: Option[mutable.Map[Int, PlayerCharacter]] = None
 
-  def getOrderedPlayers: mutable.Map[Int, PlayerCharacter] = orderedPlayers
-
+  def getOrderedPlayers: Option[mutable.Map[Int, PlayerCharacter]] = orderedPlayers
 
   def setState(newState: GameState): Unit = {
     state = newState
@@ -41,7 +40,7 @@ class GameController(private var players: ArrayBuffer[PlayerCharacter]) extends 
       turn += 1
     }
 
-    orderedPlayers = playerMap
+    orderedPlayers = Some(playerMap)
   }
 
 }

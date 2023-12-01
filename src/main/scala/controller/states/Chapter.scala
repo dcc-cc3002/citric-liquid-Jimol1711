@@ -12,7 +12,7 @@ class Chapter extends AbstractState {
 
   override def checkNorma6(): Unit = {
     if (/* here should be the checking that a Norma6 was reached */) {
-      context.setState(new GameOver)
+      getContext.setState(new GameOver)
     }
   }
 

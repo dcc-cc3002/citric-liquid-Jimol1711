@@ -1,7 +1,15 @@
 package cl.uchile.dcc.citric
 package controller.states
 
+import controller.GameController
+
 trait GameState {
+
+  /** Setter of a states controller
+   *
+   * @param controller the controller that's set as context for the states.
+   */
+  def setController(controller: GameController): Unit
 
   /** Resets a game, setting it in the pre game state */
   def reset(): Unit
