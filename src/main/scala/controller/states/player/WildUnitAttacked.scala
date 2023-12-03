@@ -3,6 +3,10 @@ package controller.states.player
 
 import controller.states.AbstractState
 
-class WildUnitAttacked extends AbstractState {
+import cl.uchile.dcc.citric.controller.GameController
+
+class WildUnitAttacked(context: GameController) extends AbstractState(context) {
+
+  override def isWildUnitAttackedState: Boolean = true
 
 }

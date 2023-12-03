@@ -1,14 +1,10 @@
 package cl.uchile.dcc.citric
 package controller.observer
-import controller.GameController
 
-import cl.uchile.dcc.citric.controller.states.{GameOver, GameState}
-import cl.uchile.dcc.citric.model.norma.Norma
+import cl.uchile.dcc.citric.model.units.PlayerCharacter
 
-import scala.collection.mutable.ArrayBuffer
+trait NormaObserver {
 
-class NormaObserver(private var gameController: GameController) extends INormaObserver {
-
-  override def update(gs: GameState, arg: Any): Unit = ???
+  def update(player: PlayerCharacter, arg: Any): Unit
 
 }

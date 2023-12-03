@@ -3,6 +3,10 @@ package controller.states.player
 
 import controller.states.AbstractState
 
-class PlayerAttacked extends AbstractState {
+import cl.uchile.dcc.citric.controller.GameController
+
+class PlayerAttacked(context: GameController) extends AbstractState(context) {
+
+  override def isPlayerAttackedState: Boolean = true
 
 }

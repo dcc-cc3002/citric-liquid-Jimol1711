@@ -1,4 +1,6 @@
 package cl.uchile.dcc.citric
 package model.units.wildunits
 
-trait WildUnit extends Unit
+import model.units.Units
+
+trait WildUnit extends Units

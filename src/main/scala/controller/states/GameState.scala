@@ -5,12 +5,6 @@ import controller.GameController
 
 trait GameState {
 
-  /** Setter of a states controller
-   *
-   * @param controller the controller that's set as context for the states.
-   */
-  def setController(controller: GameController): Unit
-
   /** Resets a game, setting it in the pre game state */
   def reset(): Unit
 
@@ -35,10 +29,7 @@ trait GameState {
   /** A player moves a rolled amount of panels and sets the state to Panel */
   def moveRoll(): Unit
 
-  /** The effect of the home panel is applied on a player and transitions to the next chapter */
-  def applyHP(): Unit
-
-  /** The effect of all other panels is applied unless it is an encounter panel and transitions to the next chapter */
+  /** The effect of all panels is applied unless it is an encounter panel and transitions to the next chapter */
   def applyEffect(): Unit
 
   /** The effect of the encounter panel is applied and the player fights a wild unit */
@@ -47,16 +38,37 @@ trait GameState {
   /** Same as apply and applyEffect, but there's a player on the panel, therefore the player is asked if it wants to start combat */
   def applyAndHasPlayer(): Unit
 
-  /** Same as apply and applyHP, but there's a player on the panel, therefore the player is asked if it wants to start combat */
-  def applyHPAndHasPlayer(): Unit
-
   /** Asks a player if it wants to fight another player after fighting a wild unit assuming it is still alive */
   def hasPlayer(): Unit
 
   /** The unit whose fighting state the game is chooses beetwen defending or evading */
   def defendOrEvade(): Unit
 
+  def getRequiredRecovery: Int
+
+  def setRequiredRecovery(x: Int): Unit
+
   /** The unit whose fighting state the game is throws a dice, sets it's attack and attacks */
   def attackRoll(): Unit
+
+  def isPreGameState: Boolean
+
+  def isPlayerTurnState: Boolean
+
+  def isRecoveryState: Boolean
+
+  def isChapterState: Boolean
+
+  def isOnPanelState: Boolean
+
+  def isMovingState: Boolean
+
+  def isPlayerAttackingState: Boolean
+
+  def isPlayerAttackedState: Boolean
+
+  def isWildUnitAttackedState: Boolean
+
+  def isGameOverState: Boolean
 
 }

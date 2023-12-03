@@ -3,21 +3,21 @@ package controller.states
 
 import controller.GameController
 
+import cl.uchile.dcc.citric.controller.observer.NormaObserver
 import cl.uchile.dcc.citric.controller.states.player.PlayerTurn
-import cl.uchile.dcc.citric.model.units.PlayerCharacter
 
-import scala.collection.mutable.ArrayBuffer
+class Chapter(context: GameController) extends AbstractState(context) {
 
-class Chapter extends AbstractState {
+  if (requiredRecovery > 0) requiredRecovery -= 1 else requiredRecovery = 0
 
-  override def checkNorma6(): Unit = {
-    if (/* here should be the checking that a Norma6 was reached */) {
-      getContext.setState(new GameOver)
-    }
+  override def normaSixReached(): Unit = {
+    context.setState(new GameOver(context))
   }
 
   override def nextPlayer(): Unit = {
-    context.setState(new PlayerTurn)
+    context.setState(new PlayerTurn(context))
   }
+
+  override def isChapterState: Boolean = true
 
 }

@@ -4,7 +4,7 @@ package model.norma
 import model.units.PlayerCharacter
 
 class Norma1(val statChosen: String,
-             val statRequirement: Int) extends Norma {
+             val statRequirement: Int) extends AbstractNorma {
 
   /** When a PlayerCharacter performs a NormaClear, the Norma level of the player is increased by one. */
   def normaClear(player: PlayerCharacter, nextChosenStat: String): Unit = {

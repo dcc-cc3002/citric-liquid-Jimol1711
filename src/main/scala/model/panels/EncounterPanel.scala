@@ -1,11 +1,10 @@
 package cl.uchile.dcc.citric
 package model.panels
 
-import cl.uchile.dcc.citric.model.units.wildunits.{Chicken, Roboball, Seagull, AbstractWildUnit}
+import cl.uchile.dcc.citric.model.units.wildunits.{AbstractWildUnit, Chicken, Roboball, Seagull, WildUnit}
 import cl.uchile.dcc.citric.model.units.{PlayerCharacter, Units}
 
 import scala.util.Random
-import scala.math.floor
 import scala.collection.mutable.ArrayBuffer
 
 /** Class representing an Encounter Panel
@@ -20,14 +19,14 @@ class EncounterPanel(protected var characters: ArrayBuffer[PlayerCharacter] = Ar
   /** Setting of three instances of WildUnits.
    *
    */
-  val chicken: AbstractWildUnit = new Chicken
-  val roboball: AbstractWildUnit = new Roboball
-  val seagull: AbstractWildUnit = new Seagull
+  val chicken: Units = new Chicken
+  val roboball: Units = new Roboball
+  val seagull: Units = new Seagull
 
   /** The bellaco will be the Wild Unit set for the particular panel that's created.
    *
    */
-  private var bellaco: AbstractWildUnit = chicken
+  private var bellaco: Units = chicken
 
   /** Sets a random WildUnit for the panel.
    *
@@ -45,7 +44,7 @@ class EncounterPanel(protected var characters: ArrayBuffer[PlayerCharacter] = Ar
   }
 
   /** Getter of the panel's bellaco */
-  def getBellaco: AbstractWildUnit = {
+  def getBellaco: Units = {
     bellaco
   }
 

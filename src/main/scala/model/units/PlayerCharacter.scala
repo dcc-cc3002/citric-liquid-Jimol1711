@@ -1,9 +1,11 @@
 package cl.uchile.dcc.citric
 package model.units
 
+import cl.uchile.dcc.citric.controller.observer.NormaObserver
 import cl.uchile.dcc.citric.model.norma.{Norma, Norma1, Norma2}
 import cl.uchile.dcc.citric.model.units.wildunits.AbstractWildUnit
 
+import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 import scala.math.{floor, max}
 
@@ -59,6 +61,10 @@ class PlayerCharacter(val name: String,
                       val defense: Int,
                       val evasion: Int,
                       val chosenStat: String) extends AbstractUnit(maxHp,offense,defense,evasion,randomNumberGenerator = new Random()) {
+
+  private val observers: ArrayBuffer[NormaObserver] = ArrayBuffer.empty[NormaObserver]
+
+  def registerObserver(normaObserver: NormaObserver): Unit = observers += normaObserver
 
   /** The number of victories of a PlayerCharacter.
    *
@@ -215,6 +221,12 @@ class PlayerCharacter(val name: String,
   def setNorma(norma: Norma): Unit = {
     currentNorma = norma
     normaLevel += 1
+  }
+
+  def notifyObservers(response: Any): Unit = {
+    for (o <- observers) {
+      o.update(this, response)
+    }
   }
 
 }

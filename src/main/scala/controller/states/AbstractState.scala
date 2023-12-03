@@ -5,9 +5,14 @@ import controller.GameController
 
 import cl.uchile.dcc.citric.exceptions.InvalidTransitionException
 
-abstract class AbstractState extends GameState {
+abstract class AbstractState(var context: GameController) extends GameState {
 
-  protected var context: GameController = new GameController
+  protected var requiredRecovery: Int = 6
+
+  def getRequiredRecovery: Int = requiredRecovery
+
+  def setRequiredRecovery(x: Int): Unit = requiredRecovery = x
+
   def reset(): Unit = incorrectTransition("reset game")
 
   def setTurns(): Unit = incorrectTransition("set turns")
@@ -24,15 +29,15 @@ abstract class AbstractState extends GameState {
 
   def moveRoll(): Unit = incorrectTransition("roll a dice to move")
 
-  def applyHP(): Unit = incorrectTransition("stop on Home Panel")
+  def stop(): Unit = incorrectTransition("stop")
+
+  def outOfMovements(): Unit = incorrectTransition("run out of movements")
 
   def applyEffect(): Unit = incorrectTransition("apply current panel effect")
 
   def applyEP(): Unit = incorrectTransition("apply Encounter Panel effect")
 
   def applyAndHasPlayer(): Unit = incorrectTransition("apply current panel effect and fight player")
-
-  def applyHPAndHasPlayer(): Unit = incorrectTransition("apply home panel effect and fight player")
 
   def hasPlayer(): Unit = incorrectTransition("fight another player")
 
@@ -47,5 +52,28 @@ abstract class AbstractState extends GameState {
   private def incorrectTransition(method: String): Unit = {
     throw new InvalidTransitionException(s"Can't $method in current state: ${getClass.getSimpleName}")
   }
+
+  def isPreGameState: Boolean = {
+    println("It is not overriding")
+    false
+  }
+
+  def isPlayerTurnState: Boolean = false
+
+  def isRecoveryState: Boolean = false
+
+  def isChapterState: Boolean = false
+
+  def isOnPanelState: Boolean = false
+
+  def isMovingState: Boolean = false
+
+  def isPlayerAttackingState: Boolean = false
+
+  def isPlayerAttackedState: Boolean = false
+
+  def isWildUnitAttackedState: Boolean = false
+
+  def isGameOverState: Boolean = false
 
 }

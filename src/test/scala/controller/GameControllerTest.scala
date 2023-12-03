@@ -1,43 +1,82 @@
 package cl.uchile.dcc.citric
 package controller
 
+import cl.uchile.dcc.citric.controller.states.Chapter
+import cl.uchile.dcc.citric.controller.states.player.Recovery
+import cl.uchile.dcc.citric.model.norma.Norma6
+import cl.uchile.dcc.citric.model.panels.{BonusPanel, DropPanel, EncounterPanel, HomePanel, NeutralPanel, Panel}
+import cl.uchile.dcc.citric.model.units.PlayerCharacter
+
+import scala.collection.mutable.ArrayBuffer
+
 class GameControllerTest extends munit.FunSuite {
 
-  private var context: GameController = new GameController
+  private val testGame = new GameController
+
+  private var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer1", 10, 1, 1, 1, "stars")
+  private var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer2", 10, 1, 1, 1, "victories")
+  private var testPlayer3: PlayerCharacter = new PlayerCharacter("testPlayer3", 10, 1, 1, 1, "stars")
+  private var testPlayer4: PlayerCharacter = new PlayerCharacter("testPlayer4", 10, 1, 1, 1, "victories")
+  private var players: ArrayBuffer[PlayerCharacter] = ArrayBuffer(testPlayer1,testPlayer2,testPlayer3,testPlayer4)
+
+  private var neutralPanel: Panel = new HomePanel
+  private var homePanel: Panel = new NeutralPanel
+  private var bonusPanel: Panel = new BonusPanel
+  private var dropPanel: Panel = new DropPanel
+  private var encounterPanel: Panel = new EncounterPanel
+  private var panels: ArrayBuffer[Panel] = ArrayBuffer(neutralPanel,homePanel,bonusPanel,dropPanel,encounterPanel)
+
   override def beforeEach(context: BeforeEach): Unit = {
 
   }
 
-  test("The game should Start on Pre-Game State") {
-
+  test("A game should be able to be created") {
+    testGame.createGame(players,panels)
+    assert(testGame.isPreGameState)
   }
 
   test("The state should transition to PlayerTurn when all turns are set") {
-
+    testGame.setTurns()
+    assert(testGame.isPlayerTurnState)
   }
 
-  test("The state should transition to Panel when the first player throws a Dice") {
-
+  test("If the current player is defeated it should transition to Recovery") {
+    testGame.getCurrentPlayer.setCurrentHp(0)
+    testGame.getState.isKO()
+    assert(testGame.getState.isRecoveryState)
   }
 
-  test("A player should be able to stop or choose it's path") {
-
+  test("If the player doesn't roll a sufficient roll it should go back to the next player's turn") {
+    testGame.inSufficientRoll()
+    assert(testGame.getState.isChapterState)
   }
 
-  test("The effect of the panel the player drops in should be applied") {
-
+  test("If the player rolls a sufficient roll, it should start the players turn") {
+    val currentPlayerTurn: Int = testGame.getCurrentPlayerTurn
+    testGame.setState(new Recovery(testGame))
+    testGame.sufficientRoll()
+    assertEquals(testGame.getCurrentPlayerTurn,currentPlayerTurn)
+    assert(testGame.isPlayerTurnState)
   }
 
   test("If a player drops on a panel with combat involved, the game should transition to a combat related state") {
-
+    assert(cond = true)
   }
 
   test("Once a combat ends or a Panel effect is applied, the game should transition to New Round") {
-
+    assert(cond = true)
   }
 
   test("If a player is KO, it should transition to it's turn if it has a sufficient roll or to New Round if it doesn't") {
+    assert(cond = true)
+  }
 
+  test("If a player reaches Norma 6, the game should transition to Game Over, ending the game") {
+    testGame.getCurrentPlayer.setNorma(new Norma6("stars",10))
+    testGame.setState(new Chapter(testGame))
+    testGame.getState.setRequiredRecovery(testGame.getState.getRequiredRecovery + 1)
+    testGame.checkNormaSix()
+    assert(testGame.getState.isGameOverState)
   }
 
 }

@@ -5,8 +5,14 @@ import controller.states.AbstractState
 
 import cl.uchile.dcc.citric.controller.GameController
 
-class PlayerAttacking(context: GameController) extends AbstractState(context) {
+class Moving(context: GameController) extends AbstractState(context) {
 
-  override def isPlayerAttackingState: Boolean = true
+  override def stop(): Unit = {
+
+  }
+
+  override def outOfMovements(): Unit = {
+
+  }
 
 }

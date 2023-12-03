@@ -3,18 +3,12 @@ package controller.states.player
 
 import controller.states.{AbstractState, Chapter}
 
-class OnPanel extends AbstractState {
+import cl.uchile.dcc.citric.controller.GameController
 
-  override def applyHP(): Unit = {
-
-  }
+class OnPanel(context: GameController) extends AbstractState(context) {
 
   override def applyEffect(): Unit = {
-    context.setState(new Chapter)
-  }
-
-  override def applyHPAndHasPlayer(): Unit = {
-
+    context.setState(new Chapter(context))
   }
 
   override def applyAndHasPlayer(): Unit = {
@@ -24,5 +18,7 @@ class OnPanel extends AbstractState {
   override def applyEP(): Unit = {
 
   }
+
+  override def isOnPanelState: Boolean = true
 
 }
