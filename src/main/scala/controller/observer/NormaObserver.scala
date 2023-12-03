@@ -4,7 +4,5 @@ package controller.observer
 import cl.uchile.dcc.citric.model.units.PlayerCharacter
 
 trait NormaObserver {
-
-  def update(player: PlayerCharacter): Unit
-
+  def update(o: PlayerCharacter, arg: Any): Unit
 }

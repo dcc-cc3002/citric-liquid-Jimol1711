@@ -62,9 +62,18 @@ class PlayerCharacter(val name: String,
                       val evasion: Int,
                       val chosenStat: String) extends AbstractUnit(maxHp,offense,defense,evasion,randomNumberGenerator = new Random()) {
 
+  /* Observer elements */
   private val observers: ArrayBuffer[NormaObserver] = ArrayBuffer.empty[NormaObserver]
 
-  def registerObserver(normaObserver: NormaObserver): Unit = observers += normaObserver
+  /** The register observer method to register a new Observer */
+  def registerObserver(o: NormaObserver): Unit = observers += o
+
+  /** The notify observer method to notify an Observer */
+  def notifyObservers(response: Any): Unit = {
+    for (o <- observers) {
+      o.update(this, response)
+    }
+  }
 
   /** The number of victories of a PlayerCharacter.
    *
@@ -221,12 +230,8 @@ class PlayerCharacter(val name: String,
   def setNorma(norma: Norma): Unit = {
     currentNorma = norma
     normaLevel += 1
-    notifyObservers
-  }
-
-  def notifyObservers(): Unit = {
-    for (o <- observers) {
-      o.update(this)
+    if (normaLevel==6) {
+      notifyObservers(name)
     }
   }
 

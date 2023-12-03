@@ -1,7 +1,7 @@
 package cl.uchile.dcc.citric
 package controller
 
-import controller.states.{GameState, PreGame}
+import controller.states.{Chapter, GameState, PreGame}
 
 import cl.uchile.dcc.citric.controller.observer.NormaObserver
 import cl.uchile.dcc.citric.exceptions.InvalidActionException
@@ -13,34 +13,15 @@ import scala.collection.mutable.ArrayBuffer
 
 class GameController extends NormaObserver {
 
+  /* Transitions and states */
+
   private var state: GameState = new PreGame(this)
-  private var players: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
-  private var orderedPlayers: mutable.Map[Int, PlayerCharacter] = mutable.Map.empty
-  private var currentPlayer: Int = 0
-  private var board: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
 
   def setState(newState: GameState): Unit = {
     state = newState
   }
 
   def getState: GameState = state
-
-  /** Creates a game with the players and panels.
-   *
-   * @param playersToAdd The array of players of the PlayerCharacter class.
-   * @param panelsToAdd The array of panels that makes up the board.
-   *
-   */
-  def createGame(playersToAdd: ArrayBuffer[PlayerCharacter], panelsToAdd: ArrayBuffer[Panel]): Unit = {
-    for (player <- playersToAdd) {
-      players += player
-    }
-    for (panel <- panelsToAdd) {
-      board += panel
-    }
-  }
-
-  /* Transitions */
 
   def reset(): Unit = state.reset()
 
@@ -76,66 +57,6 @@ class GameController extends NormaObserver {
 
   def doEffect(): Unit = state.doEffect()
 
-  /* Other stuff */
-
-  def getPlayers: ArrayBuffer[PlayerCharacter] = players.clone()
-
-  def getBoard: ArrayBuffer[Panel] = board.clone()
-
-  /** Orders the players randomly, based on a dice roll done by each player */
-  def setOrderedPlayers(): Unit = {
-
-    if (players.isEmpty && board.isEmpty) {
-      throw new InvalidActionException("A game has not been created")
-    }
-
-    val playerMap = mutable.Map[Int, PlayerCharacter]()
-    var turn = 0
-
-    val playerRolls = getPlayers.map(player => (player, player.rollDice())).sortBy(_._2).reverse
-
-    playerRolls.foreach { case (player, initialRoll) =>
-      var roll = initialRoll
-
-      while (playerMap.exists { case (_, p) => p.rollDice() == roll }) {
-        roll = player.rollDice()
-      }
-
-      playerMap(turn) = player
-      turn += 1
-    }
-
-    orderedPlayers = playerMap
-  }
-
-  def currentPlayerTurn(): Unit = {
-    currentPlayer += 1
-    if (currentPlayer==4)
-      currentPlayer=1
-  }
-
-  def setCurrentPlayer(p: Int): Unit = {
-    currentPlayer = p
-  }
-
-  def getCurrentPlayer: PlayerCharacter = orderedPlayers(currentPlayer)
-
-  def getCurrentPlayerTurn: Int = currentPlayer
-
-  def dice(): Int = {
-    getCurrentPlayer.rollDice()
-  }
-
-  def checkNormaSix(): Unit = {
-    if (getCurrentPlayer.getNorma.isNormaSix) {
-      state.normaSixReached()
-    }
-  }
-
-  def update(player: PlayerCharacter): Unit = {
-
-  }
-
   def isPreGameState: Boolean = state.isPreGameState
 
   def isChapterState: Boolean = state.isChapterState
@@ -153,5 +74,95 @@ class GameController extends NormaObserver {
   def isWaitState: Boolean = state.isWaitState
 
   def isLandingPanelState: Boolean = state.isLandingPanelState
+
+  /* Observer elements */
+
+  def update(o: PlayerCharacter, arg: Any): Unit = {
+    state = new Chapter(this)
+    state.normaSixReached()
+    println(s"Norma 6 reached, player ${arg} wins!" )
+  }
+
+  /* Other stuff */
+
+  private val players: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
+  private val orderedPlayers: mutable.Map[Int, PlayerCharacter] = mutable.Map.empty
+  private var currentTurn: Int = 0
+  private var chapters: Int = 1
+  private var requiredRecovery: Int = 6
+  private val board: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
+
+  /** Creates a game with the players and panels and registers the controller as the observer of each player.
+   *
+   * @param playersToAdd The array of players of the PlayerCharacter class.
+   * @param panelsToAdd  The array of panels that makes up the board.
+   *
+   */
+  def createGame(playersToAdd: ArrayBuffer[PlayerCharacter], panelsToAdd: ArrayBuffer[Panel]): Unit = {
+    for (player <- playersToAdd) {
+      players += player
+    }
+    for (panel <- panelsToAdd) {
+      board += panel
+    }
+    for (player <- players) {
+      player.registerObserver(this)
+    }
+  }
+
+  def getPlayers: ArrayBuffer[PlayerCharacter] = players.clone()
+
+  def getBoard: ArrayBuffer[Panel] = board.clone()
+
+  def getCurrentPlayer: PlayerCharacter = orderedPlayers(currentTurn)
+
+  def getCurrentTurn: Int = currentTurn
+
+  def getChapters: Int = chapters
+
+  /** Orders the players randomly, based on a dice roll done by each player */
+  def setOrderedPlayers(): Unit = {
+
+    if (players.isEmpty || board.isEmpty) {
+      throw new InvalidActionException("A game has not been created")
+    }
+
+    var turn = 0
+
+    val playerRolls = getPlayers.map(player => (player, player.rollDice())).sortBy(_._2).reverse
+
+    playerRolls.foreach { case (player, initialRoll) =>
+      var roll = initialRoll
+
+      while (orderedPlayers.exists { case (_, p) => p.rollDice() == roll }) {
+        roll = player.rollDice()
+      }
+
+      orderedPlayers += (turn -> player)
+      turn += 1
+    }
+  }
+
+  /** Setter of the current chapter and player turns, so that the player's can be obtained out of the ordered players map */
+  def setCurrentChapter(): Unit = {
+    currentTurn += 1
+    if (currentTurn == 4) {
+      currentTurn = 1
+      chapters += 1
+      if (requiredRecovery > 1) {
+        requiredRecovery -= 1
+      }
+    }
+  }
+
+  /** Method for when a player throws a dice */
+  def dice(): Int = {
+    getCurrentPlayer.rollDice()
+  }
+
+  /** Method for when a player gains it's turns stars */
+  def playerTurnStars(): Unit = {
+    getCurrentPlayer.setStars(getCurrentPlayer.getStars + (math.floor(chapters / 5) + 1).toInt)
+  }
 
 }
