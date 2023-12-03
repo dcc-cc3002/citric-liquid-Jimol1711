@@ -7,17 +7,8 @@ import cl.uchile.dcc.citric.controller.GameController
 
 class PlayerTurn(context: GameController) extends AbstractState(context) {
 
-  context.currentPlayerTurn()
-
-  override def isKO(): Unit = {
-    if (context.getCurrentPlayer.KO())
-      context.setState(new Recovery(context))
-  }
-
-  isKO()
-
-  override def moveRoll(): Unit = {
-    context.setState(new OnPanel(context))
+  override def rollDice(): Unit = {
+    context.setState(new Moving(context))
   }
 
   override def isPlayerTurnState: Boolean = true

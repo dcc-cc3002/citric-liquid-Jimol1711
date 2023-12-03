@@ -51,9 +51,9 @@ class BonusPanelTest extends munit.FunSuite {
   }
 
   test("A bonus panel should be able to grant stars to a player") {
-    val currentStars = testPlayer1.getStars
+    val initialStars = testPlayer1.getStars
     testPanel.apply(testPlayer1)
-    assert(testPlayer1.getStars>currentStars)
+    assert(testPlayer1.getStars>initialStars)
   }
 
 }

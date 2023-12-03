@@ -3,18 +3,23 @@ package controller.states
 
 import controller.GameController
 
-import cl.uchile.dcc.citric.controller.observer.NormaObserver
-import cl.uchile.dcc.citric.controller.states.player.PlayerTurn
+import cl.uchile.dcc.citric.controller.states.player.{PlayerTurn, Recovery}
 
 class Chapter(context: GameController) extends AbstractState(context) {
 
-  if (requiredRecovery > 0) requiredRecovery -= 1 else requiredRecovery = 0
+  override def newChapter(): Unit = {
+    context.setState(new Chapter(context))
+  }
 
   override def normaSixReached(): Unit = {
     context.setState(new GameOver(context))
   }
 
-  override def nextPlayer(): Unit = {
+  override def isKO(): Unit = {
+    context.setState(new Recovery(context))
+  }
+
+  override def playTurn(): Unit = {
     context.setState(new PlayerTurn(context))
   }
 

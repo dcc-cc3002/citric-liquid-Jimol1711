@@ -4,6 +4,7 @@ package controller
 import controller.states.{GameState, PreGame}
 
 import cl.uchile.dcc.citric.controller.observer.NormaObserver
+import cl.uchile.dcc.citric.exceptions.InvalidActionException
 import cl.uchile.dcc.citric.model.panels.Panel
 import cl.uchile.dcc.citric.model.units.PlayerCharacter
 
@@ -24,6 +25,12 @@ class GameController extends NormaObserver {
 
   def getState: GameState = state
 
+  /** Creates a game with the players and panels.
+   *
+   * @param playersToAdd The array of players of the PlayerCharacter class.
+   * @param panelsToAdd The array of panels that makes up the board.
+   *
+   */
   def createGame(playersToAdd: ArrayBuffer[PlayerCharacter], panelsToAdd: ArrayBuffer[Panel]): Unit = {
     for (player <- playersToAdd) {
       players += player
@@ -31,51 +38,74 @@ class GameController extends NormaObserver {
     for (panel <- panelsToAdd) {
       board += panel
     }
-    state = new PreGame(this)
   }
 
   /* Transitions */
+
   def reset(): Unit = state.reset()
 
-  def setTurns(): Unit = state.setTurns()
+  def startGame(): Unit = state.startGame()
 
-  def isKO(): Unit = state.isKO()
-
-  def sufficientRoll(): Unit = state.sufficientRoll()
-
-  def inSufficientRoll(): Unit = state.inSufficientRoll()
-
-  def nextPlayer(): Unit = state.nextPlayer()
+  def newChapter(): Unit = state.newChapter()
 
   def normaSixReached(): Unit = state.normaSixReached()
 
-  def moveRoll(): Unit = state.moveRoll()
+  def isKO(): Unit = state.isKO()
 
-  def stop(): Unit = state.stop()
+  def playTurn(): Unit = state.playTurn()
+
+  def inSufficientRoll(): Unit = state.inSufficientRoll()
+
+  def sufficientRoll(): Unit = state.sufficientRoll()
+
+  def rollDice(): Unit = state.rollDice()
+
+  def choosePath(): Unit = state.choosePath()
+
+  def stopMovement(): Unit = state.stopMovement()
 
   def outOfMovements(): Unit = state.outOfMovements()
 
-  def applyEffect(): Unit = state.applyEffect()
+  def attack(): Unit = state.attack()
 
-  def applyEP(): Unit = state.applyEP()
+  def endCombat(): Unit = state.endCombat()
 
-  def applyAndHasPlayer(): Unit = state.applyAndHasPlayer()
+  def defend(): Unit = state.defend()
 
-  def hasPlayer(): Unit = state.hasPlayer()
+  def evade(): Unit = state.evade()
 
-  def defendOrEvade(): Unit = state.defendOrEvade()
+  def doEffect(): Unit = state.doEffect()
 
-  def attackRoll(): Unit = state.attackRoll()
-
+  /* Other stuff */
 
   def getPlayers: ArrayBuffer[PlayerCharacter] = players.clone()
 
   def getBoard: ArrayBuffer[Panel] = board.clone()
 
-  def getOrderedPlayers: mutable.Map[Int, PlayerCharacter] = orderedPlayers
+  /** Orders the players randomly, based on a dice roll done by each player */
+  def setOrderedPlayers(): Unit = {
 
-  def setOrderedPlayers(playersMap: mutable.Map[Int, PlayerCharacter]): Unit = {
-    orderedPlayers = playersMap
+    if (players.isEmpty && board.isEmpty) {
+      throw new InvalidActionException("A game has not been created")
+    }
+
+    val playerMap = mutable.Map[Int, PlayerCharacter]()
+    var turn = 0
+
+    val playerRolls = getPlayers.map(player => (player, player.rollDice())).sortBy(_._2).reverse
+
+    playerRolls.foreach { case (player, initialRoll) =>
+      var roll = initialRoll
+
+      while (playerMap.exists { case (_, p) => p.rollDice() == roll }) {
+        roll = player.rollDice()
+      }
+
+      playerMap(turn) = player
+      turn += 1
+    }
+
+    orderedPlayers = playerMap
   }
 
   def currentPlayerTurn(): Unit = {
@@ -102,24 +132,26 @@ class GameController extends NormaObserver {
     }
   }
 
+  def update(player: PlayerCharacter): Unit = {
+
+  }
+
   def isPreGameState: Boolean = state.isPreGameState
-
-  def isPlayerTurnState: Boolean = state.isPlayerTurnState
-
-  def isRecoveryState: Boolean = state.isRecoveryState
 
   def isChapterState: Boolean = state.isChapterState
 
-  def isOnPanelState: Boolean = state.isOnPanelState
+  def isGameOverState: Boolean = state.isGameOverState
+
+  def isRecoveryState: Boolean = state.isRecoveryState
+
+  def isPlayerTurnState: Boolean = state.isPlayerTurnState
 
   def isMovingState: Boolean = state.isMovingState
 
-  def isPlayerAttackingState: Boolean = state.isPlayerAttackingState
+  def isCombatState: Boolean = state.isCombatState
 
-  def isPlayerAttackedState: Boolean = state.isPlayerAttackedState
+  def isWaitState: Boolean = state.isWaitState
 
-  def isWildUnitAttackedState: Boolean = state.isWildUnitAttackedState
-
-  def isGameOverState: Boolean = state.isGameOverState
+  def isLandingPanelState: Boolean = state.isLandingPanelState
 
 }

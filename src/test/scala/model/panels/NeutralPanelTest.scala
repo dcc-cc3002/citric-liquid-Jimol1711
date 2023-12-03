@@ -60,4 +60,13 @@ class NeutralPanelTest extends munit.FunSuite {
     assert(connectedPanels.contains(newPanel2))
   }
 
+  test("A neutral panel should have no effects on a player") {
+    val initialStars = testPlayer1.getStars
+    val initialHp = testPlayer1.getCurrentHp
+    testPanel.apply(testPlayer1)
+    testPanel.apply(testPlayer1)
+    assert(testPlayer1.getStars==initialStars)
+    assert(testPlayer1.getCurrentHp==initialHp)
+  }
+
 }

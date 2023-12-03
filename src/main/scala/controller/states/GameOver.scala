@@ -6,7 +6,8 @@ import controller.GameController
 class GameOver(context: GameController) extends AbstractState(context) {
 
   override def reset(): Unit = {
-    context.setState(new PreGame(context))
+    val newContext = new GameController
+    newContext.setState(new PreGame(newContext))
   }
 
   override def isGameOverState: Boolean = true
