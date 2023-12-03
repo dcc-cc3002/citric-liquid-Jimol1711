@@ -34,9 +34,39 @@ class GameController extends NormaObserver {
     state = new PreGame(this)
   }
 
-  def setTurns(): Unit = {
-    state.setTurns()
-  }
+  /* Transitions */
+  def reset(): Unit = state.reset()
+
+  def setTurns(): Unit = state.setTurns()
+
+  def isKO(): Unit = state.isKO()
+
+  def sufficientRoll(): Unit = state.sufficientRoll()
+
+  def inSufficientRoll(): Unit = state.inSufficientRoll()
+
+  def nextPlayer(): Unit = state.nextPlayer()
+
+  def normaSixReached(): Unit = state.normaSixReached()
+
+  def moveRoll(): Unit = state.moveRoll()
+
+  def stop(): Unit = state.stop()
+
+  def outOfMovements(): Unit = state.outOfMovements()
+
+  def applyEffect(): Unit = state.applyEffect()
+
+  def applyEP(): Unit = state.applyEP()
+
+  def applyAndHasPlayer(): Unit = state.applyAndHasPlayer()
+
+  def hasPlayer(): Unit = state.hasPlayer()
+
+  def defendOrEvade(): Unit = state.defendOrEvade()
+
+  def attackRoll(): Unit = state.attackRoll()
+
 
   def getPlayers: ArrayBuffer[PlayerCharacter] = players.clone()
 
@@ -66,24 +96,30 @@ class GameController extends NormaObserver {
     getCurrentPlayer.rollDice()
   }
 
-  def sufficientRoll(): Unit = state.sufficientRoll()
-
-  def inSufficientRoll(): Unit = state.inSufficientRoll()
-
   def checkNormaSix(): Unit = {
     if (getCurrentPlayer.getNorma.isNormaSix) {
       state.normaSixReached()
     }
   }
 
-  def update(player: PlayerCharacter, arg: Any): Unit = {
-    if (getCurrentPlayer.getNorma.isNormaSix) {
-      player.notifyObservers(player)
-    }
-  }
-
   def isPreGameState: Boolean = state.isPreGameState
 
   def isPlayerTurnState: Boolean = state.isPlayerTurnState
+
+  def isRecoveryState: Boolean = state.isRecoveryState
+
+  def isChapterState: Boolean = state.isChapterState
+
+  def isOnPanelState: Boolean = state.isOnPanelState
+
+  def isMovingState: Boolean = state.isMovingState
+
+  def isPlayerAttackingState: Boolean = state.isPlayerAttackingState
+
+  def isPlayerAttackedState: Boolean = state.isPlayerAttackedState
+
+  def isWildUnitAttackedState: Boolean = state.isWildUnitAttackedState
+
+  def isGameOverState: Boolean = state.isGameOverState
 
 }

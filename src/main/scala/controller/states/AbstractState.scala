@@ -53,10 +53,7 @@ abstract class AbstractState(var context: GameController) extends GameState {
     throw new InvalidTransitionException(s"Can't $method in current state: ${getClass.getSimpleName}")
   }
 
-  def isPreGameState: Boolean = {
-    println("It is not overriding")
-    false
-  }
+  def isPreGameState: Boolean = false
 
   def isPlayerTurnState: Boolean = false
 

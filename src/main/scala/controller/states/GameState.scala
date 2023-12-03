@@ -29,6 +29,12 @@ trait GameState {
   /** A player moves a rolled amount of panels and sets the state to Panel */
   def moveRoll(): Unit
 
+  /** If a player wants to stop on their Home Panel this method is called */
+  def stop(): Unit
+
+  /** If a player that's moving runs out of movements this method is called */
+  def outOfMovements(): Unit
+
   /** The effect of all panels is applied unless it is an encounter panel and transitions to the next chapter */
   def applyEffect(): Unit
 
@@ -44,31 +50,43 @@ trait GameState {
   /** The unit whose fighting state the game is chooses beetwen defending or evading */
   def defendOrEvade(): Unit
 
+  /** Getter of the recovery amount required for a player to leave recovery State */
   def getRequiredRecovery: Int
 
+  /** Setter of the recovery amount required for a player to */
   def setRequiredRecovery(x: Int): Unit
 
   /** The unit whose fighting state the game is throws a dice, sets it's attack and attacks */
   def attackRoll(): Unit
 
+  /** Asks for states type by calling isPreGameState method of the state */
   def isPreGameState: Boolean
 
+  /** Asks for states type by calling isPlayerTurn method of the state */
   def isPlayerTurnState: Boolean
 
+  /** Asks for states type by calling isRecoveryState method of the state */
   def isRecoveryState: Boolean
 
+  /** Asks for states type by calling isChapterState method of the state */
   def isChapterState: Boolean
 
+  /** Asks for states type by calling isOnPanelState method of the state */
   def isOnPanelState: Boolean
 
+  /** Asks for states type by calling isMovingState method of the state */
   def isMovingState: Boolean
 
+  /** Asks for states type by calling isPlayerAttackingState method of the state */
   def isPlayerAttackingState: Boolean
 
+  /** Asks for states type by calling isPlayerAttackedState method of the state */
   def isPlayerAttackedState: Boolean
 
+  /** Asks for states type by calling isWildUnitAttacked method of the state */
   def isWildUnitAttackedState: Boolean
 
+  /** Asks for states type by calling isGameOverState method of the state */
   def isGameOverState: Boolean
 
 }

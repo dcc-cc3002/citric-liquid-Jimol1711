@@ -221,11 +221,12 @@ class PlayerCharacter(val name: String,
   def setNorma(norma: Norma): Unit = {
     currentNorma = norma
     normaLevel += 1
+    notifyObservers
   }
 
-  def notifyObservers(response: Any): Unit = {
+  def notifyObservers(): Unit = {
     for (o <- observers) {
-      o.update(this, response)
+      o.update(this)
     }
   }
 
