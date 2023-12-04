@@ -1,10 +1,15 @@
 package cl.uchile.dcc.citric
 package controller.states.player
 
-import controller.states.{AbstractState, Chapter}
+import controller.states.AbstractState
 
 import cl.uchile.dcc.citric.controller.GameController
 
+/** Combat state of a game.
+ *
+ * @param context the context of a game.
+ *
+ */
 class Combat(context: GameController) extends AbstractState(context) {
 
   override def attack(): Unit = {

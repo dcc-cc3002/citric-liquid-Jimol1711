@@ -5,6 +5,11 @@ import controller.GameController
 
 import cl.uchile.dcc.citric.controller.states.player.{PlayerTurn, Recovery}
 
+/** Chapter state of a game.
+ *
+ * @param context the context of a game.
+ *
+ */
 class Chapter(context: GameController) extends AbstractState(context) {
 
   override def newChapter(): Unit = {
@@ -22,7 +27,6 @@ class Chapter(context: GameController) extends AbstractState(context) {
 
   override def playTurn(): Unit = {
     context.setCurrentTurn(context.getCurrentTurn + 1)
-    context.getCurrentPlayer.setStars(context.getCurrentPlayer.getStars + (math.floor(context.getCurrentChapter / 5) + 1).toInt)
     context.setState(new PlayerTurn(context))
   }
 

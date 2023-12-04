@@ -2,11 +2,20 @@ package cl.uchile.dcc.citric
 package controller.states
 
 import cl.uchile.dcc.citric.controller.GameController
-import cl.uchile.dcc.citric.controller.states.player.PlayerTurn
 import cl.uchile.dcc.citric.exceptions.InvalidActionException
 
+/** Pre game state of a game.
+ *
+ * @param context the context of a game.
+ *
+ */
 class PreGame(context: GameController) extends AbstractState(context) {
 
+  /** Starts a game by setting an order for player turns.
+   *
+   * @throws InvalidActionException if there are no players.
+   *
+   */
   override def startGame(): Unit = {
 
     if (context.getPlayers.isEmpty) {
@@ -28,7 +37,7 @@ class PreGame(context: GameController) extends AbstractState(context) {
       turn += 1
     }
 
-    context.setState(new PlayerTurn(context))
+    context.setState(new Chapter(context))
   }
 
   override def isPreGameState: Boolean = true

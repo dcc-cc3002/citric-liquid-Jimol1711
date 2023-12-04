@@ -18,9 +18,7 @@ import scala.collection.mutable.ArrayBuffer
 class HomePanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter],
                 protected var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters, nextPanels) {
 
-  /** Initially the Home Panel has no owner. It is set with an auxiliary constructor.
-   *
-   */
+  /** Initially the Home Panel has no owner. It is set with an auxiliary constructor. */
   var owner: Option[PlayerCharacter] = None
 
   /** Auxiliary constructor to set an owner for the home panel.

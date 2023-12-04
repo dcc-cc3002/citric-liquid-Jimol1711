@@ -67,4 +67,7 @@ abstract class AbstractPanel(protected var aCharacters: ArrayBuffer[PlayerCharac
     pseudoNextPanels
   }
 
+  /** Getter of a panels characters */
+  def getCharacters: ArrayBuffer[PlayerCharacter] = aCharacters.clone()
+
 }

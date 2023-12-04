@@ -55,4 +55,6 @@ trait Panel {
   /** Definition of the apply method for the effects of each panel */
   def apply(player: PlayerCharacter): Unit
 
+  /** Getter of a panels characters */
+  def getCharacters: ArrayBuffer[PlayerCharacter]
 }

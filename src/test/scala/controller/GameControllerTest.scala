@@ -1,10 +1,10 @@
 package cl.uchile.dcc.citric
 package controller
 
-import cl.uchile.dcc.citric.controller.states.GameOver
+import cl.uchile.dcc.citric.controller.states.player.Moving
+import cl.uchile.dcc.citric.controller.states.{Chapter, GameOver}
 import cl.uchile.dcc.citric.exceptions.InvalidTransitionException
 import cl.uchile.dcc.citric.model.Board
-import cl.uchile.dcc.citric.model.panels.{BonusPanel, DropPanel, EncounterPanel, HomePanel, NeutralPanel, Panel}
 import cl.uchile.dcc.citric.model.units.PlayerCharacter
 import org.junit.Assert.assertThrows
 
@@ -21,23 +21,27 @@ class GameControllerTest extends munit.FunSuite {
   private var testPlayer4: PlayerCharacter = new PlayerCharacter("testPlayer4", 10, 1, 1, 1, "victories")
   private var players: ArrayBuffer[PlayerCharacter] = ArrayBuffer(testPlayer1,testPlayer2,testPlayer3,testPlayer4)
 
-  private var board: Board = new Board(players)
+  private var board: Board = new Board
+
+  private var testGame: GameController = _
   override def beforeEach(context: BeforeEach): Unit = {
-    testGame1.createGame(players,panels)
-    testGame2.createGame(players,panels)
+    testGame1.createGame(players)
+    testGame2.createGame(players)
+    testGame = new GameController
+    testGame.createGame(players)
   }
 
   test("A game should be able to be  and start on PreGame state") {
     assert(testGame1.isPreGameState)
   }
 
-  test("The state should transition to PlayerTurn when all turns are set") {
-    assert(testGame1.isPlayerTurnState)
+  test("The state should transition to the first chapter when all turns are set") {
+    testGame1.startGame()
+    assert(testGame1.isChapterState)
   }
 
   test("If the current player is defeated it should transition to Recovery") {
-    testGame1.getCurrentPlayer.setCurrentHp(0)
-    testGame1.getState.isKO()
+    testGame1.isKO()
     assert(testGame1.getState.isRecoveryState)
   }
 
@@ -82,6 +86,62 @@ class GameControllerTest extends munit.FunSuite {
 
   }
 
+  test("Testing of the correct flux of a full game's transitions") {
+    assert(testGame.isPreGameState)
+
+    testGame.startGame()
+    assert(testGame.isChapterState)
+
+    testGame.isKO()
+    assert(testGame.isRecoveryState)
+
+    testGame.inSufficientRoll()
+    assert(testGame.isChapterState)
+
+    testGame.isKO()
+    testGame.sufficientRoll()
+    assert(testGame.isPlayerTurnState)
+
+    testGame.setState(new Chapter(testGame))
+    testGame.playTurn()
+    assert(testGame.isPlayerTurnState)
+
+    testGame.rollDice()
+    assert(testGame.isMovingState)
+
+    testGame.choosePath()
+    assert(testGame.isMovingState)
+
+    testGame.stopMovement()
+    assert(testGame.isCombatState)
+
+    testGame.setState(new Moving(testGame))
+    testGame.outOfMovements()
+    assert(testGame.isCombatState)
+
+    testGame.attack()
+    assert(testGame.isWaitState)
+
+    testGame.defend()
+    assert(testGame.isCombatState)
+
+    testGame.attack()
+    testGame.evade()
+    assert(testGame.isCombatState)
+
+    testGame.endCombat()
+    assert(testGame.isLandingPanelState)
+
+    testGame.doEffect()
+    assert(testGame.isChapterState)
+
+    testGame.newChapter()
+    assert(testGame.isChapterState)
+
+    testGame.normaSixReached()
+    assert(testGame.isGameOverState)
+  }
+
   test("Testing of all incorrect state transitions") {
     assert(!testGame2.isChapterState)
     assert(!testGame2.isChapterState)
@@ -92,7 +152,7 @@ class GameControllerTest extends munit.FunSuite {
     assert(!testGame2.isCombatState)
     assert(!testGame2.isWaitState)
     assert(!testGame2.isLandingPanelState)
-    assertThrows(classOf[InvalidTransitionException], () => testGame2.reset())
+    assertThrows(classOf[InvalidTransitionException], () => testGame2.reset(players))
     assertThrows(classOf[InvalidTransitionException], () => testGame2.newChapter())
     assertThrows(classOf[InvalidTransitionException], () => testGame2.normaSixReached())
     assertThrows(classOf[InvalidTransitionException], () => testGame2.playTurn())
@@ -112,8 +172,7 @@ class GameControllerTest extends munit.FunSuite {
     assert(!testGame2.isPreGameState)
   }
 
-  test("If a game has not been created, an exception should be thrown when setting turns") {
+  test("Testing of all invalid stat exceptions") {
 
   }
-
 }

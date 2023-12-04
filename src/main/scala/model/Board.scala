@@ -8,42 +8,49 @@ import scala.collection.mutable.ArrayBuffer
 
 /** Board of a game.
  *
- * a predetermined board is created for testing purposes. The board contains 4 home panels,
+ * A predetermined board is created for testing purposes. The board contains 4 home panels,
  * 6 neutral panels, 1 encounter panel, 1 bonus panel and 1 drop panel. Each player starts the
- * game on it's home panel. A visual representation of the board can be seen on the README file
- * of this project.
+ * game on it's home panel.
  *
- * @param players
- * @param panels
  */
 class Board {
 
-  /** Creates a board with the players given to the object */
+  var hP1: Panel = new HomePanel
+  var hP2: Panel = new HomePanel
+  var hP3: Panel = new HomePanel
+  var hP4: Panel = new HomePanel
+
+  val n1: Panel = new NeutralPanel
+  val n2: Panel = new NeutralPanel
+  val n3: Panel = new NeutralPanel
+  val n4: Panel = new NeutralPanel
+  val n5: Panel = new NeutralPanel
+  val n6: Panel = new NeutralPanel
+
+  val bP: Panel = new BonusPanel
+  val dP: Panel = new DropPanel
+  val eP: Panel = new EncounterPanel
+
+  /** Creates a board.
+   *
+   * @param players The players of a game.
+   *
+   */
   def createBoard(players: ArrayBuffer[PlayerCharacter]): Unit = {
-    val hP1: Panel = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(0))
-    val hP2: Panel = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(1))
-    val hP3: Panel = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(2))
-    val hP4: Panel = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(3))
 
-    val n1: Panel = new NeutralPanel
-    val n2: Panel = new NeutralPanel
-    val n3: Panel = new NeutralPanel
-    val n4: Panel = new NeutralPanel
-    val n5: Panel = new NeutralPanel
-    val n6: Panel = new NeutralPanel
+    hP1 = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(0))
+    hP2 = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(1))
+    hP3 = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(2))
+    hP4 = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(3))
 
-    val bP: Panel = new BonusPanel
-    val dP: Panel = new DropPanel
-    val eP: Panel = new EncounterPanel
-
-    hP1.connectTo(n1)
     hP1.connectTo(n3)
+    hP1.connectTo(n1)
 
     hP2.connectTo(n2)
     hP2.connectTo(n4)
 
-    hP3.connectTo(n3)
     hP3.connectTo(n5)
+    hP3.connectTo(n3)
 
     hP4.connectTo(n4)
     hP4.connectTo(n6)
@@ -58,8 +65,8 @@ class Board {
     n2.connectTo(bP)
     n2.connectTo(hP2)
 
-    n3.connectTo(hP1)
     n3.connectTo(hP3)
+    n3.connectTo(hP1)
 
     eP.connectTo(bP)
     eP.connectTo(dP)
@@ -67,20 +74,22 @@ class Board {
     n4.connectTo(hP2)
     n4.connectTo(hP4)
 
-    n5.connectTo(hP3)
     n5.connectTo(dP)
+    n5.connectTo(hP3)
 
-    dP.connectTo(n5)
     dP.connectTo(n6)
-    dP.connectTo(eP)
+    dP.connectTo(n5)
 
-    n6.connectTo(dP)
     n6.connectTo(hP4)
+    n6.connectTo(dP)
 
     hP1.addCharacter(players(0))
     hP2.addCharacter(players(1))
     hP3.addCharacter(players(2))
     hP4.addCharacter(players(3))
+
   }
+
+  val homePanels: ArrayBuffer[Panel] = ArrayBuffer(hP1,hP2,hP3,hP4)
 
 }

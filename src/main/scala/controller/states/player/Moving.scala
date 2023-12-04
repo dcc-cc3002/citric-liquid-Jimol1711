@@ -5,6 +5,11 @@ import controller.states.AbstractState
 
 import cl.uchile.dcc.citric.controller.GameController
 
+/** Moving state of a game.
+ *
+ * @param context the context of a game.
+ *
+ */
 class Moving(context: GameController) extends AbstractState(context) {
 
   override def choosePath(): Unit = {
