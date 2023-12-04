@@ -8,6 +8,7 @@ import cl.uchile.dcc.citric.controller.GameController
 class LandingPanel(context: GameController) extends AbstractState(context) {
 
   override def doEffect(): Unit = {
+    context.setCurrentChapter()
     context.setState(new Chapter(context))
   }
 

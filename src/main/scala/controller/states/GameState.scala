@@ -81,10 +81,4 @@ trait GameState {
   /** Asks for states type by calling isOnPanelState method of the state */
   def isLandingPanelState: Boolean
 
-  /* Other stuff */
-  /** Getter of the recovery amount required for a player to leave recovery State */
-  def getRequiredRecovery: Int
-
-  /** Setter of the recovery amount required for a player to */
-  def setRequiredRecovery(x: Int): Unit
 }

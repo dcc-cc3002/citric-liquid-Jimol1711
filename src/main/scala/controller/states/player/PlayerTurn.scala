@@ -8,6 +8,7 @@ import cl.uchile.dcc.citric.controller.GameController
 class PlayerTurn(context: GameController) extends AbstractState(context) {
 
   override def rollDice(): Unit = {
+    val roll = context.dice()
     context.setState(new Moving(context))
   }
 

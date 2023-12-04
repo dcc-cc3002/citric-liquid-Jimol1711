@@ -8,6 +8,7 @@ import cl.uchile.dcc.citric.controller.GameController
 class Recovery(context: GameController) extends AbstractState(context) {
 
   override def inSufficientRoll(): Unit = {
+    context.setCurrentChapter()
     context.setState(new Chapter(context))
   }
 

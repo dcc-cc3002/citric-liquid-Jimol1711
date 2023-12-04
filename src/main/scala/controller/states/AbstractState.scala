@@ -67,10 +67,4 @@ abstract class AbstractState(var context: GameController) extends GameState {
 
   def isLandingPanelState: Boolean = false
 
-  /* Other stuff */
-  protected var requiredRecovery: Int = 6
-
-  def getRequiredRecovery: Int = requiredRecovery
-
-  def setRequiredRecovery(x: Int): Unit = requiredRecovery = x
 }

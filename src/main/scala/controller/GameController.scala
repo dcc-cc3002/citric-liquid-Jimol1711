@@ -10,6 +10,7 @@ import cl.uchile.dcc.citric.model.units.PlayerCharacter
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
+import scala.util.Random
 
 class GameController extends NormaObserver {
 
@@ -57,6 +58,7 @@ class GameController extends NormaObserver {
 
   def doEffect(): Unit = state.doEffect()
 
+
   def isPreGameState: Boolean = state.isPreGameState
 
   def isChapterState: Boolean = state.isChapterState
@@ -90,7 +92,8 @@ class GameController extends NormaObserver {
   private var currentTurn: Int = 0
   private var chapters: Int = 1
   private var requiredRecovery: Int = 6
-  private val board: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
+  private val panels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
+  private val board: mutable.Map[Int, Panel] = mutable.Map.empty
 
   /** Creates a game with the players and panels and registers the controller as the observer of each player.
    *
@@ -103,7 +106,7 @@ class GameController extends NormaObserver {
       players += player
     }
     for (panel <- panelsToAdd) {
-      board += panel
+      panels += panel
     }
     for (player <- players) {
       player.registerObserver(this)
@@ -112,7 +115,7 @@ class GameController extends NormaObserver {
 
   def getPlayers: ArrayBuffer[PlayerCharacter] = players.clone()
 
-  def getBoard: ArrayBuffer[Panel] = board.clone()
+  def getBoard: ArrayBuffer[Panel] = panels.clone()
 
   def getCurrentPlayer: PlayerCharacter = orderedPlayers(currentTurn)
 
@@ -146,12 +149,31 @@ class GameController extends NormaObserver {
   /** Setter of the current chapter and player turns, so that the player's can be obtained out of the ordered players map */
   def setCurrentChapter(): Unit = {
     currentTurn += 1
-    if (currentTurn == 4) {
+    if (currentTurn >= 4) {
       currentTurn = 1
       chapters += 1
       if (requiredRecovery > 1) {
         requiredRecovery -= 1
       }
+    }
+  }
+
+  /** Sets the board.
+   *
+   * 
+   *
+   */
+  def setBoard(): Unit = {
+    for (panel <- panels) {
+      val key: Int = 0
+      board += (key -> panel)
+    }
+    board.foreach {
+      case (key, panel) =>
+        val prevKey = (key - 2 + panels.length) % panels.length + 1
+        val nextKey = (key % panels.length) + 1
+        panel.connectTo(board(prevKey))
+        panel.connectTo(board(nextKey))
     }
   }
 

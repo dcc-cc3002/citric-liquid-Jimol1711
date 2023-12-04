@@ -20,6 +20,7 @@ class Chapter(context: GameController) extends AbstractState(context) {
   }
 
   override def playTurn(): Unit = {
+    context.playerTurnStars()
     context.setState(new PlayerTurn(context))
   }
 
