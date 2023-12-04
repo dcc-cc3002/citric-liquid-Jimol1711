@@ -4,10 +4,14 @@ package controller.states
 import controller.GameController
 
 import cl.uchile.dcc.citric.exceptions.InvalidTransitionException
+import cl.uchile.dcc.citric.model.panels.Panel
+import cl.uchile.dcc.citric.model.units.PlayerCharacter
+
+import scala.collection.mutable.ArrayBuffer
 
 abstract class AbstractState(var context: GameController) extends GameState {
 
-  def reset(): Unit = incorrectTransition("reset game")
+  def reset(newPlayers: ArrayBuffer[PlayerCharacter],newPanels: ArrayBuffer[Panel]): Unit = incorrectTransition("reset game")
 
   def startGame(): Unit = incorrectTransition("set turns")
 

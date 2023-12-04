@@ -1,10 +1,15 @@
 package cl.uchile.dcc.citric
 package controller.states
 
+import model.panels.Panel
+import model.units.PlayerCharacter
+
+import scala.collection.mutable.ArrayBuffer
+
 trait GameState {
 
   /** Resets a game, setting it in the pre game state */
-  def reset(): Unit
+  def reset(newPlayers: ArrayBuffer[PlayerCharacter],newPanels: ArrayBuffer[Panel]): Unit
 
   /** Sets the turns players will play in based on their dice rolls and transitions to the first player's turn */
   def startGame(): Unit

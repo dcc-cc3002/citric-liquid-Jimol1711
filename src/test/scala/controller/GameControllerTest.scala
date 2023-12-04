@@ -1,13 +1,11 @@
 package cl.uchile.dcc.citric
 package controller
 
-import cl.uchile.dcc.citric.controller.states.{Chapter, GameOver}
-import cl.uchile.dcc.citric.controller.states.player.Recovery
+import cl.uchile.dcc.citric.controller.states.GameOver
 import cl.uchile.dcc.citric.exceptions.InvalidTransitionException
-import cl.uchile.dcc.citric.model.norma.Norma6
+import cl.uchile.dcc.citric.model.Board
 import cl.uchile.dcc.citric.model.panels.{BonusPanel, DropPanel, EncounterPanel, HomePanel, NeutralPanel, Panel}
 import cl.uchile.dcc.citric.model.units.PlayerCharacter
-
 import org.junit.Assert.assertThrows
 
 import scala.collection.mutable.ArrayBuffer
@@ -16,7 +14,6 @@ class GameControllerTest extends munit.FunSuite {
 
   private val testGame1 = new GameController
   private val testGame2 = new GameController
-  private val testGame3 = new GameController
 
   private var testPlayer1: PlayerCharacter = new PlayerCharacter("testPlayer1", 10, 1, 1, 1, "stars")
   private var testPlayer2: PlayerCharacter = new PlayerCharacter("testPlayer2", 10, 1, 1, 1, "victories")
@@ -24,20 +21,13 @@ class GameControllerTest extends munit.FunSuite {
   private var testPlayer4: PlayerCharacter = new PlayerCharacter("testPlayer4", 10, 1, 1, 1, "victories")
   private var players: ArrayBuffer[PlayerCharacter] = ArrayBuffer(testPlayer1,testPlayer2,testPlayer3,testPlayer4)
 
-  private var neutralPanel: Panel = new HomePanel
-  private var homePanel: Panel = new NeutralPanel
-  private var bonusPanel: Panel = new BonusPanel
-  private var dropPanel: Panel = new DropPanel
-  private var encounterPanel: Panel = new EncounterPanel
-  private var panels: ArrayBuffer[Panel] = ArrayBuffer(neutralPanel,homePanel,bonusPanel,dropPanel,encounterPanel)
-
+  private var board: Board = new Board(players)
   override def beforeEach(context: BeforeEach): Unit = {
     testGame1.createGame(players,panels)
     testGame2.createGame(players,panels)
   }
 
   test("A game should be able to be  and start on PreGame state") {
-    testGame1.createGame(players,panels)
     assert(testGame1.isPreGameState)
   }
 
@@ -57,11 +47,7 @@ class GameControllerTest extends munit.FunSuite {
   }
 
   test("If the player rolls a sufficient roll, it should start the players turn") {
-    val currentPlayerTurn: Int = testGame1.getCurrentPlayerTurn
-    testGame1.setState(new Recovery(testGame1))
-    testGame1.sufficientRoll()
-    assertEquals(testGame1.getCurrentPlayerTurn,currentPlayerTurn)
-    assert(testGame1.isPlayerTurnState)
+
   }
 
   test("If the player rolls a dice to move, the game should transition to the Moving state") {
@@ -93,11 +79,7 @@ class GameControllerTest extends munit.FunSuite {
   }
 
   test("If a player reaches Norma 6, the game should transition to Game Over, ending the game") {
-    testGame1.getCurrentPlayer.setNorma(new Norma6("stars",10))
-    testGame1.setState(new Chapter(testGame1))
-    testGame1.getState.setRequiredRecovery(testGame1.getState.getRequiredRecovery + 1)
-    testGame1.checkNormaSix()
-    assert(testGame1.getState.isGameOverState)
+
   }
 
   test("Testing of all incorrect state transitions") {

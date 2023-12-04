@@ -5,12 +5,12 @@ import controller.states.{Chapter, GameState, PreGame}
 
 import cl.uchile.dcc.citric.controller.observer.NormaObserver
 import cl.uchile.dcc.citric.exceptions.InvalidActionException
+import cl.uchile.dcc.citric.model.Board
 import cl.uchile.dcc.citric.model.panels.Panel
 import cl.uchile.dcc.citric.model.units.PlayerCharacter
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
-import scala.util.Random
 
 class GameController extends NormaObserver {
 
@@ -24,7 +24,7 @@ class GameController extends NormaObserver {
 
   def getState: GameState = state
 
-  def reset(): Unit = state.reset()
+  def reset(newPlayers: ArrayBuffer[PlayerCharacter], newPanels: ArrayBuffer[Panel]): Unit = state.reset(newPlayers,newPanels)
 
   def startGame(): Unit = state.startGame()
 
@@ -88,12 +88,28 @@ class GameController extends NormaObserver {
   /* Other stuff */
 
   private val players: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
+  def getPlayers: ArrayBuffer[PlayerCharacter] = players.clone()
+
   private val orderedPlayers: mutable.Map[Int, PlayerCharacter] = mutable.Map.empty
-  private var currentTurn: Int = 0
-  private var chapters: Int = 1
-  private var requiredRecovery: Int = 6
+  def getOrderedPlayers: mutable.Map[Int, PlayerCharacter] = orderedPlayers.clone()
+
+  def setOrderedPlayers(turn: Int, player: PlayerCharacter): Unit = orderedPlayers += (turn -> player)
+  def getCurrentPlayer: PlayerCharacter = orderedPlayers(currentTurn)
+
   private val panels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]
-  private val board: mutable.Map[Int, Panel] = mutable.Map.empty
+  val board: Board = new Board
+
+  private var currentTurn: Int = 0
+  def getCurrentTurn: Int = currentTurn
+  def setCurrentTurn(turn: Int): Unit = currentTurn = turn
+
+  private var chapters: Int = 1
+  def getCurrentChapter: Int = chapters
+  def setCurrentChapter(chapter: Int): Unit = chapters = chapter
+
+  private var requiredRecovery: Int = 6
+  def getRequiredRecovery: Int = requiredRecovery
+  def setRequiredRecovery(recovery: Int): Unit = requiredRecovery = recovery
 
   /** Creates a game with the players and panels and registers the controller as the observer of each player.
    *
@@ -111,70 +127,7 @@ class GameController extends NormaObserver {
     for (player <- players) {
       player.registerObserver(this)
     }
-  }
-
-  def getPlayers: ArrayBuffer[PlayerCharacter] = players.clone()
-
-  def getBoard: ArrayBuffer[Panel] = panels.clone()
-
-  def getCurrentPlayer: PlayerCharacter = orderedPlayers(currentTurn)
-
-  def getCurrentTurn: Int = currentTurn
-
-  def getChapters: Int = chapters
-
-  /** Orders the players randomly, based on a dice roll done by each player */
-  def setOrderedPlayers(): Unit = {
-
-    if (players.isEmpty || board.isEmpty) {
-      throw new InvalidActionException("A game has not been created")
-    }
-
-    var turn = 0
-
-    val playerRolls = getPlayers.map(player => (player, player.rollDice())).sortBy(_._2).reverse
-
-    playerRolls.foreach { case (player, initialRoll) =>
-      var roll = initialRoll
-
-      while (orderedPlayers.exists { case (_, p) => p.rollDice() == roll }) {
-        roll = player.rollDice()
-      }
-
-      orderedPlayers += (turn -> player)
-      turn += 1
-    }
-  }
-
-  /** Setter of the current chapter and player turns, so that the player's can be obtained out of the ordered players map */
-  def setCurrentChapter(): Unit = {
-    currentTurn += 1
-    if (currentTurn >= 4) {
-      currentTurn = 1
-      chapters += 1
-      if (requiredRecovery > 1) {
-        requiredRecovery -= 1
-      }
-    }
-  }
-
-  /** Sets the board.
-   *
-   * 
-   *
-   */
-  def setBoard(): Unit = {
-    for (panel <- panels) {
-      val key: Int = 0
-      board += (key -> panel)
-    }
-    board.foreach {
-      case (key, panel) =>
-        val prevKey = (key - 2 + panels.length) % panels.length + 1
-        val nextKey = (key % panels.length) + 1
-        panel.connectTo(board(prevKey))
-        panel.connectTo(board(nextKey))
-    }
+    board.createBoard(players)
   }
 
   /** Method for when a player throws a dice */
