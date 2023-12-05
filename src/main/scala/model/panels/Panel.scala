@@ -57,4 +57,7 @@ trait Panel {
 
   /** Getter of a panels characters */
   def getCharacters: ArrayBuffer[PlayerCharacter]
+
+  /** A method to check if a panel is a home panel and the currentPlayer is the owner, false by default */
+  def isHomePanel(player: PlayerCharacter): Boolean
 }

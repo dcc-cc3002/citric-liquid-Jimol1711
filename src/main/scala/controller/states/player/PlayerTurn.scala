@@ -12,6 +12,7 @@ import cl.uchile.dcc.citric.controller.GameController
  */
 class PlayerTurn(context: GameController) extends AbstractState(context) {
 
+  /* Each turn a player gains an amount of stars */
   context.getCurrentPlayer.setStars(context.getCurrentPlayer.getStars + (math.floor(context.getCurrentChapter / 5) + 1).toInt)
   override def rollDice(): Unit = {
     val roll = context.getCurrentPlayer.rollDice()

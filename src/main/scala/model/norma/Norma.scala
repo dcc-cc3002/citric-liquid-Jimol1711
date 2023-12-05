@@ -32,10 +32,4 @@ trait Norma {
    */
   def normaClear(player: PlayerCharacter, chosenStat: String): Unit
 
-  /** Informs the observer game controller that the norma of a player is six, therefore the game ends because a player reached the condition for victory.
-   *
-   * @return false by default, true for Norma6 class through override.
-   */
-  def isNormaSix: Boolean
-
 }

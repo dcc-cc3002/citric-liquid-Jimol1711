@@ -3,6 +3,7 @@ package controller.states
 
 import controller.GameController
 
+import cl.uchile.dcc.citric.model.Board
 import cl.uchile.dcc.citric.model.units.PlayerCharacter
 
 import scala.collection.mutable.ArrayBuffer
@@ -15,8 +16,12 @@ import scala.collection.mutable.ArrayBuffer
 class GameOver(context: GameController) extends AbstractState(context) {
 
   override def reset(newPlayers: ArrayBuffer[PlayerCharacter]): Unit = {
-    val newContext: GameController = new GameController
-    newContext.createGame(newPlayers)
+    context.setBoard(new Board(newPlayers))
+    context.setCurrentTurn(0)
+    context.resetOrderedPlayers()
+    context.createGame(newPlayers)
+    context.setCurrentChapter(1)
+    context.createGame(newPlayers)
   }
 
   override def isGameOverState: Boolean = true

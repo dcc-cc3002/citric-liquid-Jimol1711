@@ -38,6 +38,7 @@ class PreGame(context: GameController) extends AbstractState(context) {
     }
 
     context.setState(new Chapter(context))
+    println(context.getCurrentPlayer.name)
   }
 
   override def isPreGameState: Boolean = true

@@ -4,7 +4,7 @@ package controller
 import controller.states.{Chapter, GameState, PreGame}
 
 import cl.uchile.dcc.citric.controller.observer.NormaObserver
-import cl.uchile.dcc.citric.exceptions.InvalidStatException
+import cl.uchile.dcc.citric.exceptions.{InvalidActionException, InvalidStatException}
 import cl.uchile.dcc.citric.model.Board
 import cl.uchile.dcc.citric.model.units.PlayerCharacter
 
@@ -122,14 +122,14 @@ class GameController extends NormaObserver {
   }
 
   /** Player's on a game. */
-  private val players: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
+  private var players: ArrayBuffer[PlayerCharacter] = ArrayBuffer.empty[PlayerCharacter]
 
   /** Getter of the player's on a game. */
   def getPlayers: ArrayBuffer[PlayerCharacter] = players.clone()
 
   /** Mapping of the player's after an order in which the turns are set is established. */
 
-  private val orderedPlayers: mutable.Map[Int, PlayerCharacter] = mutable.Map.empty
+  private var orderedPlayers: mutable.Map[Int, PlayerCharacter] = mutable.Map.empty
 
   /** Getter of the ordered players. */
   def getOrderedPlayers: mutable.Map[Int, PlayerCharacter] = orderedPlayers.clone()
@@ -141,14 +141,21 @@ class GameController extends NormaObserver {
    */
   def setOrderedPlayers(turn: Int, player: PlayerCharacter): Unit = orderedPlayers += (turn -> player)
 
+  /** Method to reset the ordered players map */
+  def resetOrderedPlayers(newOrder: mutable.Map[Int, PlayerCharacter] = mutable.Map.empty[Int, PlayerCharacter]): Unit = orderedPlayers = newOrder
+
   /** Getter of the current player. */
   def getCurrentPlayer: PlayerCharacter = orderedPlayers(currentTurn)
 
   /** The board of a game. */
-  private val board: Board = new Board
+  private var board: Board = _
 
   /** Getter of the game's board. */
   def getBoard: Board = board
+
+  /** Setter of the board */
+
+  def setBoard(newBoard: Board): Unit = board = newBoard
 
   /** The player's turn the game is in. */
 
@@ -195,9 +202,19 @@ class GameController extends NormaObserver {
     chapters = chapter
   }
 
+  /** Required recovery amount. It's reduced by one on each chapter. */
   private var requiredRecovery: Int = 6
+
+  /** Getter of the required recovery amount. */
   def getRequiredRecovery: Int = requiredRecovery
-  def setRequiredRecovery(recovery: Int): Unit = requiredRecovery = recovery
+
+  /** Setter of the required recovery amount. */
+  def setRequiredRecovery(recovery: Int): Unit = {
+    requiredRecovery = recovery
+    if (requiredRecovery < 0) {
+      requiredRecovery = 0
+    }
+  }
 
   /** The amount rolled by a player to move. */
   private var movingRoll: Int = 0
@@ -226,12 +243,20 @@ class GameController extends NormaObserver {
    *
    */
   def createGame(playersToAdd: ArrayBuffer[PlayerCharacter]): Unit = {
+
+    if (playersToAdd.isEmpty) {
+      throw new InvalidActionException("Add some players!")
+    }
+
     for (player <- playersToAdd) {
       players += player
     }
+
     for (player <- players) {
       player.registerObserver(this)
     }
+
+    board = new Board(players)
     board.createBoard(players)
   }
 

@@ -1,9 +1,11 @@
 package cl.uchile.dcc.citric
 package model
 
+import cl.uchile.dcc.citric.controller.GameController
 import cl.uchile.dcc.citric.model.panels.{BonusPanel, DropPanel, EncounterPanel, HomePanel, NeutralPanel, Panel}
 import cl.uchile.dcc.citric.model.units.PlayerCharacter
 
+import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 /** Board of a game.
@@ -13,12 +15,12 @@ import scala.collection.mutable.ArrayBuffer
  * game on it's home panel.
  *
  */
-class Board {
+class Board(players: ArrayBuffer[PlayerCharacter]) {
 
-  var hP1: Panel = new HomePanel
-  var hP2: Panel = new HomePanel
-  var hP3: Panel = new HomePanel
-  var hP4: Panel = new HomePanel
+  var hP1 = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(0))
+  var hP2 = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(1))
+  var hP3 = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(2))
+  var hP4 = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(3))
 
   val n1: Panel = new NeutralPanel
   val n2: Panel = new NeutralPanel
@@ -37,11 +39,6 @@ class Board {
    *
    */
   def createBoard(players: ArrayBuffer[PlayerCharacter]): Unit = {
-
-    hP1 = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(0))
-    hP2 = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(1))
-    hP3 = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(2))
-    hP4 = new HomePanel(ArrayBuffer.empty[PlayerCharacter], ArrayBuffer.empty[Panel], players(3))
 
     hP1.connectTo(n3)
     hP1.connectTo(n1)
@@ -90,6 +87,6 @@ class Board {
 
   }
 
-  val homePanels: ArrayBuffer[Panel] = ArrayBuffer(hP1,hP2,hP3,hP4)
+  val panels: ArrayBuffer[Panel] = ArrayBuffer(hP1,hP2,hP3,hP4,n1,n2,n3,n4,n5,n6,bP,dP,eP)
 
 }

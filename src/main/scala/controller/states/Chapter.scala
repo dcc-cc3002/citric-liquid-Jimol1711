@@ -14,6 +14,7 @@ class Chapter(context: GameController) extends AbstractState(context) {
 
   override def newChapter(): Unit = {
     context.setCurrentChapter(context.getCurrentChapter + 1)
+    context.setRequiredRecovery(context.getRequiredRecovery - 1)
     context.setState(new Chapter(context))
   }
 

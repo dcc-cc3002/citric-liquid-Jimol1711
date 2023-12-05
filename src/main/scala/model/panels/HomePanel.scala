@@ -19,7 +19,7 @@ class HomePanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBu
                 protected var nextPanels: ArrayBuffer[Panel] = ArrayBuffer.empty[Panel]) extends AbstractPanel(characters, nextPanels) {
 
   /** Initially the Home Panel has no owner. It is set with an auxiliary constructor. */
-  var owner: Option[PlayerCharacter] = None
+  var owner: PlayerCharacter = new PlayerCharacter("default",0,0,0,0,"stars")
 
   /** Auxiliary constructor to set an owner for the home panel.
    *
@@ -36,7 +36,7 @@ class HomePanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBu
             */
            setOwner: PlayerCharacter) = {
     this(characters, nextPanels)
-    owner = Some(setOwner)
+    owner = setOwner
   }
 
   // This variable is a placeholder that makes sure that the stop method works correctly since the implementation of user inputs can't be yet implemented
@@ -68,18 +68,22 @@ class HomePanel(protected var characters: ArrayBuffer[PlayerCharacter] = ArrayBu
   def apply(player: PlayerCharacter): Unit = {
     if(characters.contains(player)) {
       for (player <- characters) {
-        if (owner.contains(player)) {
+        if (owner==player) {
           println("Would you like to rest at home? Y/N")
           if (ans=="Y") {
             player.setCurrentHp(player.getCurrentHp+1)
             normaCheck(player,player.chosenStat)
           }
-        } else if (!owner.contains(player)) {
+        } else if (!(owner==player)) {
           player.setCurrentHp(player.getCurrentHp+1)
           normaCheck(player,player.chosenStat)
         }
       }
     }
+  }
+
+  override def isHomePanel(player: PlayerCharacter): Boolean = {
+    if (owner==player) true else false
   }
 
 }

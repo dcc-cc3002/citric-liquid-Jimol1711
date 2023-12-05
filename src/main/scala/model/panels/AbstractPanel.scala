@@ -70,4 +70,7 @@ abstract class AbstractPanel(protected var aCharacters: ArrayBuffer[PlayerCharac
   /** Getter of a panels characters */
   def getCharacters: ArrayBuffer[PlayerCharacter] = aCharacters.clone()
 
+  /** A method to check if a panel is a home panel and the currentPlayer is the owner, false by default */
+  def isHomePanel(player: PlayerCharacter): Boolean = false
+
 }
