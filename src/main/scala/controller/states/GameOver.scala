@@ -22,6 +22,7 @@ class GameOver(context: GameController) extends AbstractState(context) {
     context.createGame(newPlayers)
     context.setCurrentChapter(1)
     context.createGame(newPlayers)
+    context.setState(new PreGame(context))
   }
 
   override def isGameOverState: Boolean = true

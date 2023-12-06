@@ -165,6 +165,7 @@ class GameControllerTest extends munit.FunSuite {
 
   test("A game should be able to be reset") {
     testGame.reset(players2)
+    assert(testGame.isPreGameState)
   }
 
 }
